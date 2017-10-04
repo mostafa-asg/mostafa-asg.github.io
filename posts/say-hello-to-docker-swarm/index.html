@@ -50,7 +50,7 @@ Install Docker Machine In this tutorial I use docker-machine to simulate physica
 
 
 <meta itemprop="dateModified" content="2017-10-04T11:27:57&#43;03:30" />
-<meta itemprop="wordCount" content="665">
+<meta itemprop="wordCount" content="783">
 
 
 
@@ -125,7 +125,7 @@ node3   -        virtualbox   Running   tcp://192.168.99.102:2376           v17.
 
 <h3 id="create-cluster">Create cluster</h3>
 
-<p>In docker swarm there are two types of node : Manager and worker.In this demo, one of these node is act as manager and the two other
+<p>In docker swarm there are two types of node : Manager and worker.In this demo, one of these node is act as a manager node and the two other
 act as worker nodes.In production envrionment you probably need more than one manager node for high availability.</p>
 
 <h4 id="manager-nodes">Manager nodes</h4>
@@ -160,7 +160,7 @@ docker node ls
 wgzt7w359eewjc6pqmw1kyfmb    node3     Ready   Active        
 </code></pre>
 
-<p>Ok, until now we have created a cluster of machines using docker swarm.Let&rsquo;s run a service on this cluster.I want to start 2 instance of
+<p>Notice that node1 is the leader of cluster.Worker nodes can&rsquo;t be used to view or modify cluster state, that &rsquo;s why before I issue <em>&lsquo;node ls&rsquo;</em> command, I select node1. Ok, until now we have created a cluster of machines using docker swarm.Let&rsquo;s run a service on this cluster.I want to start 2 instance of
 Nginx on this cluster but you can run any service that you want :</p>
 
 <pre><code>docker service create --name nginx --replicas 2 --publish 8080:80 nginx
@@ -192,20 +192,29 @@ curl $(docker-machine ip node3):8585
 The routing mesh enables each node in the swarm to accept connections on published ports for any service running in the swarm,
 even if there’s no task running on the node.For more information click <a href="https://docs.docker.com/engine/swarm/ingress/">here</a>.</p>
 
+<h4 id="leave-nodes-from-cluster">Leave nodes from cluster</h4>
+
+<p>What will happen if you remove any node from the cluster that runs our service? For example what would happen if I remove node2 from the cluster? Remember that, on my machnie, node2 is responsible for running Nginx.Let&rsquo;s remove node2 from the cluster:</p>
+
+<pre><code>eval $(docker-machine env node2)
+docker swarm leave
+</code></pre>
+
+<p>Now check the state of our Nginx service:</p>
+
+<pre><code>ID            NAME         IMAGE  NODE   DESIRED STATE  CURRENT STATE           ERROR  PORTS
+t3cy4lzq6yg3  nginx.1      nginx  node3  Running        Running 16 seconds ago         
+vyuxtfvi9m3u   \_ nginx.1  nginx  node2  Shutdown       Running 37 seconds ago         
+wam2d8heo6mg  nginx.2      nginx  node1  Running        Running 4 hours ago            
+</code></pre>
+
+<p>Amazing! Nginx now is running on node3. Swarm understood that nginx service is under replicated and runs another instance of Nginx on another node.</p>
+
 <h4 id="remove-the-service">Remove the service</h4>
 
 <p>Remove Nginx service by:</p>
 
 <pre><code>docker service rm nginx
-</code></pre>
-
-<h4 id="leave-nodes-from-cluster">Leave nodes from cluster</h4>
-
-<p>If you want any node to leave the cluster, you can run this command on that node.For example, to leave node3 from our cluster we
-can type:</p>
-
-<pre><code>eval $(docker-machine env node3)
-docker swarm leave
 </code></pre>
 
 <h4 id="stop-and-remove-nodes">Stop and remove nodes</h4>
