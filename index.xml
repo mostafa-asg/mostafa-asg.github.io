@@ -6,7 +6,7 @@
     <description>Recent content on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Oct 2017 11:50:42 +0330</lastBuildDate>
+    <lastBuildDate>Tue, 10 Oct 2017 11:50:42 +0330</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Docker Swarm (Part 2)</title>
       <link>https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/</link>
-      <pubDate>Sun, 08 Oct 2017 11:50:42 +0330</pubDate>
+      <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
       
       <guid>https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/</guid>
       <description>Introduction In the previous post, we &amp;rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
