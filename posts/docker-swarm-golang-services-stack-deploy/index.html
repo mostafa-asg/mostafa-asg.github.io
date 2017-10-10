@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mostafa Asgari">
+<meta name="description" content="Hadoop ecosystem , Java , Go , Micoroservices">
+<meta name="generator" content="Hugo 0.26" />
+<title>Docker Swarm (Part 2)</title>
+<link rel="shortcut icon" href="https://mostafa-asg.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/style.css">
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/monosocialiconsfont.css">
+
+
+
+<link href="https://mostafa-asg.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Software Engineering Blog" />
+
+
+<meta property="og:title" content="Docker Swarm (Part 2)" />
+<meta property="og:description" content="Introduction In the previous post, we &rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
+We &rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/" />
+
+
+
+<meta property="article:published_time" content="2017-10-08T11:50:42&#43;03:30"/>
+<meta property="article:modified_time" content="2017-10-08T11:50:42&#43;03:30"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Docker Swarm (Part 2)">
+<meta itemprop="description" content="Introduction In the previous post, we &rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
+We &rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.">
+
+
+<meta itemprop="dateModified" content="2017-10-08T11:50:42&#43;03:30" />
+<meta itemprop="wordCount" content="1499">
+
+
+
+<meta itemprop="keywords" content="" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Docker Swarm (Part 2)"/>
+<meta name="twitter:description" content="Introduction In the previous post, we &rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
+We &rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service."/>
+<meta name="twitter:site" content="@https://twitter.com/mostafaasg"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://mostafa-asg.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+
+	
+		<a class="cta" href="https://mostafa-asg.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Docker Swarm (Part 2)</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        October 8, 2017
+        <br>
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<h1 id="introduction">Introduction</h1>
+
+<p>In the <a href="https://mostafa-asg.github.io/posts/say-hello-to-docker-swarm/">previous post</a>, we &rsquo;ve learned how to create a cluster of
+machines using <em>Docker Swarm</em>, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run
+our custom applications on the cluster.<br />
+We &rsquo;re going to implement two services using Go, one of them is <em>fontend</em> service and the other
+is <em>backend</em> service. The user can interact only with <em>frontend</em> service.<em>Frontend</em> uses <em>Backend</em> service to serves the requests.
+<em>Frontend</em> service is a web application that showes a html page to the user.User can type his name on the textbox and triggers a request.When <em>frontend</em>
+accepts the request from the user, it sends a requets to <em>backend</em> service with the user&rsquo;s provided name,and shows the response of the <em>backend</em> service to the user.<br />
+The diagram below depicts the intraction model:
+<img src="/static/say-hello-to-docker-swarm-2/services.png#center" alt="services" /></p>
+
+<h2 id="create-swarm-cluster">Create swarm cluster</h2>
+
+<p>Let&rsquo;s create a cluster of 3 machines using <a href="https://docs.docker.com/machine/overview/">docker machine</a>:</p>
+
+<pre><code>docker-machine create --driver=virtualbox node1
+docker-machine create --driver=virtualbox node2
+docker-machine create --driver=virtualbox node3
+
+NODE1_IP=$(docker-machine ip node1)
+
+eval $(docker-machine env node1)
+docker swarm init --advertise-addr=$NODE1_IP
+MANAGER_TOKEN=$(docker swarm join-token --quiet manager)
+WORKER_TOKEN=$(docker swarm join-token --quiet worker)
+
+eval $(docker-machine env node2)
+docker swarm join --token ${WORKER_TOKEN} ${NODE1_IP}:2377
+
+eval $(docker-machine env node3)
+docker swarm join --token ${WORKER_TOKEN} ${NODE1_IP}:2377
+</code></pre>
+
+<p>make sure that we send requests to manager node by:</p>
+
+<pre><code>eval $(docker-machine env node1)
+</code></pre>
+
+<p>For more information on creating docker swarm cluster, check the <a href="https://mostafa-asg.github.io/posts/say-hello-to-docker-swarm/">previous article</a>.</p>
+
+<h2 id="backend-service">Backend Service</h2>
+
+<p>Our <em>Backend</em> service, is very simple.It is just a greeting service.It gives your name as part of a url, and return a message like this:</p>
+
+<pre><code>Welcome {{name}} - Response from : {{ip}}
+</code></pre>
+
+<p>which {{name}} is a name that comes with url, and {{ip}} is the container ip address of <em>Backend</em> service.<br />
+Create a folder called backend:</p>
+
+<pre><code>mkdir backend
+cd backend
+</code></pre>
+
+<p>Save these lines of code as backend.go :</p>
+
+<pre><code>package main
+
+import (
+	&quot;net&quot;
+	&quot;errors&quot;
+	&quot;net/http&quot;
+	&quot;fmt&quot;
+)
+
+func main(){
+
+	http.HandleFunc(&quot;/greeting/&quot; , handle)
+	http.ListenAndServe(&quot;:7070&quot;,nil)
+
+}
+
+func handle(w http.ResponseWriter , r *http.Request) {
+	name := r.URL.Path[ len(&quot;/greeting/&quot;): ]
+	ip , err := getIPAddress()
+	if err != nil {
+		ip = &quot;Cannot find any IP address&quot;
+	}
+	fmt.Fprintf( w , &quot;Welcome %s - Response from : [%s]&quot; , name , ip )
+}
+
+func getIPAddress() (string, error) {
+	ifaces, err := net.Interfaces()
+	if err != nil {
+		return &quot;&quot;, err
+	}
+	for _, iface := range ifaces {
+		if iface.Flags&amp;net.FlagUp == 0 {
+			continue // interface down
+		}
+		if iface.Flags&amp;net.FlagLoopback != 0 {
+			continue // loopback interface
+		}
+		addrs, err := iface.Addrs()
+		if err != nil {
+			return &quot;&quot;, err
+		}
+		for _, addr := range addrs {
+			var ip net.IP
+			switch v := addr.(type) {
+			case *net.IPNet:
+				ip = v.IP
+			case *net.IPAddr:
+				ip = v.IP
+			}
+			if ip == nil || ip.IsLoopback() {
+				continue
+			}
+			ip = ip.To4()
+			if ip == nil {
+				continue // not an ipv4 address
+			}
+			return ip.String(), nil
+		}
+	}
+	return &quot;&quot;, errors.New(&quot;are you connected to the network?&quot;)
+}
+</code></pre>
+
+<p>To test your <em>backend</em> service first run the program :</p>
+
+<pre><code>go run backend.go
+</code></pre>
+
+<p>On another terminal send request to <em>backend</em> service :</p>
+
+<pre><code>curl http://localhost:7070/greeting/Mostafa
+</code></pre>
+
+<p>After <em>/greeting/</em> you can type any name. You must see the desired output.</p>
+
+<h3 id="creating-docker-image">Creating docker image</h3>
+
+<p>To run <em>backend</em> service inside a container, we need <em>docker image</em> of our backend service.To create <em>docker image</em> we need <strong>Dockerfile</strong>. So create a file named <em>Dockerfile</em> inside the backend folder with these lines:</p>
+
+<pre><code>FROM ubuntu:14.04
+
+COPY backend /myapp/
+
+WORKDIR /myapp
+
+EXPOSE 7070
+
+ENTRYPOINT [&quot;./backend&quot;]
+</code></pre>
+
+<p>To build docker image type these lines:</p>
+
+<pre><code>go build backend.go
+docker build -t localhost:5000/backend:1 .
+</code></pre>
+
+<p>The first line, compiles the application and creates a executable file called <em>backend</em>. The second line builds the docker image. It creates a image named <strong>backend</strong> with version(tag) 1. <em>localhost:5000</em> is crucial here.
+It indicates the image <em>repository</em>. Later we will push this image to this repository. We will create this repository on this address later. Check that image has created successfully by :</p>
+
+<pre><code>docker images
+</code></pre>
+
+<pre><code>REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+localhost:5000/backend   1                   79fb7460e002        5 seconds ago       194 MB
+</code></pre>
+
+<p><strong>NOTE :</strong> This is not a minimal docker image. To reduce the size of the created image check this <a href="https://blog.codeship.com/building-minimal-docker-containers-for-go-applications/">article</a></p>
+
+<h2 id="frontend-service">Frontend Service</h2>
+
+<p>Create a folder called <em>frontend</em> outside the <em>backend</em> folder.</p>
+
+<pre><code>cd ..
+mkdir frontend
+cd frontend
+</code></pre>
+
+<p>Save these lines of code as frontend.go :</p>
+
+<pre><code>package main
+
+import (
+	&quot;io/ioutil&quot;
+	&quot;fmt&quot;
+	&quot;html/template&quot;	
+	&quot;net/http&quot;
+	&quot;net&quot;
+	&quot;errors&quot;
+)
+
+type Model struct {
+	IPAddress string
+}
+
+var templates = template.Must( template.ParseFiles(&quot;index.html&quot;) )
+
+func indexHandler(w http.ResponseWriter , r *http.Request) {
+
+	ip , err := getIPAddress()
+	if err != nil{
+		ip = &quot;?.?.?.?&quot;
+	}
+
+	model := Model { IPAddress:ip, }
+	templates.ExecuteTemplate( w , &quot;index.html&quot; , model )
+}
+
+func greetingHandler(w http.ResponseWriter , r *http.Request) {
+
+	resp , err := http.Get(&quot;http://backend:7070/greeting/&quot; + r.FormValue(&quot;fullname&quot;))
+	if err != nil {
+		fmt.Fprintf(w , &quot;Error \n%s&quot; , err.Error() )	
+		return
+	}	
+	defer resp.Body.Close()
+	
+	ba , _ := ioutil.ReadAll(resp.Body)
+
+	fmt.Fprintf(w , string(ba) )
+}
+
+func getIPAddress() (string, error) {
+	ifaces, err := net.Interfaces()
+	if err != nil {
+		return &quot;&quot;, err
+	}
+	for _, iface := range ifaces {
+		if iface.Flags&amp;net.FlagUp == 0 {
+			continue // interface down
+		}
+		if iface.Flags&amp;net.FlagLoopback != 0 {
+			continue // loopback interface
+		}
+		addrs, err := iface.Addrs()
+		if err != nil {
+			return &quot;&quot;, err
+		}
+		for _, addr := range addrs {
+			var ip net.IP
+			switch v := addr.(type) {
+			case *net.IPNet:
+				ip = v.IP
+			case *net.IPAddr:
+				ip = v.IP
+			}
+			if ip == nil || ip.IsLoopback() {
+				continue
+			}
+			ip = ip.To4()
+			if ip == nil {
+				continue // not an ipv4 address
+			}
+			return ip.String(), nil
+		}
+	}
+	return &quot;&quot;, errors.New(&quot;are you connected to the network?&quot;)
+}
+
+func main() {
+
+	http.HandleFunc(&quot;/&quot;,indexHandler)
+	http.HandleFunc(&quot;/greeting&quot;,greetingHandler)
+	http.ListenAndServe(&quot;:8585&quot;, nil)
+
+}
+</code></pre>
+
+<p>It requires <em>index.html</em>. Save these lines as index.html:</p>
+
+<pre><code>&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;{{ .IPAddress }}&lt;/h1&gt;
+        &lt;form action=&quot;/greeting&quot; method=&quot;post&quot;&gt;
+            Your name : &lt;textarea name=&quot;fullname&quot; &gt;&lt;/textarea&gt;&lt;br /&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;Send&quot;  /&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>It uses <a href="https://golang.org/pkg/html/template/">Go html templates</a> to render the output. Notice the {{ .IPAddress }}. It is the IP address of <em>frontend</em> service. I did this on purpose to show you
+each of these services run on different nodes. As same as <em>backend</em> service, this service also needs Dockerfile to build the <em>docker image</em>. Save these lines as Dockerfile :</p>
+
+<pre><code>FROM ubuntu:14.04
+
+COPY frontend /myapp/
+COPY index.html /myapp/
+
+WORKDIR /myapp
+
+EXPOSE 8585
+
+ENTRYPOINT [&quot;./frontend&quot;]
+</code></pre>
+
+<p>To build docker image type these lines:</p>
+
+<pre><code>go build frontend.go
+docker build -t localhost:5000/frontend:1 .
+</code></pre>
+
+<p>Now if you list your images, you must have two images:</p>
+
+<pre><code>REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+localhost:5000/frontend   1                   14599282b8ca        3 seconds ago       196 MB
+localhost:5000/backend    1                   79fb7460e002        15 minutes ago      194 MB
+</code></pre>
+
+<h2 id="create-local-docker-repository">Create Local Docker Repository</h2>
+
+<p>Until now, we have two images on <strong>node1</strong> only. But we have a cluster of 3 machines.If you run a service using docker swarm,each node must get the docker image before it can run the service.
+We must create a local repository using <em>docker service</em>. Run this command:</p>
+
+<pre><code>docker service create --name registry --replicas 1 -p 5000:5000 registry:2
+</code></pre>
+
+<p>Check it is successfully running by :</p>
+
+<pre><code>docker service ps registry
+</code></pre>
+
+<pre><code>ID            NAME        IMAGE       NODE   DESIRED STATE  CURRENT STATE          ERROR  PORTS
+u28ffx31hzpw  registry.1  registry:2  node2  Running        Running 7 seconds ago    
+</code></pre>
+
+<p>Make sure that <strong>CURRENT STATE</strong> is &lsquo;Running&rsquo;. After that push the images to this registry:</p>
+
+<pre><code>docker push localhost:5000/backend:1
+docker push localhost:5000/frontend:1
+</code></pre>
+
+<p>In this state you are sure that each node can access this repository to pull the images. How? because we ran this registry as a service on swarm mode, all requests on port 5000
+on each node will be redirected to this registry service using <a href="https://docs.docker.com/engine/swarm/ingress/">Swarm routing mesh</a>.</p>
+
+<h2 id="docker-compose">Docker Compose</h2>
+
+<p>Create a file called <em>compose.yml</em> with these lines:</p>
+
+<pre><code>version: '3'
+services:
+  backend:
+    image: localhost:5000/backend:1
+    deploy:
+      replicas: 1
+  frontend:
+    image: localhost:5000/frontend:1
+    ports:
+      - &quot;8585:8585&quot;
+    depends_on:
+      - backend
+    deploy:
+      replicas: 2
+</code></pre>
+
+<p>I want <em>backend</em> service only be visible to <em>frontend</em> service and users cannot directly interact with <em>backend</em> service. I want users only interact with <em>frontend</em> service, so I published the frontend service port, but I did not publish <em>backend</em> service port. To make <em>backend</em> service visible to <em>frontend</em> service, I use <strong>depends_on</strong> keyword in docker compose.<br />
+Now we are ready to run our services. Becasue we are on swarm cluster, instead of using <em>docker-compose up</em> , we should use <em>docker stack deploy</em> :</p>
+
+<pre><code>docker stack deploy --compose-file compose.yml myservices
+</code></pre>
+
+<p>Check that all replicas of your services is up and running:</p>
+
+<pre><code>docker stack ps myservices
+</code></pre>
+
+<pre><code>ID            NAME                   IMAGE                      NODE   DESIRED STATE  CURRENT STATE          ERROR  PORTS
+l798nv6r4nza  myservices_frontend.1  localhost:5000/frontend:1  node1  Running        Running 9 seconds ago         
+2yme5txy4ijv  myservices_backend.1   localhost:5000/backend:1   node3  Running        Running 1 second ago          
+ndvpv5mq697y  myservices_frontend.2  localhost:5000/frontend:1  node2  Running        Running 9 seconds ago         
+</code></pre>
+
+<p>Notice that on my computer, <em>frontend</em> service is not running on node3, however I can still send requests on port 8585 on this node.Thanks to the <a href="https://docs.docker.com/engine/swarm/ingress/">swarm routing mesh</a>. To test services functionality you must open your browser and navigate to {{NODE_IP}}:8585. You cand find node ip addresses by these commands</p>
+
+<pre><code>docker-machine ip node1
+docker-machine ip node2
+docker-machine ip node3
+</code></pre>
+
+<p>Replace {{NODE_IP}} with appropriate ip address and have fun with <strong>swarm cluster</strong> :)</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    <a href="https://twitter.com/Your%20Twitter%20account">
+    <img class="avatar" src="https://mostafa-asg.github.io/images/avatar.png">
+    <div>
+        <span class="dark">Mostafa Asgari</span>
+        <span>Data Engineer</span>
+    </div>
+    </a>
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fmostafa-asg.github.io%2fposts%2fdocker-swarm-golang-services-stack-deploy%2f - Docker%20Swarm%20%28Part%202%29 by @Your%20Twitter%20account"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/say-hello-to-docker-swarm/">Say Hello to Docker Swarm<aside class="dates">Oct 4 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    
+    <a class="symbol" href="https://www.dribbble.com/">
+        circledribble
+    </a>
+    
+    <a class="symbol" href="https://www.facebook.com/">
+        circlefacebook
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/mostafa-asg">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/mostafaasg">
+        circletwitterbird
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2017 Mostafa Asgari
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://mostafa-asg.github.io/js/main.js"></script>
+<script src="https://mostafa-asg.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+</body>
+</html>

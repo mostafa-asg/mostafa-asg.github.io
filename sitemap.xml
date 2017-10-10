@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/</loc>
+    <lastmod>2017-10-08T11:50:42+03:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/posts/say-hello-to-docker-swarm/</loc>
     <lastmod>2017-10-04T11:27:57+03:30</lastmod>
   </url>
@@ -14,13 +19,13 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/posts/</loc>
-    <lastmod>2017-10-04T11:27:57+03:30</lastmod>
+    <lastmod>2017-10-08T11:50:42+03:30</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2017-10-04T11:27:57+03:30</lastmod>
+    <lastmod>2017-10-08T11:50:42+03:30</lastmod>
     <priority>0</priority>
   </url>
   
