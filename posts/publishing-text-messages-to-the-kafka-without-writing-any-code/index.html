@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mostafa Asgari">
+<meta name="description" content="Hadoop ecosystem , Java , Go , Micoroservices">
+<meta name="generator" content="Hugo 0.26" />
+<title>Publishing Text Messages to the Kafka Without Writing Any Code</title>
+<link rel="shortcut icon" href="https://mostafa-asg.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/style.css">
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/monosocialiconsfont.css">
+
+
+
+<link href="https://mostafa-asg.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Software Engineering Blog" />
+
+
+<meta property="og:title" content="Publishing Text Messages to the Kafka Without Writing Any Code" />
+<meta property="og:description" content="Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of sending text messages to the Kafka.
+One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/" />
+
+
+
+<meta property="article:published_time" content="2017-11-29T20:32:03&#43;03:30"/>
+<meta property="article:modified_time" content="2017-11-29T20:32:03&#43;03:30"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Publishing Text Messages to the Kafka Without Writing Any Code">
+<meta itemprop="description" content="Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of sending text messages to the Kafka.
+One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:">
+
+
+<meta itemprop="dateModified" content="2017-11-29T20:32:03&#43;03:30" />
+<meta itemprop="wordCount" content="477">
+
+
+
+<meta itemprop="keywords" content="" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Publishing Text Messages to the Kafka Without Writing Any Code"/>
+<meta name="twitter:description" content="Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of sending text messages to the Kafka.
+One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:"/>
+<meta name="twitter:site" content="@https://twitter.com/mostafaasg"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://mostafa-asg.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+
+	
+		<a class="cta" href="https://mostafa-asg.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Publishing Text Messages to the Kafka Without Writing Any Code</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        November 29, 2017
+        <br>
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        <p>Perhaps the ordinary way to produce messages to the Kafka is through the standard <a href="https://cwiki.apache.org/confluence/display/KAFKA/Clients">Kafka clients</a>.
+But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of
+sending text messages to the Kafka.<br />
+One way is through <strong>kafka-console-producer</strong> that is bundled with Kafka distribution.
+For example to send a file to the Kafka, you can write:</p>
+
+<pre><code>cat YOUR_TEXT_FILE | $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list YOUR_KAFKA_BROKER:9092 --topic YOUR_TOPIC
+</code></pre>
+
+<p>That command reads the file line by line, and produces kafka record for each line.</p>
+
+<p>Another way to send a file to the Kafka line by line is through <strong>Kafka Connect</strong>. The easiest way to use Kafka Connect is through
+<strong>Confluent Open Source</strong> or <strong>Confluent Enterprise</strong>. <a href="https://www.confluent.io/download/">Download</a> and install one of them.
+Start confluent:</p>
+
+<pre><code>$CONFLUENT_HOME/bin/confluent start
+</code></pre>
+
+<p>Then save this config file somewhere (For example /tmp/connect-source-file.properties) :</p>
+
+<pre><code>name=my-local-file-source
+connector.class=FileStreamSource
+key.converter=org.apache.kafka.connect.storage.StringConverter
+value.converter=org.apache.kafka.connect.storage.StringConverter
+tasks.max=1
+file=YOUR_TEXT_FILE
+topic=YOUR_TOPIC
+</code></pre>
+
+<p>Replace <em>YOUR_TEXT_FILE</em> with your file path and <em>YOUR_TOPIC</em> with your Kafka topic name.Then send file to the Kafka by:</p>
+
+<pre><code>$CONFLUENT_HOME/bin/confluent load my-local-file-source -d /tmp/connect-source-file.properties
+</code></pre>
+
+<p>Done! check your topic to ensure that it successfully published.</p>
+
+<p>Another way to send text messages to the Kafka is through <a href="https://www.elastic.co/products/beats/filebeat">filebeat</a>; a log data shipper for local files.<br />
+Here’s how Filebeat works: When you start Filebeat, it starts one or more prospectors that look in the local paths you’ve specified for log files. For each log file that the prospector locates, Filebeat starts a harvester. Each harvester reads a single log file for new content and sends the new log data to libbeat, which aggregates the events and sends the aggregated data to the output that you’ve configured for Filebeat.<br />
+<img src="/static/publishing-text-messages-to-the-Kafka/filebeat.png" alt="filebeat" /><br />
+The beauty of <strong>filebeat</strong> is that, you can give a folder as path to the <strong>filebeat</strong> and filebeat can send all files under that folder
+to the Kafka. It guarantees that events will be delivered to the configured output at least once and with no data loss.
+Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.<br />
+First <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation.html">install</a> filebeat. Then edit filebeat.yml as:</p>
+
+<pre><code>filebeat.prospectors:
+- type: log
+  enabled: true
+  close_eof: true        
+
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+    - /tmp/logs/*
+    #- c:\programdata\elasticsearch\logs\*
+
+output.kafka:
+    enabled: true    
+    codec.format:
+        string: '%{[message]}'
+    hosts: [&quot;localhost:9092&quot;]
+    topic: 'tpk1'
+    version: '0.11.0.0'        
+    partition.round_robin:
+       reachable_only: false
+    
+    required_acks: -1
+    max_message_bytes: 1000000
+</code></pre>
+
+<p>Ensure that you change <strong>paths</strong> , <strong>hosts</strong> and <strong>topic</strong> correctly.</p>
+
+<pre><code>  close_eof: true        
+</code></pre>
+
+<p>I set close_eof because I wanted <em>filebeat</em> close the file handler whenever it reaches the end of file. Otherwise <em>filebeat</em> watches
+for the file change.</p>
+
+<pre><code>    codec.format:
+        string: '%{[message]}'
+</code></pre>
+
+<p>I set above config to tell <em>filebeat</em> that send line messages as <strong>raw</strong>. Otherwise <em>filebeat</em> wrap your line in <strong>JSON</strong>. For
+more information on configuration check <a href="https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html">Configuring filebeat</a><br />
+After you &rsquo;ve done you can start <em>filebeat</em> :</p>
+
+<pre><code>./filbeat -e -d filebeat.yml
+</code></pre>
+
+<p>That&rsquo;s it. :)</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    <a href="https://twitter.com/Your%20Twitter%20account">
+    <img class="avatar" src="https://mostafa-asg.github.io/images/avatar.png">
+    <div>
+        <span class="dark">Mostafa Asgari</span>
+        <span>Data Engineer</span>
+    </div>
+    </a>
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fmostafa-asg.github.io%2fposts%2fpublishing-text-messages-to-the-kafka-without-writing-any-code%2f - Publishing%20Text%20Messages%20to%20the%20Kafka%20Without%20Writing%20Any%20Code by @Your%20Twitter%20account"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/docker-swarm-golang-services-stack-deploy/">Docker Swarm (Part 2)<aside class="dates">Oct 10 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/say-hello-to-docker-swarm/">Say Hello to Docker Swarm<aside class="dates">Oct 4 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    
+    <a class="symbol" href="https://www.dribbble.com/">
+        circledribble
+    </a>
+    
+    <a class="symbol" href="https://www.facebook.com/">
+        circlefacebook
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/mostafa-asg">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/mostafaasg">
+        circletwitterbird
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2017 Mostafa Asgari
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://mostafa-asg.github.io/js/main.js"></script>
+<script src="https://mostafa-asg.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+</body>
+</html>

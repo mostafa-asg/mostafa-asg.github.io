@@ -6,10 +6,20 @@
     <description>Recent content on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Oct 2017 11:50:42 +0330</lastBuildDate>
+    <lastBuildDate>Wed, 29 Nov 2017 20:32:03 +0330</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Publishing Text Messages to the Kafka Without Writing Any Code</title>
+      <link>https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/</link>
+      <pubDate>Wed, 29 Nov 2017 20:32:03 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/</guid>
+      <description>Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &amp;rsquo;ll show you 3 ways of sending text messages to the Kafka.
+One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:</description>
+    </item>
     
     <item>
       <title>Docker Swarm (Part 2)</title>
