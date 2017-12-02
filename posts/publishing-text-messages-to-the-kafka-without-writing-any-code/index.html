@@ -23,7 +23,7 @@
 
 <meta property="og:title" content="Publishing Text Messages to the Kafka Without Writing Any Code" />
 <meta property="og:description" content="Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of sending text messages to the Kafka.
-One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:" />
+kafka-console-producer One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/" />
 
@@ -46,11 +46,11 @@ One way is through kafka-console-producer that is bundled with Kafka distributio
 
 <meta itemprop="name" content="Publishing Text Messages to the Kafka Without Writing Any Code">
 <meta itemprop="description" content="Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of sending text messages to the Kafka.
-One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:">
+kafka-console-producer One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:">
 
 
 <meta itemprop="dateModified" content="2017-11-29T20:32:03&#43;03:30" />
-<meta itemprop="wordCount" content="477">
+<meta itemprop="wordCount" content="686">
 
 
 
@@ -58,7 +58,7 @@ One way is through kafka-console-producer that is bundled with Kafka distributio
 
 <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Publishing Text Messages to the Kafka Without Writing Any Code"/>
 <meta name="twitter:description" content="Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of sending text messages to the Kafka.
-One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:"/>
+kafka-console-producer One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:"/>
 <meta name="twitter:site" content="@https://twitter.com/mostafaasg"/>
 
 
@@ -90,16 +90,23 @@ One way is through kafka-console-producer that is bundled with Kafka distributio
         </h2>
     </header>
     <section id="post-body">
-        <p>Perhaps the ordinary way to produce messages to the Kafka is through the standard <a href="https://cwiki.apache.org/confluence/display/KAFKA/Clients">Kafka clients</a>.
+        
+
+<p>Perhaps the ordinary way to produce messages to the Kafka is through the standard <a href="https://cwiki.apache.org/confluence/display/KAFKA/Clients">Kafka clients</a>.
 But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of
-sending text messages to the Kafka.<br />
-One way is through <strong>kafka-console-producer</strong> that is bundled with Kafka distribution.
+sending text messages to the Kafka.</p>
+
+<h3 id="kafka-console-producer">kafka-console-producer</h3>
+
+<p>One way is through <strong>kafka-console-producer</strong> that is bundled with Kafka distribution.
 For example to send a file to the Kafka, you can write:</p>
 
 <pre><code>cat YOUR_TEXT_FILE | $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list YOUR_KAFKA_BROKER:9092 --topic YOUR_TOPIC
 </code></pre>
 
 <p>That command reads the file line by line, and produces kafka record for each line.</p>
+
+<h3 id="kafka-connect">Kafka Connect</h3>
 
 <p>Another way to send a file to the Kafka line by line is through <strong>Kafka Connect</strong>. The easiest way to use Kafka Connect is through
 <strong>Confluent Open Source</strong> or <strong>Confluent Enterprise</strong>. <a href="https://www.confluent.io/download/">Download</a> and install one of them.
@@ -126,11 +133,13 @@ topic=YOUR_TOPIC
 
 <p>Done! check your topic to ensure that it successfully published.</p>
 
+<h3 id="filebeat">Filebeat</h3>
+
 <p>Another way to send text messages to the Kafka is through <a href="https://www.elastic.co/products/beats/filebeat">filebeat</a>; a log data shipper for local files.<br />
 Here’s how Filebeat works: When you start Filebeat, it starts one or more prospectors that look in the local paths you’ve specified for log files. For each log file that the prospector locates, Filebeat starts a harvester. Each harvester reads a single log file for new content and sends the new log data to libbeat, which aggregates the events and sends the aggregated data to the output that you’ve configured for Filebeat.<br />
-<img src="/static/publishing-text-messages-to-the-Kafka/filebeat.png" alt="filebeat" /><br />
+<img src="/static/publishing-text-messages-to-the-Kafka/filebeat.png#center" alt="filebeat" /><br />
 The beauty of <strong>filebeat</strong> is that, you can give a folder as path to the <strong>filebeat</strong> and filebeat can send all files under that folder
-to the Kafka. It guarantees that events will be delivered to the configured output at least once and with no data loss.
+to the Kafka. It guarantees that events will be delivered to the configured output <strong>at least once</strong> and with no data loss.
 Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.<br />
 First <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation.html">install</a> filebeat. Then edit filebeat.yml as:</p>
 
@@ -175,6 +184,38 @@ more information on configuration check <a href="https://www.elastic.co/guide/en
 After you &rsquo;ve done you can start <em>filebeat</em> :</p>
 
 <pre><code>./filbeat -e -d filebeat.yml
+</code></pre>
+
+<h3 id="apache-flume">Apache Flume</h3>
+
+<p>Apache Flume is a distributed, reliable, and available system for efficiently collecting, aggregating and moving large amounts of log data from many different sources to a centralized data store.At the high level, it consists of 3 main component:
+<img src="/static/publishing-text-messages-to-the-Kafka/flume.png#center" alt="Apache Flume" />
+1. Source<br />
+2. Channel<br />
+3. Sink<br />
+Flume Source consumes events from various sources and write them to the channel.The channel is a passive store that keeps the event until it’s consumed by a Flume sink.The sink removes the event from the channel and puts it into an external repository like Kafka or HDFS.<br />
+<a href="http://flume.apache.org">Download</a> and extract Apache Flume.Create a flume config file somewhere (For example /tmp/flume-conf.properties)</p>
+
+<pre><code>agent1.sources = s1
+agent1.channels = c1
+agent1.sinks = k1
+
+agent1.sources.s1.type = spooldir
+agent1.sources.s1.spoolDir = /tmp/myLogs/
+agent1.sources.s1.channels = c1
+
+agent1.channels.c1.type = memory
+
+agent1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink
+agent1.sinks.k1.kafka.bootstrap.servers = localhost:9092
+agent1.sinks.k1.kafka.topic = tpk1
+agent1.sinks.k1.channel = c1
+</code></pre>
+
+<p>In this config, Flume watches the specified directory for new files, and will parse events out of new files as they appear. The event parsing logic is pluggable. After a given file has been fully read into the channel, it is renamed to indicate completion (or optionally deleted).For more configuration check <a href="http://flume.apache.org/FlumeUserGuide.html#spooling-directory-source">Spooling Directory Source</a><br />
+To start the flume agent, type :</p>
+
+<pre><code>./flume-ng agent -n agent1 -f=/tmp/flume-conf.properties
 </code></pre>
 
 <p>That&rsquo;s it. :)</p>

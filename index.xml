@@ -18,7 +18,7 @@
       
       <guid>https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/</guid>
       <description>Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &amp;rsquo;ll show you 3 ways of sending text messages to the Kafka.
-One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:</description>
+kafka-console-producer One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:</description>
     </item>
     
     <item>
