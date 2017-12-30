@@ -122,7 +122,7 @@ score if and only if, user has hit a record. Here is defination:</p>
   To find out top score for each user using <em>Kafka streams</em>, we can write (<a href="https://github.com/mostafa-asg/KStreams/blob/master/src/main/java/com/github/HighScoreStreams.java">HighScoreStreams.java
 </a>):</p>
 
-<pre><code class="language-Java">  KStream&lt;String, Integer&gt; scores = builder.stream(&quot;scores&quot;, Consumed.with(Serdes.String(), Serdes.Integer()));
+<pre><code>  KStream&lt;String, Integer&gt; scores = builder.stream(&quot;scores&quot;, Consumed.with(Serdes.String(), Serdes.Integer()));
   KTable&lt;String, Integer&gt; highScores = builder.table(&quot;high-scores&quot;, Consumed.with(Serdes.String(), Serdes.Integer(),new FailOnInvalidTimestamp(), Topology.AutoOffsetReset.EARLIEST));
 
   scores.leftJoin( highScores , (v1,v2) -&gt; {
@@ -153,7 +153,7 @@ score if and only if, user has hit a record. Here is defination:</p>
   that constantly read from <strong>high-scores</strong> topic, and add high scores to a ArrayList with maximum size of 5. Whenever this
   list changes, I send it through SSE to the clients(<a href="https://github.com/mostafa-asg/KStreams/blob/master/src/main/java/com/github/HttpServer.java">HttpServer.java</a>):</p>
 
-<pre><code class="language-Java">  get(&quot;/highScores&quot;, (req, res) -&gt; {
+<pre><code>  get(&quot;/highScores&quot;, (req, res) -&gt; {
 
   res.header(&quot;Content-Type&quot;, &quot;text/event-stream&quot;);
   res.header(&quot;Cache-Control&quot;, &quot;no-cache&quot;);
@@ -175,7 +175,7 @@ score if and only if, user has hit a record. Here is defination:</p>
 <p>#### Client side
   On client side(<a href="https://github.com/mostafa-asg/KStreams/blob/master/src/main/resources/home.html">home.html</a>), I use <strong>EventSource</strong> to stablish a connection to SSE server and update DOM, whenever a new event has arrived:</p>
 
-<pre><code class="language-Javascript">  $(document).ready(function () {
+<pre><code>  $(document).ready(function () {
     var source = new EventSource(&quot;/highScores&quot;);
     source.onmessage = function (event) {
         var data=JSON.parse(event.data);
