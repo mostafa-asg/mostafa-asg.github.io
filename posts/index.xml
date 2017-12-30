@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Nov 2017 20:32:03 +0330</lastBuildDate>
+    <lastBuildDate>Sat, 30 Dec 2017 07:29:59 +0330</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kafka Streams &#43; SSE = Realtime web app</title>
+      <link>https://mostafa-asg.github.io/posts/reactive-kafka-streams-sse-top5/</link>
+      <pubDate>Sat, 30 Dec 2017 07:29:59 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/posts/reactive-kafka-streams-sse-top5/</guid>
+      <description>Last week I decided to dirty my hands with Kafka Streams. I wanted to write simple application with Kafka Streams more interesting than World Count. I decided to write a program that calculates top 5 using Kafka Streams. Imagine you have written a game, and you want to display top 5 users. You also need that calculating and displaying top 5 to be real time. You need whenever a user has hit a record, it automatically displays user record.</description>
+    </item>
     
     <item>
       <title>Publishing Text Messages to the Kafka Without Writing Any Code</title>
