@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mostafa-asg.github.io/post/enhance-hadoop-mapreduce-speed-small-jobs/</loc>
+    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/posts/reactive-kafka-streams-sse-top5/</loc>
     <lastmod>2017-12-30T07:29:59+03:30</lastmod>
   </url>
@@ -28,6 +33,12 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/post/</loc>
+    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/posts/</loc>
     <lastmod>2017-12-30T07:29:59+03:30</lastmod>
     <priority>0</priority>
@@ -35,7 +46,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
     <priority>0</priority>
   </url>
   
