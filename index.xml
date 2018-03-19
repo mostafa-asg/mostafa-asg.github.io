@@ -6,10 +6,19 @@
     <description>Recent content on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Feb 2018 07:15:50 +0330</lastBuildDate>
+    <lastBuildDate>Mon, 19 Mar 2018 13:41:44 +0330</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>setcap Linux Command</title>
+      <link>https://mostafa-asg.github.io/content/posts/setcap-linux-command/</link>
+      <pubDate>Mon, 19 Mar 2018 13:41:44 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/content/posts/setcap-linux-command/</guid>
+      <description>Today I learned something new that I want to share with you. I knew that listening on port below 1024 requires special privilege, and to accomplish that you must be sudoers. But running applications with sudo is not a perfect way because that way the application can do almost anything to your operating system resulting unexpected results (you surely don&amp;rsquo;t want the application delete all your files by rm -rf).</description>
+    </item>
     
     <item>
       <title>Enhance Hadoop MapReduce Speed for small jobs</title>
