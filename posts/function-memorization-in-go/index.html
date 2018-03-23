@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mostafa Asgari">
+<meta name="description" content="Hadoop ecosystem , Java , Go , Micoroservices">
+<meta name="generator" content="Hugo 0.30" />
+<title>Function Memorization in Go</title>
+<link rel="shortcut icon" href="https://mostafa-asg.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/style.css">
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://mostafa-asg.github.io/css/monosocialiconsfont.css">
+
+
+
+<link href="https://mostafa-asg.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Software Engineering Blog" />
+
+
+<meta property="og:title" content="Function Memorization in Go" />
+<meta property="og:description" content="Memoization is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.
+Based on wikipedia definition, a function may be considered a pure function if both of the following statements about the function hold:
+1. The function always evaluates the same result value given the same argument value(s)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mostafa-asg.github.io/posts/function-memorization-in-go/" />
+
+
+
+<meta property="article:published_time" content="2018-03-23T22:20:14&#43;04:30"/>
+
+<meta property="article:modified_time" content="2018-03-23T22:20:14&#43;04:30"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Function Memorization in Go">
+<meta itemprop="description" content="Memoization is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.
+Based on wikipedia definition, a function may be considered a pure function if both of the following statements about the function hold:
+1. The function always evaluates the same result value given the same argument value(s).">
+
+
+<meta itemprop="datePublished" content="2018-03-23T22:20:14&#43;04:30" />
+<meta itemprop="dateModified" content="2018-03-23T22:20:14&#43;04:30" />
+<meta itemprop="wordCount" content="562">
+
+
+
+<meta itemprop="keywords" content="" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Function Memorization in Go"/>
+<meta name="twitter:description" content="Memoization is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.
+Based on wikipedia definition, a function may be considered a pure function if both of the following statements about the function hold:
+1. The function always evaluates the same result value given the same argument value(s)."/>
+<meta name="twitter:site" content="@https://twitter.com/mostafaasg"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://mostafa-asg.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+
+	
+		<a class="cta" href="https://mostafa-asg.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Function Memorization in Go</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        March 23, 2018
+        <br>
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        <p><a href="http://en.wikipedia.org/wiki/Memoization">Memoization</a> is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.</p>
+
+<p>Based on wikipedia definition, a function may be considered a pure function if both of the following statements about the function hold:<br />
+1. The function always evaluates the same result value given the same argument value(s). The function result value cannot depend on any hidden information or state that may change while program execution proceeds or between different executions of the program, nor can it depend on any external input from I/O devices (usually—see below).<br />
+2. Evaluation of the result does not cause any semantically observable side effect or output, such as mutation of mutable objects or output to I/O devices (usually—see below).</p>
+
+<p>Pure functions are more easily optimized. Let&rsquo;s perform optimizations using a caching technique. Assume we have a factorial function like this:</p>
+
+<pre><code>func fact(n int) int {
+	result := 1
+	for i:=2;i&lt;=n;i++ {
+		result *= n
+	}
+	return result
+}
+</code></pre>
+
+<p>One way to speed things up is to cache result values and to look them up on subsequent invocations of <strong>fact</strong> function.This can be done either by the function itself or by the caller. The first approach has the drawback that each and every function has to implement caching and that clients have no control over the caching mechanism. The latter approach puts all the burden on the client programmer and produces potential boilerplate. To overcome these issues we need a way to construct a memorized function having the same type as a given function. Let&rsquo;s define <strong>memorized</strong> function that turns any function which accepts int as input and returns int as output to a memorized capable function:</p>
+
+<pre><code>type FuncIntInt func(int) int
+
+func memorized(fn FuncIntInt) FuncIntInt {
+	cache := make(map[int]int)
+
+	return func(input int) int {
+		if val, found := cache[input]; found {
+			log.Println(&quot;Read from cache&quot;)
+			return val
+		}
+
+		result := fn(input)
+		cache[input] = result
+		return result
+	}
+}
+</code></pre>
+
+<p>It returns a simple function that checks input value against cache first. If it can find it in cache, it returns the value otherwise it calls the input function and store the result into the cache for subsequent calls.
+Now lets convert our factorial function into a memorized one by calling:</p>
+
+<pre><code>factMem := memorized(fact)
+println( factMem(5) )
+println( factMem(5) )
+println( factMem(5) )
+</code></pre>
+
+<p>Second and third call of factMem would give us the result from the cache. But wait a minute. Does this technique work well for
+recursive factorial function as well? I mean this function:</p>
+
+<pre><code>func fact(n int) int {
+    if n &lt;= 1 {
+        return 1
+    }
+    return n * fact(n-1)
+}
+</code></pre>
+
+<p>If you call this function like this:</p>
+
+<pre><code>factMem := memorized(fact)
+println( factMem(5) )
+println( factMem(4) )
+println( factMem(3) )
+</code></pre>
+
+<p>And if you expect factMem(4) and factMem(3) gets their result from cache you are wrong, because n * <strong>fact(n-1)</strong> is not a memorized function.
+You can tackle this problem by rewriting <strong>fact</strong> function like this:</p>
+
+<pre><code>var factMem FuncIntInt
+factMem = memorized(func(n int) int {
+		if n &lt;= 1 {
+			return 1
+		}
+		return n * factMem(n-1)
+	})
+println( factMem(5) )
+println( factMem(4) )
+println( factMem(3) )
+</code></pre>
+
+<p>Thanks to closure and anonymous function we can workaround this problem. You can find code on <a href="https://gist.github.com/mostafa-asg/cbe12409e480a7ff92db9f46e3e8cf17">github</a>.</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    <a href="https://twitter.com/Your%20Twitter%20account">
+    <img class="avatar" src="https://mostafa-asg.github.io/images/avatar.png">
+    <div>
+        <span class="dark">Mostafa Asgari</span>
+        <span>Data Engineer</span>
+    </div>
+    </a>
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fmostafa-asg.github.io%2fposts%2ffunction-memorization-in-go%2f - Function%20Memorization%20in%20Go by @Your%20Twitter%20account"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/content/posts/setcap-linux-command/">setcap Linux Command<aside class="dates">Mar 19 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/post/enhance-hadoop-mapreduce-speed-small-jobs/">Enhance Hadoop MapReduce Speed for small jobs<aside class="dates">Feb 6 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/reactive-kafka-streams-sse-top5/">Kafka Streams &#43; SSE = Realtime web app<aside class="dates">Dec 30 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/">Publishing Text Messages to the Kafka Without Writing Any Code<aside class="dates">Nov 29 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/docker-swarm-golang-services-stack-deploy/">Docker Swarm (Part 2)<aside class="dates">Oct 10 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/say-hello-to-docker-swarm/">Say Hello to Docker Swarm<aside class="dates">Oct 4 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    
+    <a class="symbol" href="https://www.dribbble.com/">
+        circledribble
+    </a>
+    
+    <a class="symbol" href="https://www.facebook.com/">
+        circlefacebook
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/mostafa-asg">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/mostafaasg">
+        circletwitterbird
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2018 Mostafa Asgari
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://mostafa-asg.github.io/js/main.js"></script>
+<script src="https://mostafa-asg.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+</body>
+</html>

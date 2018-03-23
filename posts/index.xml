@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Dec 2017 07:29:59 +0330</lastBuildDate>
+    <lastBuildDate>Fri, 23 Mar 2018 22:20:14 +0430</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Function Memorization in Go</title>
+      <link>https://mostafa-asg.github.io/posts/function-memorization-in-go/</link>
+      <pubDate>Fri, 23 Mar 2018 22:20:14 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/posts/function-memorization-in-go/</guid>
+      <description>Memoization is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.
+Based on wikipedia definition, a function may be considered a pure function if both of the following statements about the function hold:
+1. The function always evaluates the same result value given the same argument value(s).</description>
+    </item>
     
     <item>
       <title>Kafka Streams &#43; SSE = Realtime web app</title>
