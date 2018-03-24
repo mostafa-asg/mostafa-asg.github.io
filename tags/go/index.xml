@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/go/</link>
+    <description>Recent content in Go on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Mar 2018 22:20:14 +0430</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Function Memorization in Go</title>
+      <link>https://mostafa-asg.github.io/post/function-memorization-in-go/</link>
+      <pubDate>Fri, 23 Mar 2018 22:20:14 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/function-memorization-in-go/</guid>
+      <description>Memoization is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.
+Based on wikipedia definition, a function may be considered a pure function if both of the following statements about the function hold:
+1. The function always evaluates the same result value given the same argument value(s).</description>
+    </item>
+    
+    <item>
+      <title>Docker Swarm (Part 2)</title>
+      <link>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</link>
+      <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</guid>
+      <description>Introduction In the previous post, we &amp;rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
+We &amp;rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.</description>
+    </item>
+    
+    <item>
+      <title>Say Hello to Docker Swarm</title>
+      <link>https://mostafa-asg.github.io/post/say-hello-to-docker-swarm/</link>
+      <pubDate>Wed, 04 Oct 2017 11:27:57 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/say-hello-to-docker-swarm/</guid>
+      <description>Say Hello to Docker Swarm (part 1) In this tuturial I want to show you, how you can create cluster of machines using Docker Swarm and how to run your services on docker swarm.I assume you have basic knowledge of Docker.On part 2, we will implement our services on Golang, and will run them on docker swarm, so stay tuned.
+Install Docker Machine In this tutorial I use docker-machine to simulate physical machines.</description>
+    </item>
+    
+  </channel>
+</rss>

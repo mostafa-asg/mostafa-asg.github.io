@@ -6,9 +6,145 @@
     <description>Recent content in Tags on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Wed, 29 Nov 2017 20:32:03 +0330</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Connect</title>
+      <link>https://mostafa-asg.github.io/tags/connect/</link>
+      <pubDate>Wed, 29 Nov 2017 20:32:03 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/connect/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://mostafa-asg.github.io/tags/docker/</link>
+      <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Filebeat</title>
+      <link>https://mostafa-asg.github.io/tags/filebeat/</link>
+      <pubDate>Wed, 29 Nov 2017 20:32:03 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/filebeat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flume</title>
+      <link>https://mostafa-asg.github.io/tags/flume/</link>
+      <pubDate>Wed, 29 Nov 2017 20:32:03 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/flume/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Functional Programming</title>
+      <link>https://mostafa-asg.github.io/tags/functional-programming/</link>
+      <pubDate>Fri, 23 Mar 2018 22:20:14 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/functional-programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>https://mostafa-asg.github.io/tags/go/</link>
+      <pubDate>Fri, 23 Mar 2018 22:20:14 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hadoop</title>
+      <link>https://mostafa-asg.github.io/tags/hadoop/</link>
+      <pubDate>Tue, 06 Feb 2018 07:15:50 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/hadoop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kafka</title>
+      <link>https://mostafa-asg.github.io/tags/kafka/</link>
+      <pubDate>Sat, 30 Dec 2017 07:29:59 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://mostafa-asg.github.io/tags/linux/</link>
+      <pubDate>Mon, 19 Mar 2018 13:41:44 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mapreduce</title>
+      <link>https://mostafa-asg.github.io/tags/mapreduce/</link>
+      <pubDate>Tue, 06 Feb 2018 07:15:50 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/mapreduce/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Microservices</title>
+      <link>https://mostafa-asg.github.io/tags/microservices/</link>
+      <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/microservices/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Performance</title>
+      <link>https://mostafa-asg.github.io/tags/performance/</link>
+      <pubDate>Fri, 23 Mar 2018 22:20:14 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sse</title>
+      <link>https://mostafa-asg.github.io/tags/sse/</link>
+      <pubDate>Sat, 30 Dec 2017 07:29:59 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/sse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Streams</title>
+      <link>https://mostafa-asg.github.io/tags/streams/</link>
+      <pubDate>Sat, 30 Dec 2017 07:29:59 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/streams/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Swarm</title>
+      <link>https://mostafa-asg.github.io/tags/swarm/</link>
+      <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/swarm/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

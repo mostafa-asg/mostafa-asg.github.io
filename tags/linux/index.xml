@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/linux/</link>
+    <description>Recent content in Linux on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Mar 2018 13:41:44 +0330</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>setcap Linux Command</title>
+      <link>https://mostafa-asg.github.io/post/setcap-linux-command/</link>
+      <pubDate>Mon, 19 Mar 2018 13:41:44 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/setcap-linux-command/</guid>
+      <description>Today I learned something new that I want to share with you. I knew that listening on port below 1024 requires special privilege, and to accomplish that you must be sudoers. But running applications with sudo is not a perfect way because that way the application can do almost anything to your operating system resulting unexpected results (you surely don&amp;rsquo;t want the application delete all your files by rm -rf).</description>
+    </item>
+    
+  </channel>
+</rss>

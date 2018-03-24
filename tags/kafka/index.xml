@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kafka on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/kafka/</link>
+    <description>Recent content in Kafka on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 Dec 2017 07:29:59 +0330</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kafka Streams &#43; SSE = Realtime web app</title>
+      <link>https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/</link>
+      <pubDate>Sat, 30 Dec 2017 07:29:59 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/</guid>
+      <description>Last week I decided to dirty my hands with Kafka Streams. I wanted to write simple application with Kafka Streams more interesting than World Count. I decided to write a program that calculates top 5 using Kafka Streams. Imagine you have written a game, and you want to display top 5 users. You also need that calculating and displaying top 5 to be real time. You need whenever a user has hit a record, it automatically displays user record.</description>
+    </item>
+    
+    <item>
+      <title>Publishing Text Messages to the Kafka Without Writing Any Code</title>
+      <link>https://mostafa-asg.github.io/post/publishing-text-messages-to-the-kafka-without-writing-any-code/</link>
+      <pubDate>Wed, 29 Nov 2017 20:32:03 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/publishing-text-messages-to-the-kafka-without-writing-any-code/</guid>
+      <description>Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &amp;rsquo;ll show you 3 ways of sending text messages to the Kafka.
+kafka-console-producer One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:</description>
+    </item>
+    
+  </channel>
+</rss>

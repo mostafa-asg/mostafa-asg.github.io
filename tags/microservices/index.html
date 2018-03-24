@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.37.1" />
 
-  <title>Tags &middot; Software Engineering Blog</title>
+  <title>Microservices &middot; Software Engineering Blog</title>
 
   
   
@@ -40,7 +40,7 @@
 
  
   
-  <link rel="alternate" type="application/rss+xml" title="Software Engineering Blog" href="https://mostafa-asg.github.io/tags/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Software Engineering Blog" href="https://mostafa-asg.github.io/tags/microservices/index.xml" />
   
 
   
@@ -99,7 +99,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://mostafa-asg.github.io/tags/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href="https://mostafa-asg.github.io/tags/microservices/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
     </li>
     
 
@@ -208,88 +208,111 @@
 
 
 <div class="header">
-  <h1>Tags</h1>
+  <h1>Microservices</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/">Docker Swarm (Part 2)</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>10 Oct 2017, 11:50</time>
+  </div>
+
+  
+
+  
+
   
   
-    <li>
-      <a href="go">go</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="docker">docker</a>
-      <span>&#40;2&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/go">Go</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/docker">Docker</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/swarm">Swarm</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/microservices">Microservices</a>
+    
+  </div>
   
-    <li>
-      <a href="kafka">kafka</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="microservices">microservices</a>
-      <span>&#40;2&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  Introduction In the previous post, we &rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
+We &rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.
+  </p>
+
   
-    <li>
-      <a href="performance">performance</a>
-      <span>&#40;2&#41;</span>
-    </li>
+  <footer>
+    <a href="/post/docker-swarm-golang-services-stack-deploy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-    <li>
-      <a href="swarm">swarm</a>
-      <span>&#40;2&#41;</span>
-    </li>
+</article>
+
   
-    <li>
-      <a href="connect">connect</a>
-      <span>&#40;1&#41;</span>
-    </li>
+    <article>
+  <header>
+    <h2><a href="https://mostafa-asg.github.io/post/say-hello-to-docker-swarm/">Say Hello to Docker Swarm</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>04 Oct 2017, 11:27</time>
+  </div>
+
   
-    <li>
-      <a href="filebeat">filebeat</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="flume">flume</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="functional-programming">functional-programming</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="hadoop">hadoop</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="linux">linux</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/go">Go</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/docker">Docker</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/swarm">Swarm</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/microservices">Microservices</a>
+    
+  </div>
   
-    <li>
-      <a href="mapreduce">mapreduce</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="sse">sse</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  Say Hello to Docker Swarm (part 1) In this tuturial I want to show you, how you can create cluster of machines using Docker Swarm and how to run your services on docker swarm.I assume you have basic knowledge of Docker.On part 2, we will implement our services on Golang, and will run them on docker swarm, so stay tuned.
+Install Docker Machine In this tutorial I use docker-machine to simulate physical machines.
+  </p>
+
   
-    <li>
-      <a href="streams">streams</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <footer>
+    <a href="/post/say-hello-to-docker-swarm/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-  </ul>
+</article>
+
+  
 </div>
 
 </div>

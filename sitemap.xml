@@ -43,6 +43,78 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/connect/</loc>
+    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/docker/</loc>
+    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/filebeat/</loc>
+    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/flume/</loc>
+    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/functional-programming/</loc>
+    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/go/</loc>
+    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/hadoop/</loc>
+    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/kafka/</loc>
+    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/linux/</loc>
+    <lastmod>2018-03-19T13:41:44+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/mapreduce/</loc>
+    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/microservices/</loc>
+    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/performance/</loc>
+    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/</loc>
     <lastmod>2018-03-23T22:20:14+04:30</lastmod>
     <priority>0</priority>
@@ -55,7 +127,26 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/sse/</loc>
+    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/streams/</loc>
+    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/swarm/</loc>
+    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/tags/</loc>
+    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
     <priority>0</priority>
   </url>
   

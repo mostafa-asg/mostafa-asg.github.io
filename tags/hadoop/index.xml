@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hadoop on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/hadoop/</link>
+    <description>Recent content in Hadoop on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 06 Feb 2018 07:15:50 +0330</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Enhance Hadoop MapReduce Speed for small jobs</title>
+      <link>https://mostafa-asg.github.io/post/enhance-hadoop-mapreduce-speed-small-jobs/</link>
+      <pubDate>Tue, 06 Feb 2018 07:15:50 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/enhance-hadoop-mapreduce-speed-small-jobs/</guid>
+      <description>Introduction There are some circumstances when input of Hadoop&amp;rsquo;s MapReduce is relatively small. Consequently the overhead of allocating and running tasks in new containers outweighs the gain to be had in running them in parallel, compared to running them sequentially on one node. Such a job is said to be uberized, or run as an uber task.
+Enable uber optimization To enable uberized job, simply set mapreduce.job.ubertask.enable to true. But that is not sufficient.</description>
+    </item>
+    
+  </channel>
+</rss>
