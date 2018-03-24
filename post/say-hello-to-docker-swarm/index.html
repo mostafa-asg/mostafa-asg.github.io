@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.37.1" />
+
+  <title>Say Hello to Docker Swarm &middot; Software Engineering Blog</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://mostafa-asg.github.ioimg/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Say Hello to Docker Swarm</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>04 Oct 2017, 11:27</time>
+  </div>
+
+  
+
+  
+
+  
+
+</div>
+
+  
+
+<h1 id="say-hello-to-docker-swarm-part-1">Say Hello to Docker Swarm (part 1)</h1>
+
+<p>In this tuturial I want to show you, how you can create cluster of machines using <a href="https://docs.docker.com/engine/swarm/">Docker Swarm</a> and
+how to run your services on docker swarm.I assume you have basic knowledge of Docker.On <a href="https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/">part 2</a>, we will implement our services on Golang, and
+will run them on docker swarm, so stay tuned.</p>
+
+<h3 id="install-docker-machine">Install Docker Machine</h3>
+
+<p>In this tutorial I use <a href="https://docs.docker.com/machine/overview/">docker-machine</a> to simulate physical machines.First you must
+install docker-machine.Installation is pretty straightforward.Follow this link <a href="https://docs.docker.com/machine/install-machine/">Install Docker Machine</a></p>
+
+<h3 id="start-docker-machines">Start Docker Machines</h3>
+
+<p>Let&rsquo;s start 3 docker machine. Start your terminal and type these commands:</p>
+
+<pre><code>docker-machine create --driver virtualbox node1
+docker-machine create --driver virtualbox node2
+docker-machine create --driver virtualbox node3
+</code></pre>
+
+<p>Check that all 3 machines up and running by:</p>
+
+<pre><code>docker-machine ls
+</code></pre>
+
+<pre><code>NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER        ERRORS
+node1   -        virtualbox   Running   tcp://192.168.99.100:2376           v17.09.0-ce   
+node2   -        virtualbox   Running   tcp://192.168.99.101:2376           v17.09.0-ce   
+node3   -        virtualbox   Running   tcp://192.168.99.102:2376           v17.09.0-ce   
+</code></pre>
+
+<h3 id="create-cluster">Create cluster</h3>
+
+<p>In docker swarm there are two types of node : Manager and worker.In this demo, one of these node is act as a manager node and the two other
+act as worker nodes.In production envrionment you probably need more than one manager node for high availability.</p>
+
+<h4 id="manager-nodes">Manager nodes</h4>
+
+<p>To become node1 as a manager, type these commands:</p>
+
+<pre><code>eval $(docker-machine env node1)
+docker swarm init --advertise-addr=$(docker-machine ip node1)
+</code></pre>
+
+<h4 id="worker-nodes">Worker nodes</h4>
+
+<p>To join other nodes as worker to the cluster type these commands:</p>
+
+<pre><code>NODE1_IP=$(docker-machine ip node1)
+WORKER_TOKEN=$(docker swarm join-token --quiet worker)
+eval $(docker-machine env node2)
+docker swarm join --token ${WORKER_TOKEN} ${NODE1_IP}:2377
+eval $(docker-machine env node3)
+docker swarm join --token ${WORKER_TOKEN} ${NODE1_IP}:2377
+</code></pre>
+
+<p>Verify that the cluster is up and running by :</p>
+
+<pre><code>eval $(docker-machine env node1)
+docker node ls
+</code></pre>
+
+<pre><code>ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
+21mppgndfyk916c0vsbcloigg    node2     Ready   Active        
+38k2gjdu88ac7zrhy4eqls967 *  node1     Ready   Active        Leader
+wgzt7w359eewjc6pqmw1kyfmb    node3     Ready   Active        
+</code></pre>
+
+<p>Notice that node1 is the leader of cluster.Worker nodes can&rsquo;t be used to view or modify cluster state, that &rsquo;s why before I issue <em>&lsquo;node ls&rsquo;</em> command, I select node1. Ok, until now we have created a cluster of machines using docker swarm.Let&rsquo;s run a service on this cluster.I want to start 2 instance of
+Nginx on this cluster but you can run any service that you want :</p>
+
+<pre><code>docker service create --name nginx --replicas 2 --publish 8080:80 nginx
+</code></pre>
+
+<p>It pulls nginx image if it does not exist and after that it runs Nginx on 2 of 3 nodes.Verify that your service is up and running by:</p>
+
+<pre><code>docker service ps nginx
+</code></pre>
+
+<pre><code>ID            NAME     IMAGE  NODE   DESIRED STATE  CURRENT STATE          ERROR  PORTS
+vyuxtfvi9m3u  nginx.1  nginx  node2  Running        Running 8 seconds ago         
+wam2d8heo6mg  nginx.2  nginx  node1  Running        Running 8 seconds ago         
+</code></pre>
+
+<p>You can see that on my computer it runs on node2 and node1.Let&rsquo;s double check that our service is running by sending http requets
+to nginx on nodes:</p>
+
+<pre><code>curl $(docker-machine ip node1):8585
+</code></pre>
+
+<p>In your response you must see : &ldquo;Welcome to nginx!&rdquo;. Send request to other nodes as well:</p>
+
+<pre><code>curl $(docker-machine ip node2):8585
+curl $(docker-machine ip node3):8585
+</code></pre>
+
+<p>Did you notice that even there is no Nginx service on node3,we can still get response from Nginx? Thanks to swarm <strong>routing mesh</strong>.
+The routing mesh enables each node in the swarm to accept connections on published ports for any service running in the swarm,
+even if there’s no task running on the node.For more information click <a href="https://docs.docker.com/engine/swarm/ingress/">here</a>.</p>
+
+<h4 id="leave-nodes-from-cluster">Leave nodes from cluster</h4>
+
+<p>What will happen if you remove any node from the cluster that runs our service? For example what would happen if I remove node2 from the cluster? Remember that, on my machnie, node2 is responsible for running Nginx.Let&rsquo;s remove node2 from the cluster:</p>
+
+<pre><code>eval $(docker-machine env node2)
+docker swarm leave
+</code></pre>
+
+<p>Now check the state of our Nginx service:</p>
+
+<pre><code>docker service ps nginx
+</code></pre>
+
+<pre><code>ID            NAME         IMAGE  NODE   DESIRED STATE  CURRENT STATE           ERROR  PORTS
+t3cy4lzq6yg3  nginx.1      nginx  node3  Running        Running 16 seconds ago         
+vyuxtfvi9m3u   \_ nginx.1  nginx  node2  Shutdown       Running 37 seconds ago         
+wam2d8heo6mg  nginx.2      nginx  node1  Running        Running 4 hours ago            
+</code></pre>
+
+<p>Amazing! Nginx now is running on node3. Swarm understood that nginx service is under replicated and runs another instance of Nginx on another node.</p>
+
+<h4 id="remove-the-service">Remove the service</h4>
+
+<p>Remove Nginx service by:</p>
+
+<pre><code>docker service rm nginx
+</code></pre>
+
+<h4 id="stop-and-remove-nodes">Stop and remove nodes</h4>
+
+<p>If you &rsquo;ve done, you can stop and remove docker machines:</p>
+
+<pre><code>docker-machine stop node1 node2 node3
+docker-machine rm node1 node2 node3
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this tutorial we &rsquo;ve learnt how to create 3 machines,join them to Swarm cluster and ask the Swarm to run our services on those machines.
+The beauty of swarm is that you are not worry where your tasks are running.You can leverage swarm routing mesh, to route requests to
+our services.In the next part, we &rsquo;re going to implement our services in Go, and run them on the cluster.</p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/">Docker Swarm (Part 2)</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://mostafa-asg.github.iojs/ui.js"></script>
+
+
+
+
+
+
+</body>
+</html>
+

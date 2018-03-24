@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.37.1" />
+
+  <title>Publishing Text Messages to the Kafka Without Writing Any Code &middot; Software Engineering Blog</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://mostafa-asg.github.ioimg/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Publishing Text Messages to the Kafka Without Writing Any Code</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>29 Nov 2017, 20:32</time>
+  </div>
+
+  
+
+  
+
+  
+
+</div>
+
+  
+
+<p>Perhaps the ordinary way to produce messages to the Kafka is through the standard <a href="https://cwiki.apache.org/confluence/display/KAFKA/Clients">Kafka clients</a>.
+But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of
+sending text messages to the Kafka.</p>
+
+<h3 id="kafka-console-producer">kafka-console-producer</h3>
+
+<p>One way is through <strong>kafka-console-producer</strong> that is bundled with Kafka distribution.
+For example to send a file to the Kafka, you can write:</p>
+
+<pre><code>cat YOUR_TEXT_FILE | $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list YOUR_KAFKA_BROKER:9092 --topic YOUR_TOPIC
+</code></pre>
+
+<p>That command reads the file line by line, and produces kafka record for each line.</p>
+
+<h3 id="kafka-connect">Kafka Connect</h3>
+
+<p>Another way to send a file to the Kafka line by line is through <strong>Kafka Connect</strong>. The easiest way to use Kafka Connect is through
+<strong>Confluent Open Source</strong> or <strong>Confluent Enterprise</strong>. <a href="https://www.confluent.io/download/">Download</a> and install one of them.
+Start confluent:</p>
+
+<pre><code>$CONFLUENT_HOME/bin/confluent start
+</code></pre>
+
+<p>Then save this config file somewhere (For example /tmp/connect-source-file.properties) :</p>
+
+<pre><code>name=my-local-file-source
+connector.class=FileStreamSource
+key.converter=org.apache.kafka.connect.storage.StringConverter
+value.converter=org.apache.kafka.connect.storage.StringConverter
+tasks.max=1
+file=YOUR_TEXT_FILE
+topic=YOUR_TOPIC
+</code></pre>
+
+<p>Replace <em>YOUR_TEXT_FILE</em> with your file path and <em>YOUR_TOPIC</em> with your Kafka topic name.Then send file to the Kafka by:</p>
+
+<pre><code>$CONFLUENT_HOME/bin/confluent load my-local-file-source -d /tmp/connect-source-file.properties
+</code></pre>
+
+<p>Done! check your topic to ensure that it successfully published.</p>
+
+<h3 id="filebeat">Filebeat</h3>
+
+<p>Another way to send text messages to the Kafka is through <a href="https://www.elastic.co/products/beats/filebeat">filebeat</a>; a log data shipper for local files.<br />
+Here’s how Filebeat works: When you start Filebeat, it starts one or more prospectors that look in the local paths you’ve specified for log files. For each log file that the prospector locates, Filebeat starts a harvester. Each harvester reads a single log file for new content and sends the new log data to libbeat, which aggregates the events and sends the aggregated data to the output that you’ve configured for Filebeat.<br />
+
+
+<div class="pure-g">
+
+  
+  
+  
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/publishing-text-messages-to-the-Kafka/filebeat.png"
+        alt="filebeat">
+    </div>
+  </div>
+  
+
+</div>
+
+The beauty of <strong>filebeat</strong> is that, you can give a folder as path to the <strong>filebeat</strong> and filebeat can send all files under that folder
+to the Kafka. It guarantees that events will be delivered to the configured output <strong>at least once</strong> and with no data loss.
+Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.<br />
+First <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation.html">install</a> filebeat. Then edit filebeat.yml as:</p>
+
+<pre><code>filebeat.prospectors:
+- type: log
+  enabled: true
+  close_eof: true        
+
+  # Paths that should be crawled and fetched. Glob based paths.
+  paths:
+    - /tmp/logs/*
+    #- c:\programdata\elasticsearch\logs\*
+
+output.kafka:
+    enabled: true    
+    codec.format:
+        string: '%{[message]}'
+    hosts: [&quot;localhost:9092&quot;]
+    topic: 'tpk1'
+    version: '0.11.0.0'        
+    partition.round_robin:
+       reachable_only: false
+    
+    required_acks: -1
+    max_message_bytes: 1000000
+</code></pre>
+
+<p>Ensure that you change <strong>paths</strong> , <strong>hosts</strong> and <strong>topic</strong> correctly.</p>
+
+<pre><code>  close_eof: true        
+</code></pre>
+
+<p>I set close_eof because I wanted <em>filebeat</em> close the file handler whenever it reaches the end of file. Otherwise <em>filebeat</em> watches
+for the file change.</p>
+
+<pre><code>    codec.format:
+        string: '%{[message]}'
+</code></pre>
+
+<p>I set above config to tell <em>filebeat</em> that send line messages as <strong>raw</strong>. Otherwise <em>filebeat</em> wrap your line in <strong>JSON</strong>. For
+more information on configuration check <a href="https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html">Configuring filebeat</a><br />
+After you &rsquo;ve done you can start <em>filebeat</em> :</p>
+
+<pre><code>./filbeat -e -d filebeat.yml
+</code></pre>
+
+<h3 id="apache-flume">Apache Flume</h3>
+
+<p>Apache Flume is a distributed, reliable, and available system for efficiently collecting, aggregating and moving large amounts of log data from many different sources to a centralized data store.At the high level, it consists of 3 main component:
+
+
+<div class="pure-g">
+
+  
+  
+  
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/publishing-text-messages-to-the-Kafka/flume.png"
+        alt="Apache Flume">
+    </div>
+  </div>
+  
+
+</div>
+
+1. Source<br />
+2. Channel<br />
+3. Sink<br />
+Flume Source consumes events from various sources and write them to the channel.The channel is a passive store that keeps the event until it’s consumed by a Flume sink.The sink removes the event from the channel and puts it into an external repository like Kafka or HDFS.<br />
+<a href="http://flume.apache.org">Download</a> and extract Apache Flume.Create a flume config file somewhere (For example /tmp/flume-conf.properties)</p>
+
+<pre><code>agent1.sources = s1
+agent1.channels = c1
+agent1.sinks = k1
+
+agent1.sources.s1.type = spooldir
+agent1.sources.s1.spoolDir = /tmp/myLogs/
+agent1.sources.s1.channels = c1
+
+agent1.channels.c1.type = memory
+
+agent1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink
+agent1.sinks.k1.kafka.bootstrap.servers = localhost:9092
+agent1.sinks.k1.kafka.topic = tpk1
+agent1.sinks.k1.channel = c1
+</code></pre>
+
+<p>In this config, Flume watches the specified directory for new files, and will parse events out of new files as they appear. The event parsing logic is pluggable. After a given file has been fully read into the channel, it is renamed to indicate completion (or optionally deleted).For more configuration check <a href="http://flume.apache.org/FlumeUserGuide.html#spooling-directory-source">Spooling Directory Source</a><br />
+To start the flume agent, type :</p>
+
+<pre><code>./flume-ng agent -n agent1 -f=/tmp/flume-conf.properties
+</code></pre>
+
+<p>That&rsquo;s it. :)</p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/">Docker Swarm (Part 2)</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/">Kafka Streams &#43; SSE = Realtime web app</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://mostafa-asg.github.iojs/ui.js"></script>
+
+
+
+
+
+
+</body>
+</html>
+

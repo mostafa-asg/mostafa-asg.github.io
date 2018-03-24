@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mostafa-asg.github.io/posts/function-memorization-in-go/</loc>
+    <loc>https://mostafa-asg.github.io/post/function-memorization-in-go/</loc>
     <lastmod>2018-03-23T22:20:14+04:30</lastmod>
   </url>
   
   <url>
-    <loc>https://mostafa-asg.github.io/content/posts/setcap-linux-command/</loc>
+    <loc>https://mostafa-asg.github.io/post/setcap-linux-command/</loc>
     <lastmod>2018-03-19T13:41:44+03:30</lastmod>
   </url>
   
@@ -17,22 +18,22 @@
   </url>
   
   <url>
-    <loc>https://mostafa-asg.github.io/posts/reactive-kafka-streams-sse-top5/</loc>
+    <loc>https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/</loc>
     <lastmod>2017-12-30T07:29:59+03:30</lastmod>
   </url>
   
   <url>
-    <loc>https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/</loc>
+    <loc>https://mostafa-asg.github.io/post/publishing-text-messages-to-the-kafka-without-writing-any-code/</loc>
     <lastmod>2017-11-29T20:32:03+03:30</lastmod>
   </url>
   
   <url>
-    <loc>https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/</loc>
+    <loc>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</loc>
     <lastmod>2017-10-10T11:50:42+03:30</lastmod>
   </url>
   
   <url>
-    <loc>https://mostafa-asg.github.io/posts/say-hello-to-docker-swarm/</loc>
+    <loc>https://mostafa-asg.github.io/post/say-hello-to-docker-swarm/</loc>
     <lastmod>2017-10-04T11:27:57+03:30</lastmod>
   </url>
   
@@ -42,20 +43,8 @@
   </url>
   
   <url>
-    <loc>https://mostafa-asg.github.io/content/</loc>
-    <lastmod>2018-03-19T13:41:44+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/posts/</loc>
-    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://mostafa-asg.github.io/post/</loc>
-    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
+    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
     <priority>0</priority>
   </url>
   

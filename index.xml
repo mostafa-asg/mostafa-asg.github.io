@@ -13,10 +13,10 @@
     
     <item>
       <title>Function Memorization in Go</title>
-      <link>https://mostafa-asg.github.io/posts/function-memorization-in-go/</link>
+      <link>https://mostafa-asg.github.io/post/function-memorization-in-go/</link>
       <pubDate>Fri, 23 Mar 2018 22:20:14 +0430</pubDate>
       
-      <guid>https://mostafa-asg.github.io/posts/function-memorization-in-go/</guid>
+      <guid>https://mostafa-asg.github.io/post/function-memorization-in-go/</guid>
       <description>Memoization is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.
 Based on wikipedia definition, a function may be considered a pure function if both of the following statements about the function hold:
 1. The function always evaluates the same result value given the same argument value(s).</description>
@@ -24,10 +24,10 @@ Based on wikipedia definition, a function may be considered a pure function if b
     
     <item>
       <title>setcap Linux Command</title>
-      <link>https://mostafa-asg.github.io/content/posts/setcap-linux-command/</link>
+      <link>https://mostafa-asg.github.io/post/setcap-linux-command/</link>
       <pubDate>Mon, 19 Mar 2018 13:41:44 +0330</pubDate>
       
-      <guid>https://mostafa-asg.github.io/content/posts/setcap-linux-command/</guid>
+      <guid>https://mostafa-asg.github.io/post/setcap-linux-command/</guid>
       <description>Today I learned something new that I want to share with you. I knew that listening on port below 1024 requires special privilege, and to accomplish that you must be sudoers. But running applications with sudo is not a perfect way because that way the application can do almost anything to your operating system resulting unexpected results (you surely don&amp;rsquo;t want the application delete all your files by rm -rf).</description>
     </item>
     
@@ -43,39 +43,39 @@ Enable uber optimization To enable uberized job, simply set mapreduce.job.uberta
     
     <item>
       <title>Kafka Streams &#43; SSE = Realtime web app</title>
-      <link>https://mostafa-asg.github.io/posts/reactive-kafka-streams-sse-top5/</link>
+      <link>https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/</link>
       <pubDate>Sat, 30 Dec 2017 07:29:59 +0330</pubDate>
       
-      <guid>https://mostafa-asg.github.io/posts/reactive-kafka-streams-sse-top5/</guid>
+      <guid>https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/</guid>
       <description>Last week I decided to dirty my hands with Kafka Streams. I wanted to write simple application with Kafka Streams more interesting than World Count. I decided to write a program that calculates top 5 using Kafka Streams. Imagine you have written a game, and you want to display top 5 users. You also need that calculating and displaying top 5 to be real time. You need whenever a user has hit a record, it automatically displays user record.</description>
     </item>
     
     <item>
       <title>Publishing Text Messages to the Kafka Without Writing Any Code</title>
-      <link>https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/</link>
+      <link>https://mostafa-asg.github.io/post/publishing-text-messages-to-the-kafka-without-writing-any-code/</link>
       <pubDate>Wed, 29 Nov 2017 20:32:03 +0330</pubDate>
       
-      <guid>https://mostafa-asg.github.io/posts/publishing-text-messages-to-the-kafka-without-writing-any-code/</guid>
+      <guid>https://mostafa-asg.github.io/post/publishing-text-messages-to-the-kafka-without-writing-any-code/</guid>
       <description>Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &amp;rsquo;ll show you 3 ways of sending text messages to the Kafka.
 kafka-console-producer One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:</description>
     </item>
     
     <item>
       <title>Docker Swarm (Part 2)</title>
-      <link>https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/</link>
+      <link>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</link>
       <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
       
-      <guid>https://mostafa-asg.github.io/posts/docker-swarm-golang-services-stack-deploy/</guid>
+      <guid>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</guid>
       <description>Introduction In the previous post, we &amp;rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
 We &amp;rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.</description>
     </item>
     
     <item>
       <title>Say Hello to Docker Swarm</title>
-      <link>https://mostafa-asg.github.io/posts/say-hello-to-docker-swarm/</link>
+      <link>https://mostafa-asg.github.io/post/say-hello-to-docker-swarm/</link>
       <pubDate>Wed, 04 Oct 2017 11:27:57 +0330</pubDate>
       
-      <guid>https://mostafa-asg.github.io/posts/say-hello-to-docker-swarm/</guid>
+      <guid>https://mostafa-asg.github.io/post/say-hello-to-docker-swarm/</guid>
       <description>Say Hello to Docker Swarm (part 1) In this tuturial I want to show you, how you can create cluster of machines using Docker Swarm and how to run your services on docker swarm.I assume you have basic knowledge of Docker.On part 2, we will implement our services on Golang, and will run them on docker swarm, so stay tuned.
 Install Docker Machine In this tutorial I use docker-machine to simulate physical machines.</description>
     </item>

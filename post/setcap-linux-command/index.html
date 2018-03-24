@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.37.1" />
 
-  <title>Enhance Hadoop MapReduce Speed for small jobs &middot; Software Engineering Blog</title>
+  <title>setcap Linux Command &middot; Software Engineering Blog</title>
 
   
   
@@ -196,7 +196,7 @@
 
 
 <div class="header">
-  <h1>Enhance Hadoop MapReduce Speed for small jobs</h1>
+  <h1>setcap Linux Command</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -205,7 +205,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>06 Feb 2018, 07:15</time>
+    <time>19 Mar 2018, 13:41</time>
   </div>
 
   
@@ -216,41 +216,41 @@
 
 </div>
 
-  
+  <p>Today I learned something new that I want to share with you. I knew that listening on port below 1024
+requires special privilege, and to accomplish that you must be <strong>sudoers</strong>. But running applications with
+sudo is not a perfect way because that way the application can do almost anything to your operating
+system resulting unexpected results (you surely don&rsquo;t want the application delete all your files by <strong>rm -rf</strong>).</p>
 
-<h2 id="introduction">Introduction</h2>
+<p>Imagine that you have written a Golang http server and you want it to listen to port 80. To give
+this privilege <strong>only</strong> you can use <strong>setcap</strong> command on unix/linux systems:</p>
 
-<p>There are some circumstances when input of Hadoop&rsquo;s MapReduce is relatively small. Consequently the overhead
-of allocating and running tasks in new containers outweighs the gain to be had in running them in parallel,
-compared to running them sequentially on one node. Such a job is said to be <strong>uberized</strong>, or run as an <strong>uber</strong> task.</p>
+<pre><code>sudo setcap cap_net_bind_service=+ep /your/executable/file/path
+</code></pre>
 
-<h2 id="enable-uber-optimization">Enable uber optimization</h2>
+<p>That way you have given only one privilege to your executable and nothing more, ensuring no dangerous thing will be happen.</p>
 
-<p>To enable uberized job, simply set <strong>mapreduce.job.ubertask.enable</strong> to true. But that is not sufficient. To run in uber mode,
- you must also define what qualifies as a <em>small</em> job. This conditions must be met:</p>
+<pre><code>cap_net_bind_service
+</code></pre>
 
-<ul>
-<li>mapreduce.job.ubertask.maxmaps (default: 9) &lt; job&rsquo;s total maps</li>
-<li>number of job&rsquo;s reducers must be 1 or zero</li>
-<li>Total length for all input splits &lt;= mapreduce.job.ubertask.maxbytes (default: hdfs block size)</li>
-<li>max(mapreduce.map.memory.mb, mapreduce.reduce.memory.mb) &lt;= yarn.app.mapreduce.am.resource.mb</li>
-<li>max(mapreduce.map.cpu.vcores, mapreduce.reduce.cpu.vcores) &lt;= yarn.app.mapreduce.am.resource.cpu-vcores</li>
-<li>map class must not extend <strong>ChainMapper</strong></li>
-<li>reduce class must not extend <strong>ChainReducer</strong></li>
-</ul>
+<p>is one of the many capabilities that you can use. For seeing other capabilities type :</p>
+
+<pre><code>man capabilities
+</code></pre>
+
+<p>That&rsquo;s it :)</p>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://mostafa-asg.github.io/post/enhance-hadoop-mapreduce-speed-small-jobs/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/">Kafka Streams &#43; SSE = Realtime web app</a>
+      <a href="https://mostafa-asg.github.io/post/enhance-hadoop-mapreduce-speed-small-jobs/">Enhance Hadoop MapReduce Speed for small jobs</a>
     </nav>
     
   </div>
@@ -260,13 +260,13 @@ compared to running them sequentially on one node. Such a job is said to be <str
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="https://mostafa-asg.github.io/post/setcap-linux-command/">setcap Linux Command</a>
+      <a href="https://mostafa-asg.github.io/post/function-memorization-in-go/">Function Memorization in Go</a>
     </nav>
     
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
     
-    <a href="https://mostafa-asg.github.io/post/setcap-linux-command/"><i class="fa fa-chevron-right"></i></a>
+    <a href="https://mostafa-asg.github.io/post/function-memorization-in-go/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>
