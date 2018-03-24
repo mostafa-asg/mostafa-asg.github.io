@@ -301,7 +301,7 @@ println( factMem(4) )
 println( factMem(3) )
 </code></pre>
 
-<p>And if you expect factMem(4) and factMem(3) gets their result from cache you are wrong, because n * <strong>fact(n-1)</strong> is not a memorized function.
+<p>And if you expect <strong>factMem(4)</strong> and <strong>factMem(3)</strong> gets their result from cache you are wrong, because n * <strong>fact(n-1)</strong> is not a memorized function.
 You can tackle this problem by rewriting <strong>fact</strong> function like this:</p>
 
 <pre><code>var factMem FuncIntInt
