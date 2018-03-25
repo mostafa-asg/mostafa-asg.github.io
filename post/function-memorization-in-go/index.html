@@ -253,7 +253,7 @@
 }
 </code></pre>
 
-<p>One way to speed things up is to cache result values and to look them up on subsequent invocations of <strong>fact</strong> function.This can be done either by the function itself or by the caller. The first approach has the drawback that each and every function has to implement caching and that clients have no control over the caching mechanism. The latter approach puts all the burden on the client programmer and produces potential boilerplate. To overcome these issues we need a way to construct a memorized function having the same type as a given function. Let&rsquo;s define <strong>memorized</strong> function that turns any function which accepts int as input and returns int as output to a memorized capable function:</p>
+<p>One way to speed things up is to cache result values and to look them up on subsequent invocations of <strong>fact</strong> function.This can be done either by the function itself or by the caller. The first approach has the drawback that each and every function has to implement caching and that clients have no control over the caching mechanism. The latter approach puts all the burden on the client programmer and produces potential boilerplate. To overcome these issues we need a way to construct a memorized function having the same type as a given function. Let&rsquo;s define <strong>memorized</strong> function that turns any function which accepts <strong>int</strong> as input and returns <strong>int</strong> as output to a memorized capable function:</p>
 
 <pre><code>type FuncIntInt func(int) int
 
@@ -302,7 +302,7 @@ println( factMem(3) )
 </code></pre>
 
 <p>And if you expect <strong>factMem(4)</strong> and <strong>factMem(3)</strong> gets their result from cache you are wrong, because n * <strong>fact(n-1)</strong> is not a memorized function.
-You can tackle this problem by rewriting <strong>fact</strong> function like this:</p>
+You can tackle this problem by passing anonymous function of factorial to <strong>memorized</strong> function and calling memorized version in the recursive call:</p>
 
 <pre><code>var factMem FuncIntInt
 factMem = memorized(func(n int) int {
