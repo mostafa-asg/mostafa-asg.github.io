@@ -403,15 +403,16 @@ public class OutputConfiguration {
 
 <h2 id="solution-5-use-mappingjackson2httpmessageconverter">Solution 5&gt; Use MappingJackson2HttpMessageConverter</h2>
 
-<pre><code>public class OutputConfiguration {
-   @Bean
-    public Jackson2ObjectMapperBuilder customJson() {
-        return new Jackson2ObjectMapperBuilder()
-                .indentOutput(true)
-                .serializationInclusion(JsonInclude.Include.NON_NULL)
-                .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
-    }
-}
+<pre><code>@Bean
+    public MappingJackson2HttpMessageConverter customJson(){
+        return new MappingJackson2HttpMessageConverter(
+                new Jackson2ObjectMapperBuilder()
+                        .indentOutput(true)
+                        .serializationInclusion(JsonInclude.Include.NON_NULL)
+                        .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
+                        .build()
+        );
+} 
 </code></pre>
 
 <p>That&rsquo;s it. Do you know the other ways to customize JSON/XML output? If you know let me know.<br />
