@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.37.1" />
+
+  <title>5 ways to customize Spring MVC JSON/XML output &middot; Software Engineering Blog</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://mostafa-asg.github.ioimg/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>5 ways to customize Spring MVC JSON/XML output</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>01 Apr 2018, 22:34</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/spring-mvc">Spring MVC</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/rest">REST</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+
+<p>To adhere to guidelines or requirements, API designers may want to control how
+JSON/XML responses are formatted. <strong>Spring Web</strong> makes use of Jackson to perform
+JSON/XML serialization. Therefore, to customize our output format, we must configure
+the Jackson processor. Spring Web offers XML-based or Java-based approaches to
+handling configuration. In this article, we will look at the Java-based configuration.</p>
+
+<h2 id="enable-xml-output">Enable XML output</h2>
+
+<p>First of all, if you have created your project through
+<a href="https://start.spring.io/">https://start.spring.io/</a> you need add the following
+dependency to your project because there is no XML serialization by default:</p>
+
+<pre><code>&lt;dependency&gt;
+	&lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
+	&lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>ok, now we can investigate the output customization process. Imagine we have this
+REST controller:</p>
+
+<pre><code>@RestController
+@RequestMapping(&quot;/users&quot;)
+public class UsersResource {
+
+    @RequestMapping(&quot;/{userID}&quot;)
+    public User getByID(@PathVariable(&quot;userID&quot;) int userID){
+        // I ignore fetching user from database
+        // and just return a hardcoded user
+        User user = new User(&quot;mostafa&quot;,null,18);
+        return user;
+    }
+
+}
+</code></pre>
+
+<p>And User is defined like this:</p>
+
+<pre><code>public class User {
+
+    private String firstName;
+    private String lastName;
+    private int age;
+
+    public User(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+</code></pre>
+
+<p>If you start your service and call your service like this:</p>
+
+<pre><code>curl http://localhost:8080/users/15
+</code></pre>
+
+<p>You will get the output something like this:</p>
+
+<pre><code>{&quot;firstName&quot;:&quot;mostafa&quot;,&quot;lastName&quot;:null,&quot;age&quot;:18}
+</code></pre>
+
+<p>Now let&rsquo;s back to our problem. How we can change the generated output? For example
+change <strong>firstName</strong> to <strong>first_name</strong> and remove fields with null values like <strong>lastName</strong>.</p>
+
+<h2 id="solution-1-use-properties">Solution 1&gt; Use properties</h2>
+
+<p>You can configure the ObjectMapper and XmlMapper instances by using the environment.
+Jackson provides an extensive suite of simple on/off features that can be used to
+configure various aspects of its processing. For example, to enable pretty print, add this
+line to the application.properties file:</p>
+
+<pre><code>spring.jackson.serialization.indent_output=true
+</code></pre>
+
+<p>Here is the valid properties:<br />
+
+
+<div class="pure-g">
+
+  
+  
+  
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/custom-json-xml/jackson-properties.png"
+        alt="">
+    </div>
+  </div>
+  
+
+</div>
+</p>
+
+<h2 id="solution-2-use-jackson2objectmapperbuildercustomizer">Solution 2&gt; Use Jackson2ObjectMapperBuilderCustomizer</h2>
+
+<p>You can customize the default <strong>Jackson2ObjectMapperBuilder</strong> using <strong>Jackson2ObjectMapperBuilderCustomizer</strong>.
+Just create a new class annotated with <strong>@Configuration</strong> and return an instance of Jackson2ObjectMapperBuilderCustomizer
+with <strong>@Bean</strong> annotation:</p>
+
+<pre><code>@Configuration
+public class OutputConfiguration {
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer customJson(){
+        return builder -&gt; {
+            // human readable
+            builder.indentOutput(true);
+            // exclude null values
+            builder.serializationInclusion(JsonInclude.Include.NON_NULL);
+            // all lowercase with under score between words
+            builder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        };
+    }
+}
+</code></pre>
+
+<h2 id="solution-3-use-objectmapper">Solution 3&gt; Use ObjectMapper</h2>
+
+<p>This method replace default ObjectMapper instance:</p>
+
+<pre><code>@Configuration
+public class OutputConfiguration {
+    @Bean
+    @Primary
+    public ObjectMapper customJson(){
+        return new Jackson2ObjectMapperBuilder()
+                   .indentOutput(true)
+                   .serializationInclusion(JsonInclude.Include.NON_NULL)
+                   .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
+                   .build();
+    }
+}
+</code></pre>
+
+<h2 id="solution-4-use-jackson2objectmapperbuilder">Solution 4&gt; Use Jackson2ObjectMapperBuilder</h2>
+
+<p>Like the above code, but just return the builder:</p>
+
+<pre><code>@Configuration
+public class OutputConfiguration {
+   @Bean
+    public Jackson2ObjectMapperBuilder customJson() {
+        return new Jackson2ObjectMapperBuilder()
+                .indentOutput(true)
+                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+    }
+}
+</code></pre>
+
+<h2 id="solution-5-use-mappingjackson2httpmessageconverter">Solution 5&gt; Use MappingJackson2HttpMessageConverter</h2>
+
+<pre><code>public class OutputConfiguration {
+   @Bean
+    public Jackson2ObjectMapperBuilder customJson() {
+        return new Jackson2ObjectMapperBuilder()
+                .indentOutput(true)
+                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+    }
+}
+</code></pre>
+
+<p>That&rsquo;s it. Do you know the other ways to customize JSON/XML output? If you know let me know.<br />
+source: <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper">Spring Mvc documentation</a></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://mostafa-asg.github.io/post/function-memorization-in-go/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://mostafa-asg.github.io/post/function-memorization-in-go/">Function Memorization in Go</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://mostafa-asg.github.iojs/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-116347416-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>
+

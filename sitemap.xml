@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mostafa-asg.github.io/post/customize-json-xml-spring-mvc-output/</loc>
+    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/function-memorization-in-go/</loc>
     <lastmod>2018-03-23T22:20:14+04:30</lastmod>
   </url>
@@ -116,13 +121,25 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/post/</loc>
-    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/rest/</loc>
+    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/spring-mvc/</loc>
+    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
     <priority>0</priority>
   </url>
   
