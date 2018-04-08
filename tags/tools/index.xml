@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/tools/</link>
+    <description>Recent content in Tools on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Apr 2018 23:47:27 +0430</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dev tools: ngrok</title>
+      <link>https://mostafa-asg.github.io/post/ngrok/</link>
+      <pubDate>Sun, 08 Apr 2018 23:47:27 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/ngrok/</guid>
+      <description>Have you ever wanted to show your work which is running on your local machine to your colleagues or friends? If they are far away of you, how will you show them? Will you upload your source code to github to share it with your friends? But what if you don&amp;rsquo;t like to share your source code with others? Will you run it on public or private cloud or something like that?</description>
+    </item>
+    
+  </channel>
+</rss>

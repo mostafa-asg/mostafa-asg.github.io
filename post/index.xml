@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Apr 2018 22:34:30 +0430</lastBuildDate>
+    <lastBuildDate>Sun, 08 Apr 2018 23:47:27 +0430</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dev tools: ngrok</title>
+      <link>https://mostafa-asg.github.io/post/ngrok/</link>
+      <pubDate>Sun, 08 Apr 2018 23:47:27 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/ngrok/</guid>
+      <description>Have you ever wanted to show your work which is running on your local machine to your colleagues or friends? If they are far away of you, how will you show them? Will you upload your source code to github to share it with your friends? But what if you don&amp;rsquo;t like to share your source code with others? Will you run it on public or private cloud or something like that?</description>
+    </item>
     
     <item>
       <title>5 ways to customize Spring MVC JSON/XML output</title>
