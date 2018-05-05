@@ -70,6 +70,12 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/dsl/</loc>
+    <lastmod>2018-05-05T18:13:50+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/tags/filebeat/</loc>
     <lastmod>2017-11-29T20:32:03+03:30</lastmod>
     <priority>0</priority>
@@ -144,6 +150,12 @@
   <url>
     <loc>https://mostafa-asg.github.io/tags/rest/</loc>
     <lastmod>2018-04-01T22:34:30+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/scala/</loc>
+    <lastmod>2018-05-05T18:13:50+04:30</lastmod>
     <priority>0</priority>
   </url>
   
