@@ -6,10 +6,19 @@
     <description>Recent content on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Apr 2018 23:47:27 +0430</lastBuildDate>
+    <lastBuildDate>Sat, 05 May 2018 18:13:50 +0430</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Writing Internal DSL in Scala</title>
+      <link>https://mostafa-asg.github.io/post/writing-internal-dsl-in-scala/</link>
+      <pubDate>Sat, 05 May 2018 18:13:50 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/writing-internal-dsl-in-scala/</guid>
+      <description>Definition of DSL A DSL is a computer language, specialized for a specific domain. A DSL is essentially the opposite of a general programming languages(GPL), I mean every language that can be used to develop something. For example, Java, C#, and Scala are all GPL languages. With a DSL, we want only to solve a specific domain problem, so we design the language specifically for the domain. A DSL can’t be used outside of the domain, because it is not designed for flexibility.</description>
+    </item>
     
     <item>
       <title>Dev tools: ngrok</title>

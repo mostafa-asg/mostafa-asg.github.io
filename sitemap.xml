@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mostafa-asg.github.io/post/writing-internal-dsl-in-scala/</loc>
+    <lastmod>2018-05-05T18:13:50+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/ngrok/</loc>
     <lastmod>2018-04-08T23:47:27+04:30</lastmod>
   </url>
@@ -132,7 +137,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/post/</loc>
-    <lastmod>2018-04-08T23:47:27+04:30</lastmod>
+    <lastmod>2018-05-05T18:13:50+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -144,7 +149,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2018-04-08T23:47:27+04:30</lastmod>
+    <lastmod>2018-05-05T18:13:50+04:30</lastmod>
     <priority>0</priority>
   </url>
   
