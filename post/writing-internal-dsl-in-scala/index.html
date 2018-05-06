@@ -277,7 +277,7 @@ CSS or a regular expression are good examples of external DSLs.</p>
 
 <p>In this tutorial, I &rsquo;m going to write internal DSL for representing <a href="https://en.wikipedia.org/wiki/Deterministic_finite_automaton">Deterministic Finite Automaton</a>. It &rsquo;s
 basically a finite-state machine that accepts some input and tells us whether it has accepted the input or not.
-It consumes input from start to end, and at each step it will changes it&rsquo;s internal state. Input will be
+It consumes input from start to end, and at each step it changes it&rsquo;s internal state. Input will be
 accepted if the DFA&rsquo;s position is on one of the final states. For example blow is the DFA that accepts all
 input that starts and ends with 0:</p>
 
@@ -388,7 +388,9 @@ defined in <em>Dfa</em> companion object and we have imported it:</p>
       }
 </code></pre>
 
-<p><strong>newDfa</strong> accepts a function of <strong>Dfa =&gt; Unit</strong>. You can configure your automata inside this method. For
+<p><strong>newDfa</strong> accepts a function of <strong>Dfa =&gt; Unit</strong>. <strong>newDfa</strong> is an example of a higher-order
+ function. Higher order functions take other functions as parameters or return a function as a
+ result. You can configure your automata inside this method. For
 example you can define all the states via:</p>
 
 <pre><code>      dfa states {
@@ -396,7 +398,7 @@ example you can define all the states via:</p>
       }
 </code></pre>
 
-<p><strong>states</strong> is one of the Dfa&rsquo;s methods. In scala you can replace <em>dot</em> with space for for
+<p><strong>states</strong> is one of the Dfa&rsquo;s methods. In scala you can replace <em>dot</em> with space for
 invoking methods that take one argument. So above code could be
 written as:</p>
 
@@ -407,30 +409,30 @@ written as:</p>
 
 <p>or</p>
 
-<pre><code>      dfa.states(Seq( &quot;S0&quot; , &quot;S1&quot; , &quot;S2&quot; , &quot;S3&quot;))
+<pre><code>      dfa.states(Seq( S0 , S1 , S2 , S3))
 </code></pre>
 
 <p>But the former is more readable. I also modeled DFA&rsquo;s states like this:</p>
 
-<pre><code>trait State
+<pre><code>sealed trait State
 
-case object S0 extends State
-case object S1 extends State
-case object S2 extends State
-case object S3 extends State
+final case object S0 extends State
+final case object S1 extends State
+final case object S2 extends State
+final case object S3 extends State
 </code></pre>
 
-<p>Of course you could model states as simple string like &ldquo;S0&rdquo; or &ldquo;S1&rdquo; but this way is
-more type safe.
+<p>Of course you could model states as simple string like &ldquo;S0&rdquo; or &ldquo;S1&rdquo; but
+this way is more type safe.
 <strong>finalStates</strong> method is also like <strong>states</strong> method so let&rsquo;s jump to the
-<strong>transitions</strong> method. The interesting thing here is:</p>
+<strong>transitions</strong> method. The interesting thing, is in transitions block:</p>
 
 <pre><code>    transition on 'A' from St0 to St2
     transition on 'B' from St0 to St1
 </code></pre>
 
-<p>It &rsquo;s just infix notaion method call mixed with some method chaining. <em>transition</em> is
-a variable of type <strong>Transition</strong>:</p>
+<p>It &rsquo;s just infix notaion method call mixed with some method chaining.
+<em>transition</em> is a parameter of type <strong>Transition</strong>:</p>
 
 <pre><code>class Transition {
   // code removed for brevity
@@ -443,7 +445,8 @@ a variable of type <strong>Transition</strong>:</p>
 <p>But defining <strong>Transition</strong> type like this has one drawback
 and that is <em>ordering</em>. User can call any of these methods in any order that
 he want but I didn&rsquo;t like that so I refactored <strong>Transition</strong> into 3 class that
-each class has exatcly one method, each method returns the other class in the chain:
+each class has exatcly one method, each method returns
+the other class in the chain. The picture below depicts the idea:
 
 
 <div class="pure-g">
@@ -464,6 +467,13 @@ each class has exatcly one method, each method returns the other class in the ch
 
 </div>
 </p>
+
+<h2 id="another-way-to-enforce-method-ordering">Another way to enforce method ordering</h2>
+
+<p>Another way to enforce method ordering is through <em>phantom types</em>, types that
+never get instantiated. Understanding these ghosts :) requires another
+full article. So I urge you to read this awsome article about <em>phantom types</em>:
+<a href="https://blog.codecentric.de/en/2016/02/phantom-types-scala/">https://blog.codecentric.de/en/2016/02/phantom-types-scala/</a></p>
 
 <h2 id="conclusion">conclusion</h2>
 
