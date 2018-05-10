@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.26" />
 
   <title>Writing Internal DSL in Scala &middot; Software Engineering Blog</title>
 
@@ -331,7 +331,7 @@ we will build a DSL like this:</p>
      val hasInputAccepted = dfa.run
 </code></pre>
 
-<p>Ok, let&rsquo;s start coding.</p>
+<p>This code is exactly correspondens to the picture above, representing DFA that accepts all input that starts and ends with zero. Ok, let&rsquo;s start coding.</p>
 
 <p>At first line you see something like this:</p>
 
@@ -432,7 +432,7 @@ this way is more type safe.
 </code></pre>
 
 <p>It &rsquo;s just infix notaion method call mixed with some method chaining.
-<em>transition</em> is a parameter of type <strong>Transition</strong>:</p>
+<em>transition</em> is a parameter of type <strong>Transition</strong> which has 3 methods: <strong>on</strong>, <strong>from</strong>, <strong>to</strong>:</p>
 
 <pre><code>class Transition {
   // code removed for brevity
@@ -444,7 +444,7 @@ this way is more type safe.
 
 <p>But defining <strong>Transition</strong> type like this has one drawback
 and that is <em>ordering</em>. User can call any of these methods in any order that
-he want but I didn&rsquo;t like that so I refactored <strong>Transition</strong> into 3 class that
+he wants but I didn&rsquo;t like that so I refactored <strong>Transition</strong> into 3 class that
 each class has exatcly one method, each method returns
 the other class in the chain. The picture below depicts the idea:
 
@@ -472,8 +472,8 @@ the other class in the chain. The picture below depicts the idea:
 
 <p>Another way to enforce method ordering is through <em>phantom types</em>, types that
 never get instantiated. Understanding these ghosts :) requires another
-full article. So I urge you to read this awsome article about <em>phantom types</em>:
-<a href="https://blog.codecentric.de/en/2016/02/phantom-types-scala/">https://blog.codecentric.de/en/2016/02/phantom-types-scala/</a></p>
+full article. So I urge you to read this awsome article about <em>phantom types</em>
+<a href="https://blog.codecentric.de/en/2016/02/phantom-types-scala/">https://blog.codecentric.de/en/2016/02/phantom-types-scala/</a> and implement method chaining with phantom types as a exercise.</p>
 
 <h2 id="conclusion">conclusion</h2>
 
