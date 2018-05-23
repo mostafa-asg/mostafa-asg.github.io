@@ -6,10 +6,19 @@
     <description>Recent content on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 May 2018 18:13:50 +0430</lastBuildDate>
+    <lastBuildDate>Wed, 23 May 2018 16:33:30 +0430</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>More Readable Code in Scala</title>
+      <link>https://mostafa-asg.github.io/post/more-readable-code-in-scala/</link>
+      <pubDate>Wed, 23 May 2018 16:33:30 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/more-readable-code-in-scala/</guid>
+      <description>As a Java developer, I &amp;rsquo;ve always had argument with my colleagues to use Scala instead Java. They complained that Scala is a complex language and Java is a more readable and simple one so I never had the opportunity to use Scala well. Fortunately, recently I &amp;rsquo;ve just joined to the startup company called snapptrip.com, and we use Scala for all the backend services. A few days ago, I was working on a peace of code in Scala to register a new user into the database.</description>
+    </item>
     
     <item>
       <title>Writing Internal DSL in Scala</title>

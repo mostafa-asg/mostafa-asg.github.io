@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.40.3" />
+
+  <title>More Readable Code in Scala &middot; Software Engineering Blog</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://mostafa-asg.github.ioimg/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="mailto:mostafa.asg@gmail.com"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>More Readable Code in Scala</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>23 May 2018, 16:33</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/scala">Scala</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/clean-code">clean code</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+
+<p>As a Java developer, I &rsquo;ve always had argument with my colleagues to
+use <em>Scala</em> instead <em>Java</em>. They complained that Scala is a complex
+language and Java is a more readable and simple one so I never had the opportunity
+to use Scala well. Fortunately, recently I &rsquo;ve just joined to the startup company called
+<a href="https://en.snapptrip.com/">snapptrip.com</a>, and we use Scala for all the backend services.
+A few days ago, I was working on a peace of code in Scala
+to <em>register a new user</em> into the database. The code was fairly simple.
+I had <em>UserRepository</em> object containing
+<em>CRUD</em> operarions:</p>
+
+<pre><code>object UserRepository {
+
+  def insert(user: User): Future[Int] = {
+    db.run( users += user )
+  }
+
+  def getByUsername(username: String) : Future[Option[User]] {
+   db.run(
+     users.filter( users =&gt; users.username === username ).
+           take(1).
+           result.headOption
+   )
+  }
+}
+</code></pre>
+
+<p>And I had a bunch of services to encapsulate business logic. For example, for registering a user
+you probably check username uniqueness and password strengths. This is the code that I wrote first:</p>
+
+<pre><code>object UserService {
+    def register(user: RegisterRequest) : Future[RegisterResponse] = {
+        if(user.username.isEmpty){
+          return Future.successful(RegisterResponse(errorMsg = &quot;Please give a username&quot;))
+        }
+        UserRepository.getByUsername(user.username).flatMap {
+          case Some(someUser) =&gt; Future.successful(RegisterResponse(errorMsg = &quot;Username already exists&quot;))
+          case None =&gt; if (user.password.length &lt; 6) {
+            Future.successful(RegisterResponse(errorMsg = &quot;Password is too low&quot;))
+          } else {
+            UserRepository.insert(User(None,user.username,user.password)).map { newId =&gt;
+              RegisterResponse(success = true,userID = newId)
+            }.recover {
+              case _ =&gt; RegisterResponse(errorMsg = &quot;Unexpected error has occurred. Please try again later&quot;)
+            }
+          }
+        }
+    }
+}
+</code></pre>
+
+<p>As a guy that always cares a lot to <strong>clean and maintainable code</strong>, this code absolutely is
+not my cup of tea. The code was really complex for such a simple thing. Actully register method
+should do two things:</p>
+
+<ol>
+<li>a bunch of validation</li>
+<li>save to database if validation succeeded</li>
+</ol>
+
+<p>The picture below depicts the idea:
+
+
+<div class="pure-g">
+
+  
+  
+  
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/more-readable-code-scala/flow.png"
+        alt="algorithm">
+    </div>
+  </div>
+  
+
+</div>
+
+So I decided to refactor this code, and the code transformed to this one:</p>
+
+<pre><code> def register(newUser: RegisterRequest) : Future[Response] = {
+     Validate(newUser) &gt;
+          usernameShouldNotBeEmpty &gt;
+          passwordShouldNotBeTooShort &gt;
+          usernameShouldNotBeTaken andThen
+          saveToDatabase
+ }
+</code></pre>
+
+<p>The above code is much more readable and more maintainable, doesn&rsquo;t it? Moreover, if
+<strong>functional programming</strong> is all about using functions and composing them together,
+I used this idea well. The above code works this way:</p>
+
+<blockquote>
+<p><em>&lsquo;newUser&rsquo;</em> parameter passes to the <em>&lsquo;usernameShouldNotBeEmpty&rsquo;</em> function and if the
+username is empty then <em>&lsquo;register&rsquo;</em> will be return early with some type of <em>Response</em> without
+calling the other functions. On the other hand, if the username is not empty, <em>&lsquo;newUser&rsquo;</em> will
+be passed to the second function. And this flow goes until all validation functions
+have been executed. If the last function satisfy the condition, then the actual <strong>action</strong> will
+be executed, in this case, saving to the database.</p>
+</blockquote>
+
+<p>Also pay attention to the return type, that I changed from <strong>Future[RegisterResponse]</strong> to
+<strong>Future[Response]</strong>. This way all of the functions can return any type as long as they are
+subclasses of <strong>Response</strong> trait:</p>
+
+<pre><code>trait Response
+case class ErrorResponse(message:String, success:Boolean=false) extends Response
+case class SuccessResponse(message:String, success:Boolean=true) extends Response
+case class RegisterUserResponse(userId: Long, success:Boolean=true) extends Response
+</code></pre>
+
+<p>And all of this workflow managed by <strong>Validate</strong> class. It defines like this:</p>
+
+<pre><code>class Validate[IN,OUT &lt;: Response](input: IN,
+                                   valFunctions: List[ValidateFunc[IN,OUT]]=List.empty) {
+
+  def &gt; (f: ValidateFunc[IN,OUT]) = new Validate(input,valFunctions :+ f)
+
+  def andThen(action: IN =&gt; Future[OUT]): Future[OUT] = {
+    val it = valFunctions.iterator
+    while (it.hasNext){
+      val nextFunc = it.next
+      nextFunc(input) match {
+        case Some(result) =&gt; return Future.successful(result)
+        case _ =&gt; // Do nothing
+      }
+    }
+
+    action(input)
+  }
+
+}
+</code></pre>
+
+<p>All validation functions are of type <strong>ValidateFunc</strong> which is basically a
+function of type <strong>IN =&gt; Option[OUT]</strong>. If something goes wrong, validation functions should
+return <strong>Some(OUT)</strong>, otherwise <strong>None</strong>. And OUT is restricted to all subtypes of <strong>Response</strong> by:</p>
+
+<pre><code>OUT &lt;: Response
+</code></pre>
+
+<p>As you can see the <em>Validate</em> method <strong>&gt;</strong> does nothing except appending validations function to a list.
+All the logic of pipeline execution is in <strong>andThen</strong> method. It executes all
+the validation functions sequentially and executes the main function, if and only
+if all of them return <strong>None</strong>. You can find the full
+source code <a href="https://github.com/mostafa-asg/DemoAkkaHttp/blob/master/src/main/scala/com.github/services/validation/Validate.scala">here</a>.</p>
+
+<h2 id="last-world">Last world</h2>
+
+<p>I wanted to abstract validation in my code so I wrote Validate class for myself, and
+of course, the next step for me, is to read <a href="https://typelevel.org/cats/datatypes/validated.html">Cats Validated</a>.</p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://mostafa-asg.github.io/post/writing-internal-dsl-in-scala/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://mostafa-asg.github.io/post/writing-internal-dsl-in-scala/">Writing Internal DSL in Scala</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://mostafa-asg.github.iojs/ui.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-116347416-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>
+
