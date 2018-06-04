@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 May 2018 16:33:30 +0430</lastBuildDate>
+    <lastBuildDate>Mon, 04 Jun 2018 11:28:54 +0430</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Slick Actions Composition</title>
+      <link>https://mostafa-asg.github.io/post/slick-actions-composition/</link>
+      <pubDate>Mon, 04 Jun 2018 11:28:54 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/slick-actions-composition/</guid>
+      <description>Problem You want to insert a new row to a table which has auto increment primary key; Also some additional information must be persist in other tables. At the end you also want to return the inserted generated ID. Imaging you are developing a new web application, and you are working on user registration code. Each time a new user signs up, you want to store his credential in users table and all of his roles in userRoles table.</description>
+    </item>
     
     <item>
       <title>More Readable Code in Scala</title>

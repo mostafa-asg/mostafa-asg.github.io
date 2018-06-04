@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Slick on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/slick/</link>
+    <description>Recent content in Slick on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Jun 2018 11:28:54 +0430</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/slick/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Slick Actions Composition</title>
+      <link>https://mostafa-asg.github.io/post/slick-actions-composition/</link>
+      <pubDate>Mon, 04 Jun 2018 11:28:54 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/slick-actions-composition/</guid>
+      <description>Problem You want to insert a new row to a table which has auto increment primary key; Also some additional information must be persist in other tables. At the end you also want to return the inserted generated ID. Imaging you are developing a new web application, and you are working on user registration code. Each time a new user signs up, you want to store his credential in users table and all of his roles in userRoles table.</description>
+    </item>
+    
+  </channel>
+</rss>

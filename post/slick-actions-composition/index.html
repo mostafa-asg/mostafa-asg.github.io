@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.37.1" />
 
-  <title>Scala &middot; Software Engineering Blog</title>
+  <title>Slick Actions Composition &middot; Software Engineering Blog</title>
 
   
   
@@ -39,8 +39,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
  
-  
-  <link rel="alternate" type="application/rss+xml" title="Software Engineering Blog" href="https://mostafa-asg.github.io/tags/scala/index.xml" />
   
 
   
@@ -103,10 +101,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://mostafa-asg.github.io/tags/scala/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -214,16 +208,12 @@
 
 
 <div class="header">
-  <h1>Scala</h1>
+  <h1>Slick Actions Composition</h1>
+  <h2></h2>
 </div>
-
 <div class="content">
-  
-    <article>
-  <header>
-    <h2><a href="https://mostafa-asg.github.io/post/slick-actions-composition/">Slick Actions Composition</a></h2>
 
-    <div class="post-meta">
+  <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
@@ -250,110 +240,136 @@
 
 </div>
 
-  </header>
+  
 
-  <p>
-  Problem You want to insert a new row to a table which has auto increment primary key; Also some additional information must be persist in other tables. At the end you also want to return the inserted generated ID. Imaging you are developing a new web application, and you are working on user registration code. Each time a new user signs up, you want to store his credential in users table and all of his roles in userRoles table.
-  </p>
+<h2 id="problem">Problem</h2>
+
+<p>You want to insert a new row to a table which has auto increment primary key; Also
+some additional information must be persist in other tables. At the end you also want
+to return the inserted generated ID. Imaging you are developing
+a new web application, and you are working on user registration code. Each time a
+new user signs up, you want to store his credential in <strong>users</strong> table and all of his roles
+in <strong>userRoles</strong> table. Here is the potential data model:
+
+
+<div class="pure-g">
 
   
-  <footer>
-    <a href="/post/slick-actions-composition/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
   
-</article>
-
   
-    <article>
-  <header>
-    <h2><a href="https://mostafa-asg.github.io/post/more-readable-code-in-scala/">More Readable Code in Scala</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>23 May 2018, 16:33</time>
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/slick-actions-composition/data-model.png"
+        alt="data models">
+    </div>
   </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/scala">Scala</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/clean-code">clean code</a>
-    
-  </div>
-  
   
 
 </div>
 
-  </header>
+How do you do this in <a href="http://slick.lightbend.com/">Slick</a>? Sounds extremely simple!?
+Believe me or not, many of my experienced colleagues do it the wrong way. Here is their&rsquo;s solution:</p>
 
-  <p>
-  As a Java developer, I &rsquo;ve always had argument with my colleagues to use Scala instead Java. They complained that Scala is a complex language and Java is a more readable and simple one so I never had the opportunity to use Scala well. Fortunately, recently I &rsquo;ve just joined to the startup company called snapptrip.com, and we use Scala for all the backend services. A few days ago, I was working on a peace of code in Scala to register a new user into the database.
-  </p>
+<ol>
+<li>Insert new user into the <strong>users</strong> table and grab the auto generated primary key</li>
+<li>Use the generated user id for inserting into other tables, for example <strong>userRoles</strong></li>
+<li>Return the generated user id to the caller</li>
+</ol>
+
+<p>Although it works, it has some drawbacks. First of all, in this scenario, storing
+user information in multiple tables should be done in an <strong>atomic</strong> way. All rows must
+be inserted or none of them. However in this naive implementation, you may encounter
+partial insert, because of failure in second or later inserts, leaving database in an inconsistent way.</p>
+
+<p>Secondly, It has performance drawback because for inserting in each table,
+new database roundtrip is involved.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>Slick uses <strong>DBIOAction</strong> for anything that can be executed on a database, whether it is
+a getting the result of a query (myQuery.result), creating a table (myTable.schema.create),
+inserting data (myTable += item) or something else. You can compose <strong>DBIOAction</strong>s using
+provided methods like <strong>map</strong> and <strong>flatMap</strong> to construct new DBIOAction and run all of them
+transactionaly using Slick.</p>
+
+<h2 id="source-code">Source Code</h2>
+
+<p>To insert into users table and returning the inserted primary key:</p>
+
+<pre><code>def insert(user: User) = (users returning users.map(_.id)) += user
+</code></pre>
+
+<p>The return type of above method is <strong>DBIOAction</strong> parameterized by the result type
+it will produce when you execute it which in this case is <strong>Long</strong>. Also note that
+nothing has happend into database now. We &rsquo;ve just defined the action. Later
+we will run these actions against database. For inserting row into userRoles:</p>
+
+<pre><code>def insert(rows: Seq[UserRole]) = userRoles ++= rows
+</code></pre>
+
+<p>Nothing special in the above code. Now the intersting part, composing actions togeher:</p>
+
+<pre><code>def register(user:User , roleIds: List[Long]) = {
+ insert(user).flatMap { userId =&gt;
+    val insertUserRoleAction = insert( roleIds.map(roleId =&gt; UserRole(userId,roleId)) )
+    insertUserRoleAction.map( _ =&gt; userId )
+ }
+}
+</code></pre>
+
+<p>We can rewrite above function even simpler using for-comprehension:</p>
+
+<pre><code>def register(user:User , roleIds: List[Long]) = {
+  for {
+       userId &lt;- insert(user)
+       _ &lt;- insert( roleIds.map(roleId =&gt; UserRole(userId,roleId)) )
+  } yield userId
+}
+</code></pre>
+
+<p>And finally run <em>register</em> action <strong>transactionaly</strong>:</p>
+
+<pre><code>    val userId = Await.result(
+        db.run(register(User(&quot;mostafa.asg&quot;,&quot;pass&quot;),List(1,2)).transactionally),
+        Duration.Inf
+    )
+</code></pre>
+
+<p>You can find the full source code <a href="https://gist.github.com/mostafa-asg/adbcf56f766273c84b6066d4b71f019e">here</a></p>
+
 
   
-  <footer>
-    <a href="/post/more-readable-code-in-scala/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://mostafa-asg.github.io/post/writing-internal-dsl-in-scala/">Writing Internal DSL in Scala</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>05 May 2018, 18:13</time>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://mostafa-asg.github.io/post/more-readable-code-in-scala/"><i class="fa fa-chevron-left"></i></a>
+    
   </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
+  <div class="pure-u-10-24">
     
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/scala">Scala</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/dsl">DSL</a>
+    <nav class="prev">
+      <a href="https://mostafa-asg.github.io/post/more-readable-code-in-scala/">More Readable Code in Scala</a>
+    </nav>
     
   </div>
-  
-  
-
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
 </div>
 
-  </header>
 
-  <p>
-  Definition of DSL A DSL is a computer language, specialized for a specific domain. A DSL is essentially the opposite of a general programming languages(GPL), I mean every language that can be used to develop something. For example, Java, C#, and Scala are all GPL languages. With a DSL, we want only to solve a specific domain problem, so we design the language specifically for the domain. A DSL can’t be used outside of the domain, because it is not designed for flexibility.
-  </p>
 
   
-  <footer>
-    <a href="/post/writing-internal-dsl-in-scala/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
 
-  
 </div>
 
 </div>
@@ -378,3 +394,4 @@
 
 </body>
 </html>
+
