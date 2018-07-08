@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mostafa-asg.github.io/post/solve-hackerrank-crosswords-101/</loc>
+    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/slick-actions-composition/</loc>
     <lastmod>2018-06-04T11:28:54+04:30</lastmod>
   </url>
@@ -116,6 +121,12 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/hackerrank/</loc>
+    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/tags/hadoop/</loc>
     <lastmod>2018-02-06T07:15:50+03:30</lastmod>
     <priority>0</priority>
@@ -159,7 +170,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/post/</loc>
-    <lastmod>2018-06-04T11:28:54+04:30</lastmod>
+    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -171,7 +182,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/tags/scala/</loc>
-    <lastmod>2018-06-04T11:28:54+04:30</lastmod>
+    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -183,7 +194,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2018-06-04T11:28:54+04:30</lastmod>
+    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
     <priority>0</priority>
   </url>
   
