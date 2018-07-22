@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cats on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/cats/</link>
+    <description>Recent content in Cats on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 22 Jul 2018 18:13:49 +0430</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/cats/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Practical Cats: Functor and Applicative</title>
+      <link>https://mostafa-asg.github.io/post/practical-scala-cats-applicative-functor/</link>
+      <pubDate>Sun, 22 Jul 2018 18:13:49 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/practical-scala-cats-applicative-functor/</guid>
+      <description>In this post, I &amp;rsquo;m going to introduce you some useful aspects of Cats library, mostly code snippets and I &amp;rsquo;m not going to delve into any theory or mathematics. Hopefully you will use them in your daily codes, resulting in much more simpler and readable code.
+map using Functor You are already familiar with the prominent map method in Scala. Informally, a functor is any context with a map method.</description>
+    </item>
+    
+  </channel>
+</rss>

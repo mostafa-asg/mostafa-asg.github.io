@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mostafa-asg.github.io/post/practical-scala-cats-applicative-functor/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/solve-hackerrank-crosswords-101/</loc>
     <lastmod>2018-07-08T20:47:51+04:30</lastmod>
   </url>
@@ -68,7 +73,19 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/applicative/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/cats/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -110,7 +127,13 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/tags/functional-programming/</loc>
-    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/functor/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -170,7 +193,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/post/</loc>
-    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -182,7 +205,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/tags/scala/</loc>
-    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -194,7 +217,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -224,7 +247,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/tags/</loc>
-    <lastmod>2018-05-23T16:33:30+04:30</lastmod>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
     <priority>0</priority>
   </url>
   

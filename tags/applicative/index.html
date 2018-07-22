@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.40.3" />
 
-  <title>Streams &middot; Software Engineering Blog</title>
+  <title>Applicative &middot; Software Engineering Blog</title>
 
   
   
@@ -40,7 +40,7 @@
 
  
   
-  <link rel="alternate" type="application/rss+xml" title="Software Engineering Blog" href="https://mostafa-asg.github.io/tags/streams/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Software Engineering Blog" href="https://mostafa-asg.github.io/tags/applicative/index.xml" />
   
 
   
@@ -105,7 +105,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://mostafa-asg.github.io/tags/streams/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href="https://mostafa-asg.github.io/tags/applicative/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
     </li>
     
 
@@ -214,20 +214,20 @@
 
 
 <div class="header">
-  <h1>Streams</h1>
+  <h1>Applicative</h1>
 </div>
 
 <div class="content">
   
     <article>
   <header>
-    <h2><a href="https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/">Kafka Streams &#43; SSE = Realtime web app</a></h2>
+    <h2><a href="https://mostafa-asg.github.io/post/practical-scala-cats-applicative-functor/">Practical Cats: Functor and Applicative</a></h2>
 
     <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>30 Dec 2017, 07:29</time>
+    <time>22 Jul 2018, 18:13</time>
   </div>
 
   
@@ -240,11 +240,15 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/kafka">Kafka</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/scala">Scala</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/streams">Streams</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/cats">Cats</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/sse">SSE</a>
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/functional-programming">Functional Programming</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/functor">Functor</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.iotags/applicative">Applicative</a>
     
   </div>
   
@@ -255,12 +259,13 @@
   </header>
 
   <p>
-  Last week I decided to dirty my hands with Kafka Streams. I wanted to write simple application with Kafka Streams more interesting than World Count. I decided to write a program that calculates top 5 using Kafka Streams. Imagine you have written a game, and you want to display top 5 users. You also need that calculating and displaying top 5 to be real time. You need whenever a user has hit a record, it automatically displays user record.
+  In this post, I &rsquo;m going to introduce you some useful aspects of Cats library, mostly code snippets and I &rsquo;m not going to delve into any theory or mathematics. Hopefully you will use them in your daily codes, resulting in much more simpler and readable code.
+map using Functor You are already familiar with the prominent map method in Scala. Informally, a functor is any context with a map method.
   </p>
 
   
   <footer>
-    <a href="/post/reactive-kafka-streams-sse-top5/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+    <a href="/post/practical-scala-cats-applicative-functor/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 May 2018 16:33:30 +0430</lastBuildDate>
+    <lastBuildDate>Sun, 22 Jul 2018 18:13:49 +0430</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Applicative</title>
+      <link>https://mostafa-asg.github.io/tags/applicative/</link>
+      <pubDate>Sun, 22 Jul 2018 18:13:49 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/applicative/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cats</title>
+      <link>https://mostafa-asg.github.io/tags/cats/</link>
+      <pubDate>Sun, 22 Jul 2018 18:13:49 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/cats/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Clean Code</title>
@@ -68,9 +86,18 @@
     <item>
       <title>Functional Programming</title>
       <link>https://mostafa-asg.github.io/tags/functional-programming/</link>
-      <pubDate>Fri, 23 Mar 2018 22:20:14 +0430</pubDate>
+      <pubDate>Sun, 22 Jul 2018 18:13:49 +0430</pubDate>
       
       <guid>https://mostafa-asg.github.io/tags/functional-programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Functor</title>
+      <link>https://mostafa-asg.github.io/tags/functor/</link>
+      <pubDate>Sun, 22 Jul 2018 18:13:49 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/tags/functor/</guid>
       <description></description>
     </item>
     
@@ -167,7 +194,7 @@
     <item>
       <title>Scala</title>
       <link>https://mostafa-asg.github.io/tags/scala/</link>
-      <pubDate>Sun, 08 Jul 2018 20:47:51 +0430</pubDate>
+      <pubDate>Sun, 22 Jul 2018 18:13:49 +0430</pubDate>
       
       <guid>https://mostafa-asg.github.io/tags/scala/</guid>
       <description></description>
