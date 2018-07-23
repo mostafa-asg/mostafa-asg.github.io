@@ -395,6 +395,13 @@ the same goal without wrapping your function using equivalent
 methods <strong>map</strong>, <strong>map2</strong>, <strong>map3</strong>, &hellip;:</p>
 
 <pre><code>Applicative[Option].map2(a,b)(add)
+// res6: Option[Int] = Some(16)
+</code></pre>
+
+<p>Are you a lazy person? you don&rsquo;t want to count parameters yourself? then use extension method <strong>mapN</strong>:</p>
+
+<pre><code>(a,b).mapN(add)
+// res7: Option[Int] = Some(16)
 </code></pre>
 
 <p>Another reason that makes Applicative a real good candidate instead of
