@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Digest on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/digest/</link>
+    <description>Recent content in Digest on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 15:34:56 +0430</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/digest/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Reactive Systems vs Reactive Programming</title>
+      <link>https://mostafa-asg.github.io/post/reactive-systems-vs-reactive-programming/</link>
+      <pubDate>Tue, 07 Aug 2018 15:34:56 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/reactive-systems-vs-reactive-programming/</guid>
+      <description>This is the digest of Reactive Programming versus Reactive Systems by Jonas Bonér and Viktor Klang. This is for anyone who does not have enough time to study the original white paper. It is the shortest version without sacrificing important stuff.
+Reactive - A Set Of Design Principles  “Reactive” is a set of design principles for creating cohesive systems. In a Reactive System, it’s the interaction between the individual parts that makes all the difference, which is the ability to operate individually yet act in concert to achieve their intended result.</description>
+    </item>
+    
+  </channel>
+</rss>
