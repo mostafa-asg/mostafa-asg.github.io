@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mostafa-asg.github.io/post/k6-http-load-test/</loc>
+    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/reactive-systems-vs-reactive-programming/</loc>
     <lastmod>2018-08-07T15:34:56+04:30</lastmod>
   </url>
@@ -204,7 +209,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/post/</loc>
-    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
+    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -240,7 +245,7 @@
   
   <url>
     <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
+    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
     <priority>0</priority>
   </url>
   
