@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Http Load Test on Software Engineering Blog</title>
+    <link>https://mostafa-asg.github.io/tags/http-load-test/</link>
+    <description>Recent content in Http Load Test on Software Engineering Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 Jan 2019 10:41:16 +0330</lastBuildDate>
+    
+	<atom:link href="https://mostafa-asg.github.io/tags/http-load-test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Load testing using K6</title>
+      <link>https://mostafa-asg.github.io/post/k6-http-load-test/</link>
+      <pubDate>Thu, 24 Jan 2019 10:41:16 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/k6-http-load-test/</guid>
+      <description>Introduction Understanding the performance of mission critical API is crucial. Before you deploy your API, probably you want to know, how your API behaves under heavy loads. Most API nowadays are HTTP-based, and that&amp;rsquo;s why there are numerous HTTP load testing tools available. Here is just a few:
+ wrk wrk2 vegeta locust hey Apache Benchmark  Problem Most of them designed to generate load on the static url, like:</description>
+    </item>
+    
+  </channel>
+</rss>
