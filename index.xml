@@ -6,10 +6,19 @@
     <description>Recent content on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Jan 2019 10:41:16 +0330</lastBuildDate>
+    <lastBuildDate>Sat, 09 Feb 2019 13:29:54 +0330</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Store Java application&#39;s logs in elasticsearch</title>
+      <link>https://mostafa-asg.github.io/post/ship-app-logs-to-elasticsearch-elk-filebeat/</link>
+      <pubDate>Sat, 09 Feb 2019 13:29:54 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/ship-app-logs-to-elasticsearch-elk-filebeat/</guid>
+      <description>Introduction Whenever a developer or system admin faces an issue with the system, the first instinct is to look at the logs. For a long time, we have relied on basic tools like grep, awk, or perl to perform log analysis. However, with changing times and cloud-scale applications, the earlier techniques no longer suffice. Imagine a system with tens, hundreds, or thousands of hosts. There are multiple instances of different applications running on all these hosts.</description>
+    </item>
     
     <item>
       <title>Load testing using K6</title>
