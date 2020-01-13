@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.37.1" />
 
-  <title>Posts &middot; Software Engineering Blog</title>
+  <title>Configure Nginx Authentication With JWT &middot; Software Engineering Blog</title>
 
   
   
@@ -39,8 +39,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
  
-  
-  <link rel="alternate" type="application/rss+xml" title="Software Engineering Blog" href="https://mostafa-asg.github.io/post/index.xml" />
   
 
   
@@ -103,10 +101,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://mostafa-asg.github.io/post/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -214,84 +208,126 @@
 
 
 <div class="header">
-  <h1>Posts</h1>
+  <h1>Configure Nginx Authentication With JWT</h1>
+  <h2></h2>
 </div>
 <div class="content">
-  
-  <h2>2020</h2>
-  <ul>
-  
-    <li><time>13 Jan 2020, 20:35</time> - <a href="https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/">Configure Nginx Authentication With JWT</a></li>
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>13 Jan 2020, 20:35</time>
+  </div>
 
   
-  </ul>
-  
-  <h2>2019</h2>
-  <ul>
-  
-    <li><time>09 Feb 2019, 13:29</time> - <a href="https://mostafa-asg.github.io/post/ship-app-logs-to-elasticsearch-elk-filebeat/">Store Java application&#39;s logs in elasticsearch</a></li>
 
   
-    <li><time>24 Jan 2019, 10:41</time> - <a href="https://mostafa-asg.github.io/post/k6-http-load-test/">Load testing using K6</a></li>
 
   
-  </ul>
-  
-  <h2>2018</h2>
-  <ul>
-  
-    <li><time>07 Aug 2018, 15:34</time> - <a href="https://mostafa-asg.github.io/post/reactive-systems-vs-reactive-programming/">Reactive Systems vs Reactive Programming</a></li>
+
+</div>
 
   
-    <li><time>22 Jul 2018, 18:13</time> - <a href="https://mostafa-asg.github.io/post/practical-scala-cats-applicative-functor/">Practical Cats: Functor and Applicative</a></li>
+
+<h4 id="prerequisites">Prerequisites</h4>
+
+<p>Ensure your machine have the required library and tools. I tested on Ubuntu 18.</p>
+
+<pre><code>sudo apt update
+sudo apt install libtool-bin build-essential libfuse-dev libcurl4-openssl-dev libxml2-dev mime-support automake libtool pkg-config autoconf
+</code></pre>
+
+<p>1) Download Jansson C library source code from <a href="http://www.digip.org/jansson/#releases">here</a> then:</p>
+
+<pre><code>$ tar -xvf jansson-2.12.tar.gz
+$ cd jansson-2.12/
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+</code></pre>
+
+<p>2) We need <a href="https://github.com/benmcollins/libjwt">JWT C Library</a>. Make sure <code>autoreconf</code> command is installed:</p>
+
+<pre><code>$ git clone https://github.com/benmcollins/libjwt
+$ cd libjwt
+$ autoreconf -i
+$ ./configure
+$ make
+$ sudo make install
+$ cd ..
+</code></pre>
+
+<p>3) Download the source code of <a href="https://nginx.org/en/download.html">Nginx</a> and extract it:</p>
+
+<pre><code>$ tar -xvf nginx-1.16.1.tar.gz
+$ cd nginx-1.16.1
+$ cd ..
+</code></pre>
+
+<p>4) Clone <a href="https://github.com/TeslaGov/ngx-http-auth-jwt-module">Nginx JWT module</a>:</p>
+
+<pre><code>$ git clone https://github.com/TeslaGov/ngx-http-auth-jwt-module
+</code></pre>
+
+<p>5) Configure Nginx to use this module:</p>
+
+<pre><code>$ cd nginx-1.16.1
+$ ./configure --add-module=../ngx-http-auth-jwt-module --without-http_gzip_module --with-http_ssl_module
+$ sudo cp /usr/local/lib/libjwt.* /lib/x86_64-linux-gnu/
+$ make
+$ sudo make install
+</code></pre>
+
+<p>6) Use <code>auth_jwt</code> directive in Nginx config. Read documentation on <a href="https://github.com/TeslaGov/ngx-http-auth-jwt-module">Nginx JWT module</a>. Here is just a sample:</p>
+
+<pre><code>  location / {
+            auth_jwt_key &quot;4d6f737461666120417367617269&quot;;
+            auth_jwt_enabled on;
+            auth_jwt_algorithm HS256; # or RS256
+            auth_jwt_validate_email off;  # or off
+            proxy_pass http://google.com;
+        }
+</code></pre>
+
+<p>7) <a href="https://jwt.io/#debugger-io">Create a JWT token</a> and put it in the <code>authorization</code> header and make a request to Nginx:</p>
+
+<pre><code>curl -H &quot;authorization: Bearer {JWT}&quot; {NGINX_SERVER}
+</code></pre>
+
+<p>8) If any problems occurred check Nginx logs.</p>
+
 
   
-    <li><time>08 Jul 2018, 20:47</time> - <a href="https://mostafa-asg.github.io/post/solve-hackerrank-crosswords-101/">Case Study - Solve Crosswords Puzzle</a></li>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://mostafa-asg.github.io/post/ship-app-logs-to-elasticsearch-elk-filebeat/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://mostafa-asg.github.io/post/ship-app-logs-to-elasticsearch-elk-filebeat/">Store Java application&#39;s logs in elasticsearch</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
 
   
-    <li><time>04 Jun 2018, 11:28</time> - <a href="https://mostafa-asg.github.io/post/slick-actions-composition/">Slick Actions Composition</a></li>
 
-  
-    <li><time>23 May 2018, 16:33</time> - <a href="https://mostafa-asg.github.io/post/more-readable-code-in-scala/">More Readable Code in Scala</a></li>
-
-  
-    <li><time>05 May 2018, 18:13</time> - <a href="https://mostafa-asg.github.io/post/writing-internal-dsl-in-scala/">Writing Internal DSL in Scala</a></li>
-
-  
-    <li><time>08 Apr 2018, 23:47</time> - <a href="https://mostafa-asg.github.io/post/ngrok/">Dev tools: ngrok</a></li>
-
-  
-    <li><time>01 Apr 2018, 22:34</time> - <a href="https://mostafa-asg.github.io/post/customize-json-xml-spring-mvc-output/">5 ways to customize Spring MVC JSON/XML output</a></li>
-
-  
-    <li><time>23 Mar 2018, 22:20</time> - <a href="https://mostafa-asg.github.io/post/function-memorization-in-go/">Function Memorization in Go</a></li>
-
-  
-    <li><time>19 Mar 2018, 13:41</time> - <a href="https://mostafa-asg.github.io/post/setcap-linux-command/">setcap Linux Command</a></li>
-
-  
-    <li><time>06 Feb 2018, 07:15</time> - <a href="https://mostafa-asg.github.io/post/enhance-hadoop-mapreduce-speed-small-jobs/">Enhance Hadoop MapReduce Speed for small jobs</a></li>
-
-  
-  </ul>
-  
-  <h2>2017</h2>
-  <ul>
-  
-    <li><time>30 Dec 2017, 07:29</time> - <a href="https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/">Kafka Streams &#43; SSE = Realtime web app</a></li>
-
-  
-    <li><time>29 Nov 2017, 20:32</time> - <a href="https://mostafa-asg.github.io/post/publishing-text-messages-to-the-kafka-without-writing-any-code/">Publishing Text Messages to the Kafka Without Writing Any Code</a></li>
-
-  
-    <li><time>10 Oct 2017, 11:50</time> - <a href="https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/">Docker Swarm (Part 2)</a></li>
-
-  
-    <li><time>04 Oct 2017, 11:27</time> - <a href="https://mostafa-asg.github.io/post/say-hello-to-docker-swarm/">Say Hello to Docker Swarm</a></li>
-
-  
-  </ul>
-  
 </div>
 
 </div>

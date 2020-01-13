@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 09 Feb 2019 13:29:54 +0330</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2020 20:35:57 +0330</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Configure Nginx Authentication With JWT</title>
+      <link>https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/</link>
+      <pubDate>Mon, 13 Jan 2020 20:35:57 +0330</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/</guid>
+      <description>Prerequisites Ensure your machine have the required library and tools. I tested on Ubuntu 18.
+sudo apt update sudo apt install libtool-bin build-essential libfuse-dev libcurl4-openssl-dev libxml2-dev mime-support automake libtool pkg-config autoconf  1) Download Jansson C library source code from here then:
+$ tar -xvf jansson-2.12.tar.gz $ cd jansson-2.12/ $ ./configure $ make $ sudo make install $ cd ..  2) We need JWT C Library. Make sure autoreconf command is installed:</description>
+    </item>
     
     <item>
       <title>Store Java application&#39;s logs in elasticsearch</title>

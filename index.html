@@ -222,6 +222,41 @@
   
     <article>
   <header>
+    <h2><a href="https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/">Configure Nginx Authentication With JWT</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>13 Jan 2020, 20:35</time>
+  </div>
+
+  
+
+  
+
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Prerequisites Ensure your machine have the required library and tools. I tested on Ubuntu 18.
+sudo apt update sudo apt install libtool-bin build-essential libfuse-dev libcurl4-openssl-dev libxml2-dev mime-support automake libtool pkg-config autoconf  1) Download Jansson C library source code from here then:
+$ tar -xvf jansson-2.12.tar.gz $ cd jansson-2.12/ $ ./configure $ make $ sudo make install $ cd ..  2) We need JWT C Library. Make sure autoreconf command is installed:
+  </p>
+
+  
+  <footer>
+    <a href="/post/nginx-authentication-with-jwt/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://mostafa-asg.github.io/post/ship-app-logs-to-elasticsearch-elk-filebeat/">Store Java application&#39;s logs in elasticsearch</a></h2>
 
     <div class="post-meta">
@@ -622,52 +657,6 @@ This article is going to reveal how I solved this puzzle.
   
   <footer>
     <a href="/post/ngrok/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://mostafa-asg.github.io/post/customize-json-xml-spring-mvc-output/">5 ways to customize Spring MVC JSON/XML output</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>01 Apr 2018, 22:34</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.io/tags/spring-mvc">Spring MVC</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://mostafa-asg.github.io/tags/rest">REST</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  To adhere to guidelines or requirements, API designers may want to control how JSON/XML responses are formatted. Spring Web makes use of Jackson to perform JSON/XML serialization. Therefore, to customize our output format, we must configure the Jackson processor. Spring Web offers XML-based or Java-based approaches to handling configuration. In this article, we will look at the Java-based configuration.
-Enable XML output First of all, if you have created your project through https://start.
-  </p>
-
-  
-  <footer>
-    <a href="/post/customize-json-xml-spring-mvc-output/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
