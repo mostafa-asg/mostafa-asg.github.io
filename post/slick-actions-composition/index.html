@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Slick Actions Composition &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -240,10 +242,7 @@
 
 </div>
 
-  
-
-<h2 id="problem">Problem</h2>
-
+  <h2 id="problem">Problem</h2>
 <p>You want to insert a new row to a table which has auto increment primary key; Also
 some additional information must be persist in other tables. At the end you also want
 to return the inserted generated ID. Imaging you are developing
@@ -272,73 +271,91 @@ in <strong>userRoles</strong> table. Here is the potential data model:
 
 How do you do this in <a href="http://slick.lightbend.com/">Slick</a>? Sounds extremely simple!?
 Believe me or not, many of my experienced colleagues do it the wrong way. Here is their&rsquo;s solution:</p>
-
 <ol>
 <li>Insert new user into the <strong>users</strong> table and grab the auto generated primary key</li>
 <li>Use the generated user id for inserting into other tables, for example <strong>userRoles</strong></li>
 <li>Return the generated user id to the caller</li>
 </ol>
-
 <p>Although it works, it has some drawbacks. First of all, in this scenario, storing
 user information in multiple tables should be done in an <strong>atomic</strong> way. All rows must
 be inserted or none of them. However in this naive implementation, you may encounter
 partial insert, because of failure in second or later inserts, leaving database in an inconsistent way.</p>
-
 <p>Secondly, It has performance drawback because for inserting in each table,
 new database roundtrip is involved.</p>
-
 <h2 id="solution">Solution</h2>
-
 <p>Slick uses <strong>DBIOAction</strong> for anything that can be executed on a database, whether it is
 a getting the result of a query (myQuery.result), creating a table (myTable.schema.create),
 inserting data (myTable += item) or something else. You can compose <strong>DBIOAction</strong>s using
 provided methods like <strong>map</strong> and <strong>flatMap</strong> to construct new DBIOAction and run all of them
 transactionaly using Slick.</p>
-
 <h2 id="source-code">Source Code</h2>
-
 <p>To insert into users table and returning the inserted primary key:</p>
-
 <pre><code>def insert(user: User) = (users returning users.map(_.id)) += user
-</code></pre>
-
-<p>The return type of above method is <strong>DBIOAction</strong> parameterized by the result type
+</code></pre><p>The return type of above method is <strong>DBIOAction</strong> parameterized by the result type
 it will produce when you execute it which in this case is <strong>Long</strong>. Also note that
-nothing has happend into database now. We &rsquo;ve just defined the action. Later
+nothing has happend into database now. We &lsquo;ve just defined the action. Later
 we will run these actions against database. For inserting row into userRoles:</p>
-
 <pre><code>def insert(rows: Seq[UserRole]) = userRoles ++= rows
-</code></pre>
-
-<p>Nothing special in the above code. Now the intersting part, composing actions togeher:</p>
-
+</code></pre><p>Nothing special in the above code. Now the intersting part, composing actions togeher:</p>
 <pre><code>def register(user:User , roleIds: List[Long]) = {
  insert(user).flatMap { userId =&gt;
     val insertUserRoleAction = insert( roleIds.map(roleId =&gt; UserRole(userId,roleId)) )
     insertUserRoleAction.map( _ =&gt; userId )
  }
 }
-</code></pre>
-
-<p>We can rewrite above function even simpler using for-comprehension:</p>
-
+</code></pre><p>We can rewrite above function even simpler using for-comprehension:</p>
 <pre><code>def register(user:User , roleIds: List[Long]) = {
   for {
        userId &lt;- insert(user)
        _ &lt;- insert( roleIds.map(roleId =&gt; UserRole(userId,roleId)) )
   } yield userId
 }
-</code></pre>
-
-<p>And finally run <em>register</em> action <strong>transactionaly</strong>:</p>
-
+</code></pre><p>And finally run <em>register</em> action <strong>transactionaly</strong>:</p>
 <pre><code>    val userId = Await.result(
         db.run(register(User(&quot;mostafa.asg&quot;,&quot;pass&quot;),List(1,2)).transactionally),
         Duration.Inf
     )
-</code></pre>
+</code></pre><p>You can find the full source code <a href="https://gist.github.com/mostafa-asg/adbcf56f766273c84b6066d4b71f019e">here</a></p>
 
-<p>You can find the full source code <a href="https://gist.github.com/mostafa-asg/adbcf56f766273c84b6066d4b71f019e">here</a></p>
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fslick-actions-composition%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fslick-actions-composition%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fslick-actions-composition%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fslick-actions-composition%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fslick-actions-composition%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fslick-actions-composition%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -381,18 +398,23 @@ we will run these actions against database. For inserting row into userRoles:</p
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

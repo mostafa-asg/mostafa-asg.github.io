@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>More Readable Code in Scala &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -240,18 +242,15 @@
 
 </div>
 
-  
-
-<p>As a Java developer, I &rsquo;ve always had argument with my colleagues to
+  <p>As a Java developer, I &lsquo;ve always had argument with my colleagues to
 use <em>Scala</em> instead <em>Java</em>. They complained that Scala is a complex
 language and Java is a more readable and simple one so I never had the opportunity
-to use Scala well. Fortunately, recently I &rsquo;ve just joined to the startup company called
+to use Scala well. Fortunately, recently I &lsquo;ve just joined to the startup company called
 <a href="https://en.snapptrip.com/">snapptrip.com</a>, and we use Scala for all the backend services.
 A few days ago, I was working on a peace of code in Scala
 to <em>register a new user</em> into the database. The code was fairly simple.
 I had <em>UserRepository</em> object containing
 <em>CRUD</em> operarions:</p>
-
 <pre><code>object UserRepository {
 
   def insert(user: User): Future[Int] = {
@@ -266,11 +265,8 @@ I had <em>UserRepository</em> object containing
    )
   }
 }
-</code></pre>
-
-<p>And I had a bunch of services to encapsulate business logic. For example, for registering a user
+</code></pre><p>And I had a bunch of services to encapsulate business logic. For example, for registering a user
 you probably check username uniqueness and password strengths. This is the code that I wrote first:</p>
-
 <pre><code>object UserService {
     def register(user: RegisterRequest) : Future[RegisterResponse] = {
         if(user.username.isEmpty){
@@ -290,17 +286,13 @@ you probably check username uniqueness and password strengths. This is the code 
         }
     }
 }
-</code></pre>
-
-<p>As a guy that always cares a lot to <strong>clean and maintainable code</strong>, this code absolutely is
+</code></pre><p>As a guy that always cares a lot to <strong>clean and maintainable code</strong>, this code absolutely is
 not my cup of tea. The code was really complex for such a simple thing. Actully register method
 should do two things:</p>
-
 <ol>
 <li>a bunch of validation</li>
 <li>save to database if validation succeeded</li>
 </ol>
-
 <p>The picture below depicts the idea:
 
 
@@ -323,7 +315,6 @@ should do two things:</p>
 </div>
 
 So I decided to refactor this code, and the code transformed to this one:</p>
-
 <pre><code> def register(newUser: RegisterRequest) : Future[Response] = {
      Validate(newUser) &gt;
           usernameShouldNotBeEmpty &gt;
@@ -331,12 +322,9 @@ So I decided to refactor this code, and the code transformed to this one:</p>
           usernameShouldNotBeTaken andThen
           saveToDatabase
  }
-</code></pre>
-
-<p>The above code is much more readable and more maintainable, doesn&rsquo;t it? Moreover, if
+</code></pre><p>The above code is much more readable and more maintainable, doesn&rsquo;t it? Moreover, if
 <strong>functional programming</strong> is all about using functions and composing them together,
 I used this idea well. The above code works this way:</p>
-
 <blockquote>
 <p><em>&lsquo;newUser&rsquo;</em> parameter passes to the <em>&lsquo;usernameShouldNotBeEmpty&rsquo;</em> function and if the
 username is empty then <em>&lsquo;register&rsquo;</em> will be return early with some type of <em>Response</em> without
@@ -345,19 +333,14 @@ be passed to the second function. And this flow goes until all validation functi
 have been executed. If the last function satisfy the condition, then the actual <strong>action</strong> will
 be executed, in this case, saving to the database.</p>
 </blockquote>
-
 <p>Also pay attention to the return type, that I changed from <strong>Future[RegisterResponse]</strong> to
 <strong>Future[Response]</strong>. This way all of the functions can return any type as long as they are
 subclasses of <strong>Response</strong> trait:</p>
-
 <pre><code>trait Response
 case class ErrorResponse(message:String, success:Boolean=false) extends Response
 case class SuccessResponse(message:String, success:Boolean=true) extends Response
 case class RegisterUserResponse(userId: Long, success:Boolean=true) extends Response
-</code></pre>
-
-<p>And all of this workflow managed by <strong>Validate</strong> class. It defines like this:</p>
-
+</code></pre><p>And all of this workflow managed by <strong>Validate</strong> class. It defines like this:</p>
 <pre><code>class Validate[IN,OUT &lt;: Response](input: IN,
                                    valFunctions: List[ValidateFunc[IN,OUT]]=List.empty) {
 
@@ -377,25 +360,58 @@ case class RegisterUserResponse(userId: Long, success:Boolean=true) extends Resp
   }
 
 }
-</code></pre>
-
-<p>All validation functions are of type <strong>ValidateFunc</strong> which is basically a
+</code></pre><p>All validation functions are of type <strong>ValidateFunc</strong> which is basically a
 function of type <strong>IN =&gt; Option[OUT]</strong>. If something goes wrong, validation functions should
 return <strong>Some(OUT)</strong>, otherwise <strong>None</strong>. And OUT is restricted to all subtypes of <strong>Response</strong> by:</p>
-
 <pre><code>OUT &lt;: Response
-</code></pre>
-
-<p>As you can see the <em>Validate</em> method <strong>&gt;</strong> does nothing except appending validations function to a list.
+</code></pre><p>As you can see the <em>Validate</em> method <strong>&gt;</strong> does nothing except appending validations function to a list.
 All the logic of pipeline execution is in <strong>andThen</strong> method. It executes all
 the validation functions sequentially and executes the main function, if and only
 if all of them return <strong>None</strong>. You can find the full
 source code <a href="https://github.com/mostafa-asg/DemoAkkaHttp/blob/master/src/main/scala/com.github/services/validation/Validate.scala">here</a>.</p>
-
 <h2 id="last-world">Last world</h2>
-
 <p>I wanted to abstract validation in my code so I wrote Validate class for myself, and
 of course, the next move for me, is to read <a href="https://typelevel.org/cats/datatypes/validated.html">Cats Validated</a>.</p>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fmore-readable-code-in-scala%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fmore-readable-code-in-scala%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fmore-readable-code-in-scala%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fmore-readable-code-in-scala%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fmore-readable-code-in-scala%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fmore-readable-code-in-scala%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -438,18 +454,23 @@ of course, the next move for me, is to read <a href="https://typelevel.org/cats/
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

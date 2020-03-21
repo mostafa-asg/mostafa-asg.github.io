@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Load testing using K6 &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -242,12 +244,8 @@
 
 </div>
 
-  
-
-<h1 id="introduction">Introduction</h1>
-
+  <h1 id="introduction">Introduction</h1>
 <p>Understanding the performance of mission critical API is crucial. Before you deploy your API, probably you want to know, how your API behaves under heavy loads. Most API nowadays are HTTP-based, and that&rsquo;s why there are numerous <strong>HTTP load testing</strong> tools available. Here is just a few:</p>
-
 <ul>
 <li><a href="https://github.com/wg/wrk">wrk</a></li>
 <li><a href="https://github.com/giltene/wrk2">wrk2</a></li>
@@ -256,36 +254,22 @@
 <li><a href="https://github.com/rakyll/hey">hey</a></li>
 <li><a href="https://httpd.apache.org/docs/2.4/programs/ab.html">Apache Benchmark</a></li>
 </ul>
-
 <h2 id="problem">Problem</h2>
-
 <p>Most of them designed to generate load on the static url, like:</p>
-
 <pre><code>wrk -t12 -c400 -d30s http://test.loadimpact.com
-</code></pre>
-
-<p>But my API is some kind of file storage. Users can call the API to store their file and if they send the same request again, they will get <strong>File already exist</strong> error. I solely wanted to test the performance of <strong>write path</strong> so I needed a mechanism to change the path each time. Although some of the tools that I mentioned above, has some scripting capabilities, I found all of them very inconvenient or very hard to implement.</p>
-
+</code></pre><p>But my API is some kind of file storage. Users can call the API to store their file and if they send the same request again, they will get <strong>File already exist</strong> error. I solely wanted to test the performance of <strong>write path</strong> so I needed a mechanism to change the path each time. Although some of the tools that I mentioned above, has some scripting capabilities, I found all of them very inconvenient or very hard to implement.</p>
 <h2 id="solution">Solution</h2>
-
 <p>Luky enough, I found <a href="https://k6.io">K6</a>. <a href="https://k6.io">K6</a> is a developer centric open source load testing tool for testing the performance of your backend infrastructure. It’s built with Go and JavaScript to integrate well into your development workflow, so you can stay on top of performance without fuzz.
 The nice thing about <a href="https://k6.io">K6</a> is that, you define the logic in Javascript and <a href="https://k6.io">K6</a> will handle the rest of the work. Here how it works:</p>
-
 <pre><code>import http from &quot;k6/http&quot;;
 
 export default function() {
   http.get(&quot;http://test.loadimpact.com&quot;);
 };
-</code></pre>
-
-<p>Save the above script (for example <code>script.js</code>), then run using K6:</p>
-
+</code></pre><p>Save the above script (for example <code>script.js</code>), then run using K6:</p>
 <pre><code>k6 run --vus 2 --duration 5s script.js 
-</code></pre>
-
-<p>So far so good. Now how can I change the path? I used <strong>Execution context variables</strong> inside
+</code></pre><p>So far so good. Now how can I change the path? I used <strong>Execution context variables</strong> inside
 Javascript to construct a unique filename in each iteration:</p>
-
 <pre><code>import http from &quot;k6/http&quot;;
 
 export default function() {
@@ -293,15 +277,10 @@ export default function() {
   http.put(&quot;http://localhost:8585/folderA/&quot; + filename);
 };
 
-</code></pre>
-
-<p>For understanding the meaning of <strong>__VU</strong> and <strong>__ITER</strong>,
+</code></pre><p>For understanding the meaning of <strong>__VU</strong> and <strong>__ITER</strong>,
 please read the <a href="https://docs.k6.io/docs/execution-context-variables">documentation</a>.</p>
-
 <h2 id="sending-file-content">Sending file content</h2>
-
 <p>Now that I uniquely created the url path, I needed a way to send the actual file content. Fortunately, <a href="https://k6.io">K6</a> has provided a way. In <a href="https://docs.k6.io/docs/init-context">init context</a> we can open and read a file&rsquo;s content, and then we can send the file&rsquo;s content in each iteration. Note that reading file&rsquo;s content will be happen only once:</p>
-
 <pre><code>import http from &quot;k6/http&quot;;
 
 const fileContent = open(&quot;./my-file&quot;)
@@ -310,9 +289,47 @@ export default function() {
   const filename = `file_${__VU}_${__ITER}`;
   http.put(&quot;http://localhost:8585/folderA/&quot; + filename, fileContent);
 };
-</code></pre>
+</code></pre><p>Thanks to <a href="https://k6.io">K6</a>, I easily managed to benchmark my HTTP API without hassle.</p>
 
-<p>Thanks to <a href="https://k6.io">K6</a>, I easily managed to benchmark my HTTP API without hassle.</p>
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fk6-http-load-test%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fk6-http-load-test%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fk6-http-load-test%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fk6-http-load-test%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fk6-http-load-test%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fk6-http-load-test%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -355,21 +372,29 @@ export default function() {
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
 
 
 
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 </body>

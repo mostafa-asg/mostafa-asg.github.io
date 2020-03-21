@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Software Engineering Blog</title>
@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jan 2020 20:35:57 +0330</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2020 21:07:31 +0430</lastBuildDate>
     
 	<atom:link href="https://mostafa-asg.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Why Incompetent People Think They Are Competent</title>
+      <link>https://mostafa-asg.github.io/post/the-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent/</link>
+      <pubDate>Sat, 21 Mar 2020 21:07:31 +0430</pubDate>
+      
+      <guid>https://mostafa-asg.github.io/post/the-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent/</guid>
+      <description>Socrates says    But that&amp;rsquo;s not actually easy for human to do because our brains want us to think that we are awesome. In 1995 McArthur Wheeler walked into a bank in Pittsburgh ready to rob it. He didn&amp;rsquo;t wear mask, he didn&amp;rsquo;t wear fake mustache, he was just there robbing a bank in full view of eveyone. He even smiled at the security cameras before leaving and going to a second bank to rob that one too.</description>
+    </item>
     
     <item>
       <title>Configure Nginx Authentication With JWT</title>
@@ -18,8 +27,7 @@
       
       <guid>https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/</guid>
       <description>Prerequisites Ensure your machine have the required library and tools. I tested on Ubuntu 18.
-sudo apt update sudo apt install libtool-bin build-essential libfuse-dev libcurl4-openssl-dev libxml2-dev mime-support automake libtool pkg-config autoconf  1) Download Jansson C library source code from here then:
-$ tar -xvf jansson-2.12.tar.gz $ cd jansson-2.12/ $ ./configure $ make $ sudo make install $ cd ..  2) We need JWT C Library. Make sure autoreconf command is installed:</description>
+sudo apt update sudo apt install libtool-bin build-essential libfuse-dev libcurl4-openssl-dev libxml2-dev mime-support automake libtool pkg-config autoconf  Download Jansson C library source code from here then:  $ tar -xvf jansson-2.12.tar.gz $ cd jansson-2.12/ $ ./configure $ make $ sudo make install $ cd .. We need JWT C Library. Make sure autoreconf command is installed:  $ git clone https://github.</description>
     </item>
     
     <item>
@@ -48,7 +56,7 @@ $ tar -xvf jansson-2.12.tar.gz $ cd jansson-2.12/ $ ./configure $ make $ sudo ma
       
       <guid>https://mostafa-asg.github.io/post/reactive-systems-vs-reactive-programming/</guid>
       <description>This is the digest of Reactive Programming versus Reactive Systems by Jonas Bonér and Viktor Klang. This is for anyone who does not have enough time to study the original white paper. It is the shortest version without sacrificing important stuff.
-Reactive - A Set Of Design Principles  “Reactive” is a set of design principles for creating cohesive systems. In a Reactive System, it’s the interaction between the individual parts that makes all the difference, which is the ability to operate individually yet act in concert to achieve their intended result.</description>
+Reactive - A Set Of Design Principles  “Reactive” is a set of design principlesfor creating cohesive systems. In a Reactive System, it’s the interaction between the individual parts that makes all the difference, which is the ability to operate individually yet act in concert to achieve their intended result.</description>
     </item>
     
     <item>
@@ -57,7 +65,7 @@ Reactive - A Set Of Design Principles  “Reactive” is a set of design princip
       <pubDate>Sun, 22 Jul 2018 18:13:49 +0430</pubDate>
       
       <guid>https://mostafa-asg.github.io/post/practical-scala-cats-applicative-functor/</guid>
-      <description>In this post, I &amp;rsquo;m going to introduce you some useful aspects of Cats library, mostly code snippets and I &amp;rsquo;m not going to delve into any theory or mathematics. Hopefully you will use them in your daily codes, resulting in much more simpler and readable code.
+      <description>In this post, I &amp;lsquo;m going to introduce you some useful aspects of Cats library, mostly code snippets and I &amp;lsquo;m not going to delve into any theory or mathematics. Hopefully you will use them in your daily codes, resulting in much more simpler and readable code.
 map using Functor You are already familiar with the prominent map method in Scala. Informally, a functor is any context with a map method.</description>
     </item>
     
@@ -86,7 +94,7 @@ This article is going to reveal how I solved this puzzle.</description>
       <pubDate>Wed, 23 May 2018 16:33:30 +0430</pubDate>
       
       <guid>https://mostafa-asg.github.io/post/more-readable-code-in-scala/</guid>
-      <description>As a Java developer, I &amp;rsquo;ve always had argument with my colleagues to use Scala instead Java. They complained that Scala is a complex language and Java is a more readable and simple one so I never had the opportunity to use Scala well. Fortunately, recently I &amp;rsquo;ve just joined to the startup company called snapptrip.com, and we use Scala for all the backend services. A few days ago, I was working on a peace of code in Scala to register a new user into the database.</description>
+      <description>As a Java developer, I &amp;lsquo;ve always had argument with my colleagues to use Scala instead Java. They complained that Scala is a complex language and Java is a more readable and simple one so I never had the opportunity to use Scala well. Fortunately, recently I &amp;lsquo;ve just joined to the startup company called snapptrip.com, and we use Scala for all the backend services. A few days ago, I was working on a peace of code in Scala to register a new user into the database.</description>
     </item>
     
     <item>
@@ -162,7 +170,7 @@ Enable uber optimization To enable uberized job, simply set mapreduce.job.uberta
       <pubDate>Wed, 29 Nov 2017 20:32:03 +0330</pubDate>
       
       <guid>https://mostafa-asg.github.io/post/publishing-text-messages-to-the-kafka-without-writing-any-code/</guid>
-      <description>Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &amp;rsquo;ll show you 3 ways of sending text messages to the Kafka.
+      <description>Perhaps the ordinary way to produce messages to the Kafka is through the standard Kafka clients. But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &amp;lsquo;ll show you 3 ways of sending text messages to the Kafka.
 kafka-console-producer One way is through kafka-console-producer that is bundled with Kafka distribution. For example to send a file to the Kafka, you can write:</description>
     </item>
     
@@ -172,8 +180,8 @@ kafka-console-producer One way is through kafka-console-producer that is bundled
       <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
       
       <guid>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</guid>
-      <description>Introduction In the previous post, we &amp;rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
-We &amp;rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.</description>
+      <description>Introduction In the previous post, we &amp;lsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
+We &amp;lsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.</description>
     </item>
     
     <item>

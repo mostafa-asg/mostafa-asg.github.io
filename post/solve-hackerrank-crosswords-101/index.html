@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Case Study - Solve Crosswords Puzzle &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -240,25 +242,18 @@
 
 </div>
 
-  
-
-<p>As a software engineer, I always enjoy solving problems and that&rsquo;s why
+  <p>As a software engineer, I always enjoy solving problems and that&rsquo;s why
 I sometimes go to the coding challenge websites like <a href="https://www.hackerrank.com/">hackerrank</a> and
 pick one problem to solve. This time I searched in <strong>functional programming</strong> category and
 <a href="https://www.hackerrank.com/challenges/crosswords-101/problem">crosswords-101</a> caught my eye and I decided to solve
 it in Scala in a very clean and understandable way and not in a contest style way of programming!</p>
-
 <p>This article is going to reveal how I solved this puzzle. But before continue, please read the problem definition
 and try to solve it by yourself or at least think about the way of solving it and then continue reading.</p>
-
 <h2 id="model">Model</h2>
-
 <p>Whenever you write software the good model is crucial part for your application. If your model is good
 then your program is very clean, easy to understand and also maintainable. That&rsquo;s why I started the solution with
 defining modeles. The first model that I wrote was <a href="https://github.com/mostafa-asg/crosswords/blob/master/src/main/scala/com/github/Placeholder.scala">Placeholder</a>.</p>
-
 <h3 id="placeholder">Placeholder</h3>
-
 <p>Placeholder is a place for inserting words. For instance below you can find two placeholders:
 
 
@@ -281,11 +276,8 @@ defining modeles. The first model that I wrote was <a href="https://github.com/m
 </div>
 
 And of course you can model it by <strong>case classes</strong>:</p>
-
 <pre><code>case class Placeholder(size: Int, direction: Direction)
-</code></pre>
-
-<p>For placeholders that have assigned a word, there is a <strong>currentValue</strong>
+</code></pre><p>For placeholders that have assigned a word, there is a <strong>currentValue</strong>
 property that you can set. It accepts <strong>Option[String]</strong>:
 
 
@@ -310,14 +302,11 @@ property that you can set. It accepts <strong>Option[String]</strong>:
 And because there may be more than words with 7 characters or 3 characters there is another
 property called <strong>candidateValues</strong> that accepts only words which match placeholder&rsquo;s size and
 you can generate all possibilities by calling <strong>allPossibilities</strong>:</p>
-
 <pre><code>val ph = Placeholder(size = 7,
                      direction = Horizontal,
                      candidateValue = Set(&quot;England&quot;, &quot;IRELAND&quot;))
 val all: List[Placeholder] = ph.allPossibilities
-</code></pre>
-
-<p><em>all</em> contains these placeholders:
+</code></pre><p><em>all</em> contains these placeholders:
 
 
 <div class="pure-g">
@@ -338,19 +327,14 @@ val all: List[Placeholder] = ph.allPossibilities
 
 </div>
 </p>
-
 <h3 id="crosswords">Crosswords</h3>
-
 <p>No one likes a single placeholder only. That&rsquo;s why we need another model for a
 collection of placeholders. We call this model <strong>Crosswords</strong>. Crosswords is a
 collection of placeholders with additional property like number of rows and columns:</p>
-
 <pre><code>case class Crosswords(rows: Int, cols: Int, placeholders: List[Placeholder]) {
     // code removed for brevity
 }
-</code></pre>
-
-<p>For instance for defining this crosswords that has 2 placeholders:
+</code></pre><p>For instance for defining this crosswords that has 2 placeholders:
 
 
 <div class="pure-g">
@@ -371,40 +355,28 @@ collection of placeholders with additional property like number of rows and colu
 
 </div>
 </p>
-
 <p>We can declare:</p>
-
 <pre><code>val cw = Crosswords(rows = 5, cols = 9, placeholders = List(
     Placeholder(size = 7, direction = Horizontal, startPosition = Point(1,1)),
     Placeholder(size = 3, direction = Vertical), startPosition = Point(1,1))
 )
-</code></pre>
-
-<p>Notice about <strong>startPosition</strong>. It specifies the position of placeholder in the crosswords. It will
+</code></pre><p>Notice about <strong>startPosition</strong>. It specifies the position of placeholder in the crosswords. It will
 be used by rendering the crosswords later. But what about the intersection? As you can see there is intersection between these two
 placeholders at first character. How can we define these intersections? We need a way to
 select two placeholder somehow and tell that at which index there is an intersection with other
 placeholder&rsquo;s index. So we need an <strong>id</strong> for each placeholder for refereeing it later:</p>
-
 <pre><code>val cw = Crosswords(rows = 5, cols = 9, placeholders = List(
     Placeholder(id = &quot;ph1&quot;, size = 7, direction = Horizontal, ...),
     Placeholder(id = &quot;ph2&quot;, size = 3, direction = Vertical, ...),
 ))
-</code></pre>
-
-<p>now we can define intersections:</p>
-
+</code></pre><p>now we can define intersections:</p>
 <pre><code>cw.addIntersection(from = (&quot;ph1&quot;,0), to = (&quot;ph2&quot;,0))
 // order does not matter
 // you can add ph2 first!
 // for instance:
 // cw.addIntersection(from = (&quot;ph2&quot;,0), to = (&quot;ph1&quot;,0))
-</code></pre>
-
-<p>Now that we have all the building blocks for creating a crosswords, how we can solve it?</p>
-
+</code></pre><p>Now that we have all the building blocks for creating a crosswords, how we can solve it?</p>
 <h3 id="how-to-solve">How to Solve</h3>
-
 <p>Imagine we have two placeholders without any intersection in the crosswords. The picture below
 show them with their candidate values. How many possible valid solution exists?
 
@@ -430,29 +402,19 @@ show them with their candidate values. How many possible valid solution exists?
 Yes, there are <strong>2 * 4 = 8</strong> valid solution exist. To get all valid solution you can call
 <a href="https://github.com/mostafa-asg/crosswords/blob/0946a6898e8de8b5b22f4e89ae0bd933a5470922/src/main/scala/com/github/Crosswords.scala#L43">solveAllPossibilities</a> that
 returns all the valid solution:</p>
-
 <pre><code>val solutions: List[Crosswords] = cw.solveAllPossibilities
 // assert(solutions.size == 8)
-</code></pre>
-
-<p>To get each crosswords output representation, you can call <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/Crosswords.scala#L87">stringRepresentation</a>,
+</code></pre><p>To get each crosswords output representation, you can call <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/Crosswords.scala#L87">stringRepresentation</a>,
 so to render all the solutions to the standard output, you can write:</p>
-
 <pre><code>solutions.foreach { crosswords =&gt;
     println(crosswords.stringRepresentation)
     println(&quot;------------------------------&quot;
 }
-</code></pre>
-
-<h3 id="with-intersection">With Intersection</h3>
-
+</code></pre><h3 id="with-intersection">With Intersection</h3>
 <p>But what about crosswords with intersection? Imaging we have a crosswords with 2 placeholders: <strong>ph1</strong> and <strong>ph2</strong> and
 there exists an intersection:</p>
-
 <pre><code>cw.addIntersection(from = (&quot;ph1&quot;,2), to = (&quot;ph2&quot;,1))
-</code></pre>
-
-<p>The picture below depicts the idea:
+</code></pre><p>The picture below depicts the idea:
 
 
 <div class="pure-g">
@@ -477,55 +439,38 @@ How many valid solution exists? This time 3 valid solution exist not 8 because t
 that violate the intersection. For example combination of <strong>TRACK</strong> and <strong>MOON</strong> is not valid since <strong>A != O</strong>.
 In code, <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/Crosswords.scala#L69">isValidSolution</a>
 is responsible to check that solution is valid.</p>
-
 <h2 id="build-crosswords-from-string">Build crosswords from string</h2>
-
 <p>Now that we have our models, how we can build crosswords from input string? <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/CrosswordsBuilder.scala#L14">CrosswordsBuilder.buildFrom</a>
 comes to rescue.if we have a string like <strong>+- - - - -++++</strong>, we know that there exists a horizontal placeholder with size 5.
 <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/CrosswordsBuilder.scala#L90">findAllPlaceholders</a> is a method
 that accepts a string and find all placeholders. But what about columns like:</p>
-
 <pre><code>+
 +
 -
 -
 -
 +
-</code></pre>
-
-<p>If we can rotate it, then it becomes something like <strong>++- - - +</strong> and now we
+</code></pre><p>If we can rotate it, then it becomes something like <strong>++- - - +</strong> and now we
 can pass it to <strong>findAllPlaceholders</strong> method, but this time with paramter <strong>Vertical</strong>. That&rsquo;s why
 there is a method for swaping rows with columns called <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/CrosswordsBuilder.scala#L21">swapRowsWithColumns</a>.</p>
-
 <p>So far we have found all horizontal and vertical placeholders but we have no idea
 about intersections between them. Since intersection can only happens between
-horizontal and vertical placeholders, I &rsquo;ve defined a method called <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/CrosswordsBuilder.scala#L64">findIntersectionsBetween</a>
+horizontal and vertical placeholders, I &lsquo;ve defined a method called <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/CrosswordsBuilder.scala#L64">findIntersectionsBetween</a>
 that accepts a list of vertical placeholders, a list of horizontal placeholders
 and returns all intersection between them.</p>
-
 <h3 id="find-intersections">Find intersections</h3>
-
 <p>Given two placeholder, how can you find intersection between them? For instance:</p>
-
 <pre><code>val ph1 = Placeholder(size = 5, direction = Horizontal, startPosition = (2,1))
 val ph2 = Placeholder(size = 4, direction = Vertical, startPosition = (1,3))
-</code></pre>
-
-<p>The clue is <strong>startPosition</strong>. Each placeholder has <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/Placeholder.scala#L51">getPositionPoints</a>
+</code></pre><p>The clue is <strong>startPosition</strong>. Each placeholder has <a href="https://github.com/mostafa-asg/crosswords/blob/28912d6abe78b94de6787723186e6cfc33a74c88/src/main/scala/com/github/Placeholder.scala#L51">getPositionPoints</a>
 that returns all the cell position that this placeholder has occupied:</p>
-
 <pre><code>ph1.getPositionPoints
 // returns List(Point(2,1), Point(2,2), Point(2,3), Point(2,4), Point(2,5))
 ph2.getPositionPoints
 // returns List(Point(1,3), Point(2,3), Point(3,3), Point(4,3))
-</code></pre>
-
-<p>And if</p>
-
+</code></pre><p>And if</p>
 <pre><code>(ph1.getPositionPoints intersect ph2.getPositionPoints).size &gt; 0
-</code></pre>
-
-<p>We are sure that there is an intersection. But we are not done yet.
+</code></pre><p>We are sure that there is an intersection. But we are not done yet.
 After finding an intersection, we should call <strong>Crosswords.addIntersection</strong> and this method does not
 accept <strong>(row,col)</strong> index, instead it accepts placeholder&rsquo;s local index. The picture below depicts the idea:
 
@@ -570,11 +515,49 @@ returns placeholder&rsquo;s local index. This function is called <a href="https:
 
 </div>
 </p>
-
 <h2 id="done">Done!</h2>
-
 <p>That was the most important aspects of the code. Of course there are some details that I didn&rsquo;t
 mention in this article. You can find the full source code on <a href="https://github.com/mostafa-asg/crosswords/">my github repository</a>.</p>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fsolve-hackerrank-crosswords-101%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fsolve-hackerrank-crosswords-101%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fsolve-hackerrank-crosswords-101%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fsolve-hackerrank-crosswords-101%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fsolve-hackerrank-crosswords-101%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fsolve-hackerrank-crosswords-101%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -617,18 +600,23 @@ mention in this article. You can find the full source code on <a href="https://g
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

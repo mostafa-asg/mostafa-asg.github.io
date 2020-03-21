@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>5 ways to customize Spring MVC JSON/XML output &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -240,29 +242,21 @@
 
 </div>
 
-  
-
-<p>To adhere to guidelines or requirements, API designers may want to control how
+  <p>To adhere to guidelines or requirements, API designers may want to control how
 JSON/XML responses are formatted. <strong>Spring Web</strong> makes use of Jackson to perform
 JSON/XML serialization. Therefore, to customize our output format, we must configure
 the Jackson processor. Spring Web offers XML-based or Java-based approaches to
 handling configuration. In this article, we will look at the Java-based configuration.</p>
-
 <h2 id="enable-xml-output">Enable XML output</h2>
-
 <p>First of all, if you have created your project through
 <a href="https://start.spring.io/">https://start.spring.io/</a> you need add the following
 dependency to your project because there is no XML serialization by default:</p>
-
 <pre><code>&lt;dependency&gt;
 	&lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
 	&lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
 &lt;/dependency&gt;
-</code></pre>
-
-<p>ok, now we can investigate the output customization process. Imagine we have this
+</code></pre><p>ok, now we can investigate the output customization process. Imagine we have this
 REST controller:</p>
-
 <pre><code>@RestController
 @RequestMapping(&quot;/users&quot;)
 public class UsersResource {
@@ -276,10 +270,7 @@ public class UsersResource {
     }
 
 }
-</code></pre>
-
-<p>And User is defined like this:</p>
-
+</code></pre><p>And User is defined like this:</p>
 <pre><code>public class User {
 
     private String firstName;
@@ -304,32 +295,19 @@ public class UsersResource {
         return age;
     }
 }
-</code></pre>
-
-<p>If you start your service and call your service like this:</p>
-
+</code></pre><p>If you start your service and call your service like this:</p>
 <pre><code>curl http://localhost:8080/users/15
-</code></pre>
-
-<p>You will get the output something like this:</p>
-
+</code></pre><p>You will get the output something like this:</p>
 <pre><code>{&quot;firstName&quot;:&quot;mostafa&quot;,&quot;lastName&quot;:null,&quot;age&quot;:18}
-</code></pre>
-
-<p>Now let&rsquo;s back to our problem. How we can change the generated output? For example
+</code></pre><p>Now let&rsquo;s back to our problem. How we can change the generated output? For example
 change <strong>firstName</strong> to <strong>first_name</strong> and remove fields with null values like <strong>lastName</strong>.</p>
-
 <h2 id="solution-1-use-properties">Solution 1&gt; Use properties</h2>
-
 <p>You can configure the ObjectMapper and XmlMapper instances by using the environment.
 Jackson provides an extensive suite of simple on/off features that can be used to
 configure various aspects of its processing. For example, to enable pretty print, add this
 line to the application.properties file:</p>
-
 <pre><code>spring.jackson.serialization.indent_output=true
-</code></pre>
-
-<p>Here is the valid properties:<br />
+</code></pre><p>Here is the valid properties:<br>
 
 
 <div class="pure-g">
@@ -350,13 +328,10 @@ line to the application.properties file:</p>
 
 </div>
 </p>
-
 <h2 id="solution-2-use-jackson2objectmapperbuildercustomizer">Solution 2&gt; Use Jackson2ObjectMapperBuilderCustomizer</h2>
-
 <p>You can customize the default <strong>Jackson2ObjectMapperBuilder</strong> using <strong>Jackson2ObjectMapperBuilderCustomizer</strong>.
 Just create a new class annotated with <strong>@Configuration</strong> and return an instance of Jackson2ObjectMapperBuilderCustomizer
 with <strong>@Bean</strong> annotation:</p>
-
 <pre><code>@Configuration
 public class OutputConfiguration {
     @Bean
@@ -371,12 +346,8 @@ public class OutputConfiguration {
         };
     }
 }
-</code></pre>
-
-<h2 id="solution-3-use-objectmapper">Solution 3&gt; Use ObjectMapper</h2>
-
+</code></pre><h2 id="solution-3-use-objectmapper">Solution 3&gt; Use ObjectMapper</h2>
 <p>This method replace default ObjectMapper instance:</p>
-
 <pre><code>@Configuration
 public class OutputConfiguration {
     @Bean
@@ -389,12 +360,8 @@ public class OutputConfiguration {
                    .build();
     }
 }
-</code></pre>
-
-<h2 id="solution-4-use-jackson2objectmapperbuilder">Solution 4&gt; Use Jackson2ObjectMapperBuilder</h2>
-
+</code></pre><h2 id="solution-4-use-jackson2objectmapperbuilder">Solution 4&gt; Use Jackson2ObjectMapperBuilder</h2>
 <p>Like the above code, but just return the builder:</p>
-
 <pre><code>@Configuration
 public class OutputConfiguration {
    @Bean
@@ -405,10 +372,7 @@ public class OutputConfiguration {
                 .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
     }
 }
-</code></pre>
-
-<h2 id="solution-5-use-mappingjackson2httpmessageconverter">Solution 5&gt; Use MappingJackson2HttpMessageConverter</h2>
-
+</code></pre><h2 id="solution-5-use-mappingjackson2httpmessageconverter">Solution 5&gt; Use MappingJackson2HttpMessageConverter</h2>
 <pre><code>@Bean
     public MappingJackson2HttpMessageConverter customJson(){
         return new MappingJackson2HttpMessageConverter(
@@ -419,10 +383,48 @@ public class OutputConfiguration {
                         .build()
         );
 } 
-</code></pre>
-
-<p>That&rsquo;s it. Do you know the other ways to customize JSON/XML output? If you know let me know.<br />
+</code></pre><p>That&rsquo;s it. Do you know the other ways to customize JSON/XML output? If you know let me know.<br>
 source: <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper">Spring Mvc documentation</a></p>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fcustomize-json-xml-spring-mvc-output%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fcustomize-json-xml-spring-mvc-output%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fcustomize-json-xml-spring-mvc-output%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fcustomize-json-xml-spring-mvc-output%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fcustomize-json-xml-spring-mvc-output%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fcustomize-json-xml-spring-mvc-output%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -465,18 +467,23 @@ source: <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

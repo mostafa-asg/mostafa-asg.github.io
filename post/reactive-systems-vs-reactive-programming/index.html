@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Reactive Systems vs Reactive Programming &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -242,44 +244,39 @@
 
 </div>
 
-  
-
-<p>This is the digest of <a href="https://www.lightbend.com/reactive-programming-versus-reactive-systems">Reactive Programming versus Reactive Systems</a>
+  <p>This is the digest of <a href="https://www.lightbend.com/reactive-programming-versus-reactive-systems">Reactive Programming versus Reactive Systems</a>
 by <em>Jonas Bonér</em> and <em>Viktor Klang</em>. This is for anyone who does not have enough time to
 study the original white paper. It is the shortest version without sacrificing important stuff.</p>
-
-<h1 id="reactive-a-set-of-design-principles">Reactive - A Set Of Design Principles</h1>
-
+<h1 id="reactive---a-set-of-design-principles">Reactive - A Set Of Design Principles</h1>
 <ul>
-<li>“Reactive” is a <span style="color:red">set of design principles</span> for creating cohesive systems.</li>
+<li>“Reactive” is a <!-- raw HTML omitted -->set of design principles<!-- raw HTML omitted --> for creating cohesive systems.</li>
 <li>In a Reactive System, it’s the interaction between the individual parts that makes all the difference,
 which is the ability to operate individually yet act in concert to achieve their intended result.</li>
 <li>We see that it’s possible to write a single application in a Reactive style
 (i.e. using Reactive Programming); however, that’s merely one piece of the puzzle.
-Though each of the above aspects may seem to qualify as “Reactive” in and of themselves <span style="color:red">
-they do not make a system Reactive</span>.</li>
+Though each of the above aspects may seem to qualify as “Reactive” in and of themselves <!-- raw HTML omitted -->
+they do not make a system Reactive<!-- raw HTML omitted -->.</li>
 <li>When people talk about Reactive in the context of software development and design,
 they generally mean one of three things:
-
 <ul>
 <li>Reactive Systems (architecture and design)</li>
 <li>Reactive Programming (declarative event-based)</li>
 <li>Functional Reactive Programming (FRP)</li>
-</ul></li>
-<li>The main driver behind modern systems is the notion of <span style="color:red">Responsiveness</span>:
+</ul>
+</li>
+<li>The main driver behind modern systems is the notion of <!-- raw HTML omitted -->Responsiveness<!-- raw HTML omitted -->:
 the acknowledgement that if the client/customer does not get value in a timely fashion then they will go
 somewhere else. Fundamentally there is no difference between not getting value and not getting value when
 it is needed.</li>
 <li>In order to facilitate Responsiveness, two challenges need to be faced:
-
 <ul>
-<li>being Responsive <strong>under failure</strong>, defined as <span style="color:red">Resilience</span></li>
-<li>and being Responsive <strong>under load</strong>, defined as <span style="color:red">Elasticity</span></li>
-</ul></li>
-<li>The <a href="https://www.reactivemanifesto.org/">Reactive Manifesto</a> prescribes that in order to achieve this,
-the system needs to be <span style="color:red">Message-driven</span></li>
+<li>being Responsive <strong>under failure</strong>, defined as <!-- raw HTML omitted -->Resilience<!-- raw HTML omitted --></li>
+<li>and being Responsive <strong>under load</strong>, defined as <!-- raw HTML omitted -->Elasticity<!-- raw HTML omitted --></li>
 </ul>
-
+</li>
+<li>The <a href="https://www.reactivemanifesto.org/">Reactive Manifesto</a> prescribes that in order to achieve this,
+the system needs to be <!-- raw HTML omitted -->Message-driven<!-- raw HTML omitted --></li>
+</ul>
 
 
 <div class="pure-g">
@@ -300,22 +297,18 @@ the system needs to be <span style="color:red">Message-driven</span></li>
 
 </div>
 
-
 <h1 id="functional-reactive-programming-frp">Functional Reactive Programming (FRP)</h1>
-
 <ul>
-<li>Functional Reactive Programming, commonly called “FRP,” <span style="color:red">is frequently misunderstood</span>. FRP was very
+<li>Functional Reactive Programming, commonly called “FRP,” <!-- raw HTML omitted -->is frequently misunderstood<!-- raw HTML omitted -->. FRP was very
 precisely defined 20 years ago by <a href="http://conal.net/papers/icfp97/">Conal Elliott</a>. The term has most recently been used incorrectly to describe
 technologies like <a href="http://elm-lang.org/">Elm</a>, <a href="https://baconjs.github.io/">Bacon.js</a>, and Reactive Extensions (RxJava, Rx.NET, RxJS) amongst others.
 Most libraries claiming to support FRP are almost exclusively talking about Reactive Programming and it will
 therefore not be discussed further.</li>
 </ul>
-
 <h1 id="reactive-programming">Reactive Programming</h1>
-
 <ul>
 <li>Reactive Programming, not to be confused with Functional Reactive Programming,
-is a subset of Asynchronous Programming and a paradigm where <span style="color:red">the availability of new information</span>
+is a subset of Asynchronous Programming and a paradigm where <!-- raw HTML omitted -->the availability of new information<!-- raw HTML omitted -->
 drives the logic forward rather than having control flow driven by a thread-of-execution.</li>
 <li>It supports decomposing the problem into multiple discrete steps where each can be executed in an asynchronous
 and nonblocking fashion, and then be composed to produce a workflow—possibly unbounded in its
@@ -324,7 +317,7 @@ inputs or outputs.</li>
 execution—where threads of execution competing for a shared resource don’t need to wait by blocking
 (preventing the thread of execution from performing other work until current work is done),
 and can as such perform other useful work while the resource is occupied.
-Amdahl’s Law tells us that <span style="color:red">contention is the biggest enemy of scalability</span>,
+Amdahl’s Law tells us that <!-- raw HTML omitted -->contention is the biggest enemy of scalability<!-- raw HTML omitted -->,
 and therefore a Reactive program should rarely, if ever, have to block.
 
 
@@ -346,59 +339,55 @@ and therefore a Reactive program should rarely, if ever, have to block.
 
 </div>
 </li>
-<li>Reactive Programming is generally <span style="color:red">Event-driven</span>, in contrast to
-Reactive Systems, which are <span style="color:red">Message-driven</span></li>
+<li>Reactive Programming is generally <!-- raw HTML omitted -->Event-driven<!-- raw HTML omitted -->, in contrast to
+Reactive Systems, which are <!-- raw HTML omitted -->Message-driven<!-- raw HTML omitted --></li>
 <li>The Application Program Interface (API) for Reactive Programming libraries are generally either:
-
 <ul>
-<li><span style="color:red">Callback-based</span>—where anonymous, side-effecting callbacks are attached to event sources,
+<li><!-- raw HTML omitted -->Callback-based<!-- raw HTML omitted -->—where anonymous, side-effecting callbacks are attached to event sources,
 and are being invoked when events pass through the dataflow chain.</li>
-<li><span style="color:red">Declarative</span>—through functional composition, usually using well established combinators like map,
+<li><!-- raw HTML omitted -->Declarative<!-- raw HTML omitted -->—through functional composition, usually using well established combinators like map,
 filter, fold etc.</li>
-</ul></li>
+</ul>
+</li>
 <li>Most libraries provide a mix of these two styles, often with the addition of stream-based operators like
 windowing, counts, triggers, etc.</li>
-<li><span style="color:red">It would be reasonable to claim that Reactive Programming is related to Dataflow Programming</span>,
+<li><!-- raw HTML omitted -->It would be reasonable to claim that Reactive Programming is related to Dataflow Programming<!-- raw HTML omitted -->,
 since the emphasis is on the flow of data rather than the flow of control.</li>
 <li>Popular libraries supporting the Reactive Programming techniques on the JVM include, but are not limited to,
 <a href="https://akka.io/">Akka Streams</a>, <a href="https://ratpack.io/">Ratpack</a>, <a href="https://projectreactor.io/">Reactor</a>,
 <a href="https://github.com/ReactiveX/RxJava">RxJava</a> and <a href="https://vertx.io/">Vert.x</a>.</li>
 </ul>
-
 <h1 id="the-benefits-of-reactive-programming">The Benefits Of Reactive Programming</h1>
-
 <ul>
-<li>The primary benefits of Reactive Programming are: <span style="color:red">increased utilization</span> of
-computing resources on multicore and multi-CPU hardware; and <span style="color:red">increased performance</span> by
+<li>The primary benefits of Reactive Programming are: <!-- raw HTML omitted -->increased utilization<!-- raw HTML omitted --> of
+computing resources on multicore and multi-CPU hardware; and <!-- raw HTML omitted -->increased performance<!-- raw HTML omitted --> by
 reducing serialization points.</li>
-<li>A secondary benefit is one of <span style="color:red">developer productivity</span> as traditional programming paradigms have all
+<li>A secondary benefit is one of <!-- raw HTML omitted -->developer productivity<!-- raw HTML omitted --> as traditional programming paradigms have all
 struggled to provide a straightforward and maintainable approach to dealing with asynchronous and
 nonblocking computation and IO. Reactive Programming solves most of the challenges here since it
 typically removes the need for explicit coordination between active components.</li>
 <li>In order to take full advantage of asynchronous execution, the inclusion of
-<span style="color:red">back-pressure</span> is crucial to avoid over-utilization,
+<!-- raw HTML omitted -->back-pressure<!-- raw HTML omitted --> is crucial to avoid over-utilization,
 or rather unbounded consumption of resources.</li>
 <li>But even though Reactive Programming is a very useful piece when constructing modern software,
 in order to reason about a system at a higher level one has to use another tool:
-<span style="color:red">Reactive Architecture</span>—the process of designing Reactive Systems.</li>
+<!-- raw HTML omitted -->Reactive Architecture<!-- raw HTML omitted -->—the process of designing Reactive Systems.</li>
 </ul>
-
 <h1 id="event-driven-vs-message-driven">Event-Driven VS Message-Driven</h1>
-
 <ul>
-<li>As mentioned previously, Reactive Programming—focusing on computation through ephemeral <span style="color:red">dataflow</span>
-chains—tend to be <span style="color:red">Event-driven</span>, while Reactive Systems—focusing on
-<span style="color:red">resilience</span> and <span style="color:red">elasticity</span> through the communication,
-and coordination, of distributed systems—is <span style="color:red">Message-driven</span> (also referred to as Messaging).</li>
-<li>The <span style="color:red">main difference</span> between a Message-driven system with long-lived addressable components,
+<li>As mentioned previously, Reactive Programming—focusing on computation through ephemeral <!-- raw HTML omitted -->dataflow<!-- raw HTML omitted -->
+chains—tend to be <!-- raw HTML omitted -->Event-driven<!-- raw HTML omitted -->, while Reactive Systems—focusing on
+<!-- raw HTML omitted -->resilience<!-- raw HTML omitted --> and <!-- raw HTML omitted -->elasticity<!-- raw HTML omitted --> through the communication,
+and coordination, of distributed systems—is <!-- raw HTML omitted -->Message-driven<!-- raw HTML omitted --> (also referred to as Messaging).</li>
+<li>The <!-- raw HTML omitted -->main difference<!-- raw HTML omitted --> between a Message-driven system with long-lived addressable components,
 and an Event-driven dataflow-driven model, is that Messages are inherently directed, Events are not.
-<span style="color:red">Messages have a clear, single, destination; while Events are facts for others to observe</span>.
+<!-- raw HTML omitted -->Messages have a clear, single, destination; while Events are facts for others to observe<!-- raw HTML omitted -->.
 Furthermore, messaging is preferably asynchronous, with the sending and the reception decoupled
 from the sender and receiver respectively.</li>
 <li>Messages are needed to communicate across the network and forms the basis for communication in distributed systems,
 while Events, on the other hand, are emitted locally. It is common to use Messaging under the hood to
 bridge an Event-driven system across the network by sending Events inside Messages.</li>
-<li>Messaging forces us to <span style="color:red">embrace the reality and constraints of distributed systems</span>—things
+<li>Messaging forces us to <!-- raw HTML omitted -->embrace the reality and constraints of distributed systems<!-- raw HTML omitted -->—things
 like partial failures, failure detection, dropped/duplicated/reordered messages, eventual consistency,
 managing multiple concurrent realities, etc.—and tackle them head on instead of hiding them behind a
 leaky abstraction—pretending that the network is not there—as has been done too many times in the past (e.g. EJB, RPC, CORBA, and XA).</li>
@@ -426,23 +415,21 @@ complexity of distributed systems.
 </div>
 </li>
 </ul>
-
 <h1 id="reactive-systems-and-architecture">Reactive Systems And Architecture</h1>
-
 <ul>
-<li>The foundation for a Reactive System is <span style="color:red">Message-Passing</span>, which creates a temporal boundary between
+<li>The foundation for a Reactive System is <!-- raw HTML omitted -->Message-Passing<!-- raw HTML omitted -->, which creates a temporal boundary between
 components which allows them to be decoupled in time—this allows for concurrency—and space—which allows
 for distribution and mobility. This decoupling is a requirement for full isolation between components,
 and forms the basis for both Resilience and Elasticity.</li>
 <li>The world is becoming increasingly interconnected, which mean software is increasingly dependent on other
 software to function properly.</li>
-<li>So the key to building <span style="color:red">Resilient</span>, self-healing systems is to allow failures to be: contained, reified as
+<li>So the key to building <!-- raw HTML omitted -->Resilient<!-- raw HTML omitted -->, self-healing systems is to allow failures to be: contained, reified as
 messages, sent to other components (that act as supervisors), and managed from a safe context outside the failed
 component. Here, being Message-driven is the enabler: moving away from strongly coupled, brittle,
 deeply nested synchronous call chains that everyone learned to suffer through…or ignore.
 The idea is to decouple the management of failures from the call chain,
 freeing the client from the responsibility of handling the failures of the server.</li>
-<li><span style="color:red">Elasticity</span> is about Responsiveness under load—meaning that the throughput of a system scales up or down
+<li><!-- raw HTML omitted -->Elasticity<!-- raw HTML omitted --> is about Responsiveness under load—meaning that the throughput of a system scales up or down
 (i.e. adding or removing cores on a single machine) as well as in or out
 (i.e. adding or removing nodes/machines in a data center) automatically to meet varying demand as
 resources are proportionally added or removed. It is the essential element needed to take advantage of
@@ -450,20 +437,17 @@ the promises of Cloud Computing: allowing systems to be resource efficient, cost
 environmentally-friendly and pay-per-use.</li>
 <li>Systems need to be adaptive—allowing for intervention-less auto-scaling, replication of state and behavior,
 load-balancing of communication, failover and upgrades, all without rewriting or even reconfiguring
-the system. The enabler for this is <span style="color:red">Location Transparency</span>: the ability to scale the system in the same way,
+the system. The enabler for this is <!-- raw HTML omitted -->Location Transparency<!-- raw HTML omitted -->: the ability to scale the system in the same way,
 using the same programming abstractions, with the same semantics, across all dimensions of scale—from CPU
 cores to data centers.</li>
-
-<li><p>Reactive Systems represent the most productive system architecture that we know of (in the context of multicore,
-Cloud and Mobile architectures):</p>
-
+<li>Reactive Systems represent the most productive system architecture that we know of (in the context of multicore,
+Cloud and Mobile architectures):
 <ul>
 <li>Isolation of failures offer <a href="https://skife.org/architecture/fault-tolerance/2009/12/31/bulkheads.html">bulkheads</a> between components, preventing failures from cascading and limiting the scope and severity of failures.</li>
 <li>Supervisor hierarchies offer multiple levels of defences paired with self-healing capabilities, which removes a lot of transient failures from ever incurring any operational cost to investigate.</li>
 <li>Message-passing and location transparency allow for components to be taken offline and replaced or rerouted without affecting the end-user experience. This reduces the cost of disruptions, their relative urgency, and also the resources required to diagnose and rectify.</li>
 <li>Replication reduces the risk of data loss, and lessens the impact of failure on the availability of retrieval and storage of information.</li>
-
-<li><p>Elasticity allows for conservation of resources as usage fluctuates, allowing for minimizing operational costs when load is low, and minimizing the risk of outages or urgent investment into scalability as load increases.
+<li>Elasticity allows for conservation of resources as usage fluctuates, allowing for minimizing operational costs when load is low, and minimizing the risk of outages or urgent investment into scalability as load increases.
 
 
 <div class="pure-g">
@@ -483,20 +467,17 @@ Cloud and Mobile architectures):</p>
   
 
 </div>
-</p>
-
-<h3 id="how-does-reactive-programming-relate-to-reactive-systems">How Does Reactive Programming Relate To Reactive Systems?</h3></li>
-</ul></li>
-
-<li><p>Reactive Programming is a great technique for managing internal logic and dataflow transformation, locally within the components, as a way of optimizing code clarity, performance and resource efficiency. Reactive Systems, being a set of architectural principles, puts the emphasis on distributed communication and gives us tools to tackle resilience and elasticity in distributed systems.</p></li>
-
-<li><p>One common problem with only leveraging Reactive Programming is that its tight coupling between computation stages in an Event-driven callback-based or declarative program makes Resilience harder to achieve because its transformation chains are often ephemeral and its stages—the callbacks or combinators—are anonymous, i.e. not addressable.</p></li>
-
-<li><p>If one of the stages in the dataflow chain fails, then the whole chain needs to be restarted, and the client notified. This is in contrast to a Message-driven Reactive System, which has the ability to self-heal without necessitating notifying the client.</p></li>
-
-<li><p>Another contrast to the Reactive Systems approach is that pure Reactive Programming allows decoupling in time, but not space (unless leveraging Message-passing to distribute the dataflow graph under the hood, across the network, as discussed previously).</p></li>
+</li>
 </ul>
-
+</li>
+</ul>
+<h3 id="how-does-reactive-programming-relate-to-reactive-systems">How Does Reactive Programming Relate To Reactive Systems?</h3>
+<ul>
+<li>Reactive Programming is a great technique for managing internal logic and dataflow transformation, locally within the components, as a way of optimizing code clarity, performance and resource efficiency. Reactive Systems, being a set of architectural principles, puts the emphasis on distributed communication and gives us tools to tackle resilience and elasticity in distributed systems.</li>
+<li>One common problem with only leveraging Reactive Programming is that its tight coupling between computation stages in an Event-driven callback-based or declarative program makes Resilience harder to achieve because its transformation chains are often ephemeral and its stages—the callbacks or combinators—are anonymous, i.e. not addressable.</li>
+<li>If one of the stages in the dataflow chain fails, then the whole chain needs to be restarted, and the client notified. This is in contrast to a Message-driven Reactive System, which has the ability to self-heal without necessitating notifying the client.</li>
+<li>Another contrast to the Reactive Systems approach is that pure Reactive Programming allows decoupling in time, but not space (unless leveraging Message-passing to distribute the dataflow graph under the hood, across the network, as discussed previously).</li>
+</ul>
 <p>
 
 <div class="pure-g">
@@ -537,31 +518,65 @@ Cloud and Mobile architectures):</p>
 
 </div>
 </p>
-
-<h3 id="how-does-reactive-programming-systems-relate-to-fast-data-streaming">How Does Reactive Programming &amp; Systems Relate To Fast Data Streaming?</h3>
-
+<h3 id="how-does-reactive-programming--systems-relate-to-fast-data-streaming">How Does Reactive Programming &amp; Systems Relate To Fast Data Streaming?</h3>
 <ul>
 <li>Underneath the end-user API, it typically uses Message-passing and the principles of Reactive
 Systems in-between nodes supporting a distributed system of stream processing stages,
 durable event logs, replication protocols—although these parts are typically not exposed to the developer.
 <strong>It is a good example of using Reactive Programming at the user level and Reactive Systems at the system level</strong>.</li>
 </ul>
-
-<h3 id="how-does-reactive-programming-systems-relate-to-mobile-applications-and-the-internet-of-things-iot">How Does Reactive Programming &amp; Systems relate to Mobile Applications And The Internet Of Things (IoT)?</h3>
-
+<h3 id="how-does-reactive-programming--systems-relate-to-mobile-applications-and-the-internet-of-things-iot">How Does Reactive Programming &amp; Systems relate to Mobile Applications And The Internet Of Things (IoT)?</h3>
 <ul>
 <li>There’s a need for strategies for handling device failures, for when information is lost, and when services fail—because they will. The back-end systems managing all this needs to be able to scale on demand and be fully resilient, in other words, there’s a need for <strong>Reactive Systems</strong>.</li>
 <li>Having lots of sensors generating data, and being unable to deal with the rate with which this data arrives—a common problem set seen for the back-end of IoT—indicates a need to implement back-pressure for devices and sensors. Looking at the end-to-end data flow of an IoT system—with tons of devices: the need to store data, cleanse it, process it, run analytics, without any service interruption—the necessity of asynchronous, non-blocking, fully back-pressured streams becomes critical, this is where <strong>Reactive Programming</strong> really shines.</li>
 </ul>
-
-<h3 id="how-does-reactive-programming-systems-relate-to-traditional-web-applications">How Does Reactive Programming &amp; Systems Relate To Traditional Web Applications?</h3>
-
+<h3 id="how-does-reactive-programming--systems-relate-to-traditional-web-applications">How Does Reactive Programming &amp; Systems Relate To Traditional Web Applications?</h3>
 <ul>
 <li>Web Applications can greatly benefit from a <strong>Reactive Programming</strong> style of development</li>
 <li>Most recently, server push á la Server-Sent Events and WebSockets have become increasingly used, <strong>Reactive Programming</strong> has tools for this, more specifically Streams and Futures, which makes it straightforward to do non-blocking and asynchronous transformations and push those to the clients.</li>
 <li><strong>Reactive Programming</strong> can also be valuable in the data access layer—updating and querying data in resource efficient manner—preferably using SQL or NoSQL databases with asynchronous drivers.</li>
 <li>Web applications also benefit from <strong>Reactive System</strong> design for things like: distributed caching, data consistency, and cross-node notifications. Traditional web applications normally use stateless nodes. But as soon as you start using Server-Sent-Events (SSE) and WebSockets, your nodes become stateful, since at a minimum, they are holding the state of a client connection, and push notifications need to be routed to them accordingly. Doing this effectively requires a Reactive System design, since it is an area where directly addressing the recipients through messaging is important.</li>
 </ul>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2freactive-systems-vs-reactive-programming%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2freactive-systems-vs-reactive-programming%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2freactive-systems-vs-reactive-programming%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2freactive-systems-vs-reactive-programming%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2freactive-systems-vs-reactive-programming%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2freactive-systems-vs-reactive-programming%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -604,18 +619,23 @@ durable event logs, replication protocols—although these parts are typically n
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

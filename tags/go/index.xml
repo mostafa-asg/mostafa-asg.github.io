@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on Software Engineering Blog</title>
@@ -28,8 +28,8 @@ Based on wikipedia definition, a function may be considered a pure function if b
       <pubDate>Tue, 10 Oct 2017 11:50:42 +0330</pubDate>
       
       <guid>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</guid>
-      <description>Introduction In the previous post, we &amp;rsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
-We &amp;rsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.</description>
+      <description>Introduction In the previous post, we &amp;lsquo;ve learned how to create a cluster of machines using Docker Swarm, and how to ask Swarm to run 2 instances of Nginx on those machines.In this post, we will learn how to run our custom applications on the cluster.
+We &amp;lsquo;re going to implement two services using Go, one of them is fontend service and the other is backend service. The user can interact only with frontend service.</description>
     </item>
     
     <item>

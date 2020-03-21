@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Store Java application&#39;s logs in elasticsearch &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -228,10 +230,7 @@
 
 </div>
 
-  
-
-<h1 id="introduction">Introduction</h1>
-
+  <h1 id="introduction">Introduction</h1>
 <p>Whenever a developer or system admin faces an issue with the system, the first instinct
 is to look at the logs. For a long time, we have relied on basic tools like grep, awk, or perl
 to perform log analysis. However, with changing times and cloud-scale applications,
@@ -244,39 +243,29 @@ need a centralized place to store all logs from all hosts, finds out what is goi
 searching or visualizing logs and that&rsquo;s where <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a>
 fits well. In this tutorial, we are going to store Java application&rsquo;s
 log in Elasticsearch using <a href="https://logging.apache.org/">Apache Logging</a>.</p>
-
 <h2 id="brief-definition">Brief definition</h2>
-
 <h3 id="what-is-elasticsearch">What is Elasticsearch?</h3>
-
 <p><a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> is a search server based on
 Apache Lucene. It provides real-time, distributed, multitenant-capable,
 full-text search engine capability. It provides a RESTful API using JSON documents.
 It can be used for full-text search, structured search, analytics, or a combination of
 all three. One of its key features is the ability to search
 fast by indexing the text to be searched.</p>
-
 <h3 id="what-is-filebeat">What is Filebeat?</h3>
-
 <p><a href="https://www.elastic.co/products/beats/filebeat">Filebeat</a> is a lightweight shipper for
 forwarding and centralizing log data. Installed as an agent on your servers, Filebeat monitors
 the log files or locations that you specify, collects log events,
 and forwards them to either to Elasticsearch or Logstash for indexing.</p>
-
 <h3 id="what-is-kibana">What is Kibana?</h3>
-
 <p><a href="https://www.elastic.co/products/kibana">Kibana</a> is an open source analytics and visualization platform that works on top
 of Elasticsearch. It can be used to search, view, and interact with any structured or
 unstructured data stored in Elasticsearch. It facilitates advanced data analysis seamlessly
 and enables visualization of data in a variety of histograms, charts, graphs, tables, and maps.</p>
-
 <h2 id="sending-logs-directly-to-elasticsearch">Sending logs directly to Elasticsearch</h2>
-
 <p>In our first solution, we send logs directly to Elasticsearch. Because Elasticsearch,
 provides RESTful API, we can use
 <a href="https://logging.apache.org/log4j/2.x/manual/appenders.html#HttpAppender">HttpAppender</a> to contact
 with Elasticsearch. Here is a sample <strong>log4j2.xml</strong> to send your logs directly to <strong>ES</strong>:</p>
-
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;Configuration status=&quot;INFO&quot;&gt;
     &lt;Appenders&gt;
@@ -292,10 +281,7 @@ with Elasticsearch. Here is a sample <strong>log4j2.xml</strong> to send your lo
         &lt;/Root&gt;
     &lt;/Loggers&gt;
 &lt;/Configuration&gt;
-</code></pre>
-
-<p>It sends logs to index named <strong>applogs</strong>. It is a simple solution but it has some drawbacks:</p>
-
+</code></pre><p>It sends logs to index named <strong>applogs</strong>. It is a simple solution but it has some drawbacks:</p>
 <ol>
 <li>It will <strong>slow</strong> down your application, because it tries to connect to remote server (Elastic server).</li>
 <li>Because you can just provide one url in HttpAppender, then you will connect
@@ -303,7 +289,6 @@ to one of the the ES nodes. If this node goes down, your logs will not save to E
 this problem, you can use the <strong>load balancer</strong> but it will not solve the <strong>slowness</strong> of
 the application caused by <em>http requests</em>.</li>
 </ol>
-
 <p>The picture blow depicts this solution:
 
 
@@ -325,14 +310,11 @@ the application caused by <em>http requests</em>.</li>
 
 </div>
 </p>
-
 <h2 id="sending-logs-indirectly-using-filebeat">Sending logs indirectly using filebeat</h2>
-
 <p>For performance reason, instead of invoking http request each time, we
 save our logs locally in a file and we use <a href="https://www.elastic.co/products/beats/filebeat">filebeat</a>
 to send these logs to Elasticeasrch. In this solution in each node we should install and
 run filebaet. Here is the <strong>log4j2.xml</strong> configuration to persist logs in a file:</p>
-
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;Configuration status=&quot;INFO&quot;&gt;
     &lt;Appenders&gt;
@@ -347,10 +329,7 @@ run filebaet. Here is the <strong>log4j2.xml</strong> configuration to persist l
         &lt;/Root&gt;
     &lt;/Loggers&gt;
 &lt;/Configuration&gt;
-</code></pre>
-
-<p>and this is a <strong>filebeat.yml</strong> configuration to send logs to Elasticsearch:</p>
-
+</code></pre><p>and this is a <strong>filebeat.yml</strong> configuration to send logs to Elasticsearch:</p>
 <pre><code>filebeat:
   prospectors:
     -
@@ -361,14 +340,9 @@ run filebaet. Here is the <strong>log4j2.xml</strong> configuration to persist l
 output:
   elasticsearch:
     hosts: [&quot;http://localhost:9200&quot;]
-</code></pre>
-
-<p>run <em>filebeat</em>:</p>
-
+</code></pre><p>run <em>filebeat</em>:</p>
 <pre><code>./filebeat run
-</code></pre>
-
-<p>You can check the created index in Kibana. The default pattern looks
+</code></pre><p>You can check the created index in Kibana. The default pattern looks
 like <strong>filebeat-%{[agent.version]}-%{+yyyy.MM.dd}</strong>:
 
 
@@ -411,11 +385,8 @@ The picture blow depicts this solution:
 
 </div>
 </p>
-
 <h3 id="pros-and-cons">Pros and cons</h3>
-
 <p>Using filebeat brings some advantages over HttpAppender:</p>
-
 <ul>
 <li>It will not slow down your application because it writes logs to local file instead of sending it over HTTP</li>
 <li>In contrast to HttpAppender that you forced to set only one URL, you
@@ -426,13 +397,51 @@ keeps track of the last lines sent and will continue reading the files as soon a
 it uses <em>registry</em> file to rebuild the state, and continues from the last known position</li>
 <li>Garantee at least once delivery</li>
 </ul>
-
 <h3 id="disadvantages">Disadvantages</h3>
-
 <ul>
 <li>Needs more effort. You should install additional softwate (filebeat) in each node.</li>
 <li>If filebeat&rsquo;s state (registry) is deleted, all logs will re-send to the Elasticsearch again.</li>
 </ul>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fship-app-logs-to-elasticsearch-elk-filebeat%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fship-app-logs-to-elasticsearch-elk-filebeat%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fship-app-logs-to-elasticsearch-elk-filebeat%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fship-app-logs-to-elasticsearch-elk-filebeat%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fship-app-logs-to-elasticsearch-elk-filebeat%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fship-app-logs-to-elasticsearch-elk-filebeat%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -475,18 +484,23 @@ it uses <em>registry</em> file to rebuild the state, and continues from the last
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

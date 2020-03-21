@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Function Memorization in Go &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -243,13 +245,10 @@
 </div>
 
   <p><a href="http://en.wikipedia.org/wiki/Memoization">Memoization</a> is an optimization technique used to increase performance by storing the results of expensive function calls and returning the cached result when the same input occurs again. In this post I show how function memoization can be implemented in Go, in a pure functional manner.</p>
-
-<p>Based on <a href="https://en.wikipedia.org/wiki/Pure_function">wikipedia definition</a>, a function may be considered a pure function if both of the following statements about the function hold:<br />
-<strong>1.</strong> The function always evaluates the same result value given the same argument value(s). The function result value cannot depend on any hidden information or state that may change while program execution proceeds or between different executions of the program, nor can it depend on any external input from I/O devices (usually—see below).<br />
+<p>Based on <a href="https://en.wikipedia.org/wiki/Pure_function">wikipedia definition</a>, a function may be considered a pure function if both of the following statements about the function hold:<br>
+<strong>1.</strong> The function always evaluates the same result value given the same argument value(s). The function result value cannot depend on any hidden information or state that may change while program execution proceeds or between different executions of the program, nor can it depend on any external input from I/O devices (usually—see below).<br>
 <strong>2.</strong> Evaluation of the result does not cause any semantically observable side effect or output, such as mutation of mutable objects or output to I/O devices (usually—see below).</p>
-
 <p>Pure functions are more easily optimized. Let&rsquo;s perform optimizations using a caching technique. Assume we have a factorial function like this:</p>
-
 <pre><code>func fact(n int) int {
 	result := 1
 	for i:=2;i&lt;=n;i++ {
@@ -257,10 +256,7 @@
 	}
 	return result
 }
-</code></pre>
-
-<p>One way to speed things up is to cache result values and to look them up on subsequent invocations of <strong>fact</strong> function.This can be done either by the function itself or by the caller. The first approach has the drawback that each and every function has to implement caching and that clients have no control over the caching mechanism. The latter approach puts all the burden on the client programmer and produces potential boilerplate. To overcome these issues we need a way to construct a memorized function having the same type as a given function. Let&rsquo;s define <strong>memorized</strong> function that turns any function which accepts <strong>int</strong> as input and returns <strong>int</strong> as output to a memorized capable function:</p>
-
+</code></pre><p>One way to speed things up is to cache result values and to look them up on subsequent invocations of <strong>fact</strong> function.This can be done either by the function itself or by the caller. The first approach has the drawback that each and every function has to implement caching and that clients have no control over the caching mechanism. The latter approach puts all the burden on the client programmer and produces potential boilerplate. To overcome these issues we need a way to construct a memorized function having the same type as a given function. Let&rsquo;s define <strong>memorized</strong> function that turns any function which accepts <strong>int</strong> as input and returns <strong>int</strong> as output to a memorized capable function:</p>
 <pre><code>type FuncIntInt func(int) int
 
 func memorized(fn FuncIntInt) FuncIntInt {
@@ -277,39 +273,27 @@ func memorized(fn FuncIntInt) FuncIntInt {
 		return result
 	}
 }
-</code></pre>
-
-<p>It returns a simple function that checks input value against cache first. If it can find it in cache, it returns the value otherwise it calls the input function and store the result into the cache for subsequent calls.
+</code></pre><p>It returns a simple function that checks input value against cache first. If it can find it in cache, it returns the value otherwise it calls the input function and store the result into the cache for subsequent calls.
 Now lets convert our factorial function into a memorized one by calling:</p>
-
 <pre><code>factMem := memorized(fact)
 println( factMem(5) )
 println( factMem(5) )
 println( factMem(5) )
-</code></pre>
-
-<p>Second and third call of factMem would give us the result from the cache. But wait a minute. Does this technique work well for
+</code></pre><p>Second and third call of factMem would give us the result from the cache. But wait a minute. Does this technique work well for
 recursive factorial function as well? I mean this function:</p>
-
 <pre><code>func fact(n int) int {
     if n &lt;= 1 {
         return 1
     }
     return n * fact(n-1)
 }
-</code></pre>
-
-<p>If you call this function like this:</p>
-
+</code></pre><p>If you call this function like this:</p>
 <pre><code>factMem := memorized(fact)
 println( factMem(5) )
 println( factMem(4) )
 println( factMem(3) )
-</code></pre>
-
-<p>And if you expect <strong>factMem(4)</strong> and <strong>factMem(3)</strong> gets their result from cache you are wrong, because n * <strong>fact(n-1)</strong> is not a memorized function.
+</code></pre><p>And if you expect <strong>factMem(4)</strong> and <strong>factMem(3)</strong> gets their result from cache you are wrong, because n * <strong>fact(n-1)</strong> is not a memorized function.
 You can tackle this problem by passing anonymous function of factorial to <strong>memorized</strong> function and calling memorized version in the recursive call:</p>
-
 <pre><code>var factMem FuncIntInt
 factMem = memorized(func(n int) int {
 		if n &lt;= 1 {
@@ -320,9 +304,47 @@ factMem = memorized(func(n int) int {
 println( factMem(5) )
 println( factMem(4) )
 println( factMem(3) )
-</code></pre>
+</code></pre><p>Thanks to closure and anonymous function we can workaround this problem. You can find the source code on <a href="https://gist.github.com/mostafa-asg/cbe12409e480a7ff92db9f46e3e8cf17">github</a>.</p>
 
-<p>Thanks to closure and anonymous function we can workaround this problem. You can find the source code on <a href="https://gist.github.com/mostafa-asg/cbe12409e480a7ff92db9f46e3e8cf17">github</a>.</p>
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2ffunction-memorization-in-go%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2ffunction-memorization-in-go%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2ffunction-memorization-in-go%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2ffunction-memorization-in-go%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2ffunction-memorization-in-go%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2ffunction-memorization-in-go%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -365,18 +387,23 @@ println( factMem(3) )
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

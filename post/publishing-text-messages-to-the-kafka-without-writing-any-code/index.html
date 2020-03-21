@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Publishing Text Messages to the Kafka Without Writing Any Code &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -244,33 +246,20 @@
 
 </div>
 
-  
-
-<p>Perhaps the ordinary way to produce messages to the Kafka is through the standard <a href="https://cwiki.apache.org/confluence/display/KAFKA/Clients">Kafka clients</a>.
-But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &rsquo;ll show you 3 ways of
+  <p>Perhaps the ordinary way to produce messages to the Kafka is through the standard <a href="https://cwiki.apache.org/confluence/display/KAFKA/Clients">Kafka clients</a>.
+But if you want to just produce text messages to the Kafak, there are simpler ways.In this tutorial I &lsquo;ll show you 3 ways of
 sending text messages to the Kafka.</p>
-
 <h3 id="kafka-console-producer">kafka-console-producer</h3>
-
 <p>One way is through <strong>kafka-console-producer</strong> that is bundled with Kafka distribution.
 For example to send a file to the Kafka, you can write:</p>
-
 <pre><code>cat YOUR_TEXT_FILE | $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list YOUR_KAFKA_BROKER:9092 --topic YOUR_TOPIC
-</code></pre>
-
-<p>That command reads the file line by line, and produces kafka record for each line.</p>
-
+</code></pre><p>That command reads the file line by line, and produces kafka record for each line.</p>
 <h3 id="kafka-connect">Kafka Connect</h3>
-
 <p>Another way to send a file to the Kafka line by line is through <strong>Kafka Connect</strong>. The easiest way to use Kafka Connect is through
 <strong>Confluent Open Source</strong> or <strong>Confluent Enterprise</strong>. <a href="https://www.confluent.io/download/">Download</a> and install one of them.
 Start confluent:</p>
-
 <pre><code>$CONFLUENT_HOME/bin/confluent start
-</code></pre>
-
-<p>Then save this config file somewhere (For example /tmp/connect-source-file.properties) :</p>
-
+</code></pre><p>Then save this config file somewhere (For example /tmp/connect-source-file.properties) :</p>
 <pre><code>name=my-local-file-source
 connector.class=FileStreamSource
 key.converter=org.apache.kafka.connect.storage.StringConverter
@@ -278,19 +267,12 @@ value.converter=org.apache.kafka.connect.storage.StringConverter
 tasks.max=1
 file=YOUR_TEXT_FILE
 topic=YOUR_TOPIC
-</code></pre>
-
-<p>Replace <em>YOUR_TEXT_FILE</em> with your file path and <em>YOUR_TOPIC</em> with your Kafka topic name.Then send file to the Kafka by:</p>
-
+</code></pre><p>Replace <em>YOUR_TEXT_FILE</em> with your file path and <em>YOUR_TOPIC</em> with your Kafka topic name.Then send file to the Kafka by:</p>
 <pre><code>$CONFLUENT_HOME/bin/confluent load my-local-file-source -d /tmp/connect-source-file.properties
-</code></pre>
-
-<p>Done! check your topic to ensure that it successfully published.</p>
-
+</code></pre><p>Done! check your topic to ensure that it successfully published.</p>
 <h3 id="filebeat">Filebeat</h3>
-
-<p>Another way to send text messages to the Kafka is through <a href="https://www.elastic.co/products/beats/filebeat">filebeat</a>; a log data shipper for local files.<br />
-Here’s how Filebeat works: When you start Filebeat, it starts one or more prospectors that look in the local paths you’ve specified for log files. For each log file that the prospector locates, Filebeat starts a harvester. Each harvester reads a single log file for new content and sends the new log data to libbeat, which aggregates the events and sends the aggregated data to the output that you’ve configured for Filebeat.<br />
+<p>Another way to send text messages to the Kafka is through <a href="https://www.elastic.co/products/beats/filebeat">filebeat</a>; a log data shipper for local files.<br>
+Here’s how Filebeat works: When you start Filebeat, it starts one or more prospectors that look in the local paths you’ve specified for log files. For each log file that the prospector locates, Filebeat starts a harvester. Each harvester reads a single log file for new content and sends the new log data to libbeat, which aggregates the events and sends the aggregated data to the output that you’ve configured for Filebeat.<br>
 
 
 <div class="pure-g">
@@ -313,9 +295,8 @@ Here’s how Filebeat works: When you start Filebeat, it starts one or more pros
 
 The beauty of <strong>filebeat</strong> is that, you can give a folder as path to the <strong>filebeat</strong> and filebeat can send all files under that folder
 to the Kafka. It guarantees that events will be delivered to the configured output <strong>at least once</strong> and with no data loss.
-Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.<br />
+Filebeat is able to achieve this behavior because it stores the delivery state of each event in the registry file.<br>
 First <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation.html">install</a> filebeat. Then edit filebeat.yml as:</p>
-
 <pre><code>filebeat.prospectors:
 - type: log
   enabled: true
@@ -338,29 +319,17 @@ output.kafka:
     
     required_acks: -1
     max_message_bytes: 1000000
-</code></pre>
-
-<p>Ensure that you change <strong>paths</strong> , <strong>hosts</strong> and <strong>topic</strong> correctly.</p>
-
+</code></pre><p>Ensure that you change <strong>paths</strong> , <strong>hosts</strong> and <strong>topic</strong> correctly.</p>
 <pre><code>  close_eof: true        
-</code></pre>
-
-<p>I set close_eof because I wanted <em>filebeat</em> close the file handler whenever it reaches the end of file. Otherwise <em>filebeat</em> watches
+</code></pre><p>I set close_eof because I wanted <em>filebeat</em> close the file handler whenever it reaches the end of file. Otherwise <em>filebeat</em> watches
 for the file change.</p>
-
 <pre><code>    codec.format:
         string: '%{[message]}'
-</code></pre>
-
-<p>I set above config to tell <em>filebeat</em> that send line messages as <strong>raw</strong>. Otherwise <em>filebeat</em> wrap your line in <strong>JSON</strong>. For
-more information on configuration check <a href="https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html">Configuring filebeat</a><br />
-After you &rsquo;ve done you can start <em>filebeat</em> :</p>
-
+</code></pre><p>I set above config to tell <em>filebeat</em> that send line messages as <strong>raw</strong>. Otherwise <em>filebeat</em> wrap your line in <strong>JSON</strong>. For
+more information on configuration check <a href="https://www.elastic.co/guide/en/beats/filebeat/current/configuring-howto-filebeat.html">Configuring filebeat</a><br>
+After you &lsquo;ve done you can start <em>filebeat</em> :</p>
 <pre><code>./filbeat -e -d filebeat.yml
-</code></pre>
-
-<h3 id="apache-flume">Apache Flume</h3>
-
+</code></pre><h3 id="apache-flume">Apache Flume</h3>
 <p>Apache Flume is a distributed, reliable, and available system for efficiently collecting, aggregating and moving large amounts of log data from many different sources to a centralized data store.At the high level, it consists of 3 main component:
 
 
@@ -381,13 +350,14 @@ After you &rsquo;ve done you can start <em>filebeat</em> :</p>
   
 
 </div>
-
-1. Source<br />
-2. Channel<br />
-3. Sink<br />
-Flume Source consumes events from various sources and write them to the channel.The channel is a passive store that keeps the event until it’s consumed by a Flume sink.The sink removes the event from the channel and puts it into an external repository like Kafka or HDFS.<br />
-<a href="http://flume.apache.org">Download</a> and extract Apache Flume.Create a flume config file somewhere (For example /tmp/flume-conf.properties)</p>
-
+</p>
+<ol>
+<li>Source</li>
+<li>Channel</li>
+<li>Sink<br>
+Flume Source consumes events from various sources and write them to the channel.The channel is a passive store that keeps the event until it’s consumed by a Flume sink.The sink removes the event from the channel and puts it into an external repository like Kafka or HDFS.<br>
+<a href="http://flume.apache.org">Download</a> and extract Apache Flume.Create a flume config file somewhere (For example /tmp/flume-conf.properties)</li>
+</ol>
 <pre><code>agent1.sources = s1
 agent1.channels = c1
 agent1.sinks = k1
@@ -402,15 +372,50 @@ agent1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSink
 agent1.sinks.k1.kafka.bootstrap.servers = localhost:9092
 agent1.sinks.k1.kafka.topic = tpk1
 agent1.sinks.k1.channel = c1
-</code></pre>
-
-<p>In this config, Flume watches the specified directory for new files, and will parse events out of new files as they appear. The event parsing logic is pluggable. After a given file has been fully read into the channel, it is renamed to indicate completion (or optionally deleted).For more configuration check <a href="http://flume.apache.org/FlumeUserGuide.html#spooling-directory-source">Spooling Directory Source</a><br />
+</code></pre><p>In this config, Flume watches the specified directory for new files, and will parse events out of new files as they appear. The event parsing logic is pluggable. After a given file has been fully read into the channel, it is renamed to indicate completion (or optionally deleted).For more configuration check <a href="http://flume.apache.org/FlumeUserGuide.html#spooling-directory-source">Spooling Directory Source</a><br>
 To start the flume agent, type :</p>
-
 <pre><code>./flume-ng agent -n agent1 -f=/tmp/flume-conf.properties
-</code></pre>
+</code></pre><p>That&rsquo;s it. :)</p>
 
-<p>That&rsquo;s it. :)</p>
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpublishing-text-messages-to-the-kafka-without-writing-any-code%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpublishing-text-messages-to-the-kafka-without-writing-any-code%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpublishing-text-messages-to-the-kafka-without-writing-any-code%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpublishing-text-messages-to-the-kafka-without-writing-any-code%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpublishing-text-messages-to-the-kafka-without-writing-any-code%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpublishing-text-messages-to-the-kafka-without-writing-any-code%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -453,21 +458,29 @@ To start the flume agent, type :</p>
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
 
 
 
+
+
+<script src="/js/math-code.js"></script>
+  <script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 </body>

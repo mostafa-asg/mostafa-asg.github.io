@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.68.0" />
+
+  <title>Why Incompetent People Think They Are Competent &middot; Software Engineering Blog</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://mostafa-asg.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="mailto:mostafa.asg@gmail.com"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Why Incompetent People Think They Are Competent</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>21 Mar 2020, 21:07</time>
+  </div>
+
+  
+
+  
+
+  
+
+</div>
+
+  <p>Socrates says
+
+
+<div class="pure-g">
+
+  
+  
+  
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/cognitive-bias/socrates.jpg"
+        alt="socrates">
+    </div>
+  </div>
+  
+
+</div>
+</p>
+<p>But that&rsquo;s not actually easy for human to do because our brains want us to think that we are awesome. In 1995 McArthur Wheeler walked into a bank in Pittsburgh ready to rob it. He didn&rsquo;t wear mask, he didn&rsquo;t wear fake mustache, he was just there robbing a bank in full view of eveyone. He even smiled at the security cameras before leaving and going to a second bank to rob that one too. Later that night the security footage allowed the police to pick him up and take him off the jail which shocked him. He was shook. I wore the juice, he famously exclaimed. Wheeler believed that rubbing lemon juice on his skin will render him invisible to videotape cameras.</p>
+<p>This is a <strong>cognitive bias</strong> at work and it inspired two psychologists to create some experiments to understand it better. Cognitive biases are everywhere. Have you ever met someone who has one like, perhaps during a group project at school or during an argument with a stubborn uncle or when you had to toil alongside that co-worker, you know the one I &lsquo;m talking about, <strong>somebody who believed they knew things but really they didn&rsquo;t</strong>.</p>
+<p>Believing you know something you don&rsquo;t know is called the <strong>Dunning-Kruger effect</strong>. It&rsquo;s named for the two psychologists who upon hearing about Wheeler&rsquo;s bank robberies formulated a set of experiments to determine if Wheeler&rsquo;s juice beliefs were due to some kind of cognitive bias.
+<strong>Cognitive biases allow us to convince ourselves that something is true even if the reality is different</strong>. Cognitive biases protect us from reality. They let us process information quickly but that doesn&rsquo;t mean that they are good. Cognitive biases are essentially a subjective social reality. The dunning-kruger effect is in a nutshell a way for everyone to feel good an above average, internally, because most of us are actually completely average. Dunning-kruger can help explain why people feel that they&rsquo;re experts even they know very little about something, a problem sometimes described by this graph:
+
+
+<div class="pure-g">
+
+  
+  
+  
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/cognitive-bias/chart.jpg"
+        alt="Dunning-Kruger graph">
+    </div>
+  </div>
+  
+
+</div>
+</p>
+<p>The vertical axis is confidence and the horizontal is experience. Imagine someone spent an hour reading the wikipedia page about global warming, then took to twiter to try in school some climate scientists who have literally spent their lives studying it. You don&rsquo;t have to imagine this because you know it, it happens all the time. This cognitive bias is extremly common. For example a 1992 survey of the engineers at one company found that 42% of them, 42 percent!, believed they were in the top 5% of all the engineers at the company but that&rsquo;s not actually possible, 42 cannot be 5. Another example is driving. One study found most people believe that they are above average at driving, but most people cannot be above average. Another survey of people aged 77 years and older jived with that as well, most assuming they were average or above average, but again that&rsquo;s not actually possible, most people have to be average because that&rsquo;s how statistics work.</p>
+<p>The Psychologists who first realized this bias was part of the human fabric did so in for studies: humor, logic and reasoning and English grammer. We&rsquo;ll just take one.
+In the humor study the psychologists asked two groups to rank jokes on scale of 1 to 11. 1 being not at all funny and 11 being very funny. Group A was a set of average Cornell undergratuates and group B was a small set of professional comedians. The idea was to see if average people would believe that they were above average at picking out what was funny or as good as professionals. After group A had ranked the jokes the researchers asked them to compare their ability to pick what was funny against the professional comedians, you know to rate themselves and unsurprisingly on average everyone overrated their skills. Remember 50 is average and the whole group together said that they did 66, which I would rank as an 8 out of 11 on our joke scale but this is where the surprise comes in. <strong>Those who did the worst, placed themselves in the 58th percentile on average</strong>. They believed that they were better than 57 other people out of a 100. Their real score the 12th percentile. They were worse than 88 other people. These were the victims of this newly-discovered cognitive bias. The idea that people with a little bit of knowledge of skill in an area, believe that they are better than they are. Dunning and Kruger went on to show that this bias exists multiple times with different experiments like when assessing effective leadership, raising childeren, constructing a solid logical argument and so on. <strong>Generally in each study the participants in the bottom 25/% of scores consistently ranked themselves in the 70th percentile</strong>. It is worth pointing out that self-confidence is extremly important, self-steem is valuable. We should all fell good about ourselves, that said, we should also have a good assessment of what we&rsquo;re good at and what we are not good at.</p>
+<p>It&rsquo;s easy to dismiss Dunnig Kruger is just over inflated ego but that&rsquo;s not actualy what&rsquo;s happening. Even ego can see its own limits and there are some serious examples of people not even realizing their own failures thanks to this bias. These experiments work not just in humor illogical reasoning and rules of grammer but also have been replicated in math skills, wine-tasting, chess, firearm safety among hunters and medical knowledge among surgeons and that&rsquo;s where things get really serious.</p>
+<p>A 74-years-old woman awoke from a simple spinal fusion surgery in terrible pain because her surgeon believed himself to be one of the best around, instead he&rsquo;s now in prison for life. He&rsquo;s accused of maiming multiple patients and causing two deaths. Meanwhile he claimed, quote,
+&ldquo;Everybody is doing it wrong&rdquo; and that he was, quote, &ldquo;the best in the whole state&rdquo;.</p>
+<p>It&rsquo;s pretty amazing that it took us so long to give Dunning-Kruger a name, because it is everywhere. The more we look for it, the more we see it. One paper I read said that most people who play golf don&rsquo;t believe that they are as good as Tiger Woods when surveyed but I would guess if we asked, they would still rate themeselves above average, because an online survey of over 1700 average adults in Great Britain found that 1 in 8 men believed that they could score a point against Serena Williams, the woman ranked number one in tennis for more than 6 years. That said, it&rsquo;s very important to point out the Dunning-Kruger effect is gender neutral. It applies to us all. <strong>Interestingly though, Dunning and Kruge found the people at the top don&rsquo;t overstimate themselves, in fact quite the opposite. Dunning-Kruger found the best around tend to rank themselves below their actual performance</strong>.</p>
+<p>Dunning-Kruger has two parts. People in the bottom 25% ranked themselves at near the top, and people in the top 25 tend to rank themselves a bit lower than their actual score. This help us understand why it is hard to counter dunning-kruger. In order to know, you don&rsquo;t know anything, you gotta have to know something. And example, if your cognitive bias has you assumed that you&rsquo;re amazing at driving, but you only drive it in rural areas of the desert Southwest, how would you ever find out that you&rsquo;re bad at it? You would need to drive around others or take classes to learn good driving habits or ride with someone who is objectively considered a good driver to see what you&rsquo;re doing wrong and then get that critique and recognize it and then learn. You think many of those people who believe they&rsquo;re good drivers are gonna do those things? Yeah, I didn&rsquo;t think so either. <strong>In a bit of follow-up research, Dunning has found people who are low performers, in reality are not good at accepting criticism and often don&rsquo;t show interest in self-improvement</strong>.</p>
+<p>In the end, Dunning-Kruger is a cognitive bias that can affect anyone and everyone. If you&rsquo;re actually above average at any task, you might be undervaluing yourself and if you average or below average at some othe tasks, you&rsquo;re probably assuming you&rsquo;re pretty good. In the age of the internet, everyone can be a expert. We all have access to infinite information. Our minds are drawn to learn a little bit about a lot of things and that little bit of information is enough to make us weak minded humans feel confident about what we know even when we know nothing and add to that two global platform of social media and then everyone can feel an expert and most won&rsquo;t accept any critique. Let&rsquo;s face it, I have probably been one of those people and maybe you have too. It&rsquo;s crucial in todays over-stimulated world to be able to differentiate a real expert from and over-confident novice and that goes for understand your value as well. The key to overcome cognitive bias is:</p>
+<ul>
+<li>know your talent</li>
+<li>understand your pitfalls</li>
+<li>take criticism</li>
+<li>keep on learning</li>
+</ul>
+
+
+<div class="pure-g">
+
+  
+  
+  
+  
+  <div class="center">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="/static/cognitive-bias/darwin.jpg"
+        alt="darwin">
+    </div>
+  </div>
+  
+
+</div>
+
+<p>Source: <a href="https://www.youtube.com/watch?v=y50i1bI2uN4">After School</a></p>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fthe-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fthe-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fthe-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fthe-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fthe-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fthe-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/">Configure Nginx Authentication With JWT</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mapreduce on Software Engineering Blog</title>
+    <title>MapReduce on Software Engineering Blog</title>
     <link>https://mostafa-asg.github.io/tags/mapreduce/</link>
-    <description>Recent content in Mapreduce on Software Engineering Blog</description>
+    <description>Recent content in MapReduce on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 06 Feb 2018 07:15:50 +0330</lastBuildDate>

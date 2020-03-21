@@ -5,9 +5,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.37.1" />
+  <meta name="generator" content="Hugo 0.68.0" />
 
   <title>Practical Cats: Functor and Applicative &middot; Software Engineering Blog</title>
+
+    
 
   
   
@@ -30,7 +32,7 @@
   <link rel="stylesheet" href="/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
   
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
@@ -107,7 +109,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+      <a class="pure-menu-link" href="https://twitter.com/mostafaasg" rel="me" target="_blank"><i class="fab fa-twitter-square fa-fw"></i>Twitter</a>
     </li>
     
 
@@ -143,7 +145,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+      <a class="pure-menu-link" href="https://linkedin.com/in/mostafaasg" rel="me" target="_blank"><i class="fab fa-linkedin"></i></i>LinkedIn</a>
     </li>
     
 
@@ -159,7 +161,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/mostafa-asg" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/mostafa-asg" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
     
 
@@ -246,220 +248,174 @@
 
 </div>
 
-  
-
-<p>In this post, I &rsquo;m going to introduce you some useful aspects
-of <a href="https://typelevel.org/cats/">Cats library</a>, mostly code snippets and I &rsquo;m
+  <p>In this post, I &lsquo;m going to introduce you some useful aspects
+of <a href="https://typelevel.org/cats/">Cats library</a>, mostly code snippets and I &lsquo;m
 not going to delve into any theory or mathematics. Hopefully you will use them in
 your daily codes, resulting in much more simpler and readable code.</p>
-
 <h2 id="map-using-functor">map using Functor</h2>
-
 <p>You are already familiar with the prominent <strong>map</strong> method in Scala. Informally,
 a functor is any <strong>context</strong> with a <strong>map</strong> method. And by context I mean any type
 that wraps other type, like List, Option, Future, etc. Here is a simple use of <strong>Functor</strong>,
- for mapping item&rsquo;s of a list:</p>
-
+for mapping item&rsquo;s of a list:</p>
 <pre><code>import cats.instances.list._
 import cats.Functor
 
 val l = List(1, 2, 3, 4, 5)
 Functor[List].map(l)(_ * 2)
 // res0: List[Int] = List(2, 4, 6, 8, 10)
-</code></pre>
-
-<p>Not a very useful than built-in list&rsquo;s map. But what about mapping these
+</code></pre><p>Not a very useful than built-in list&rsquo;s map. But what about mapping these
 list items using built-in map:</p>
-
 <pre><code>val l = List(Some(1), None, Some(2), Some(3))
 l.map(_.map(_ * 2))
 // res1: List[Int] = List(Some(2), None, Some(4), Some(6))
-</code></pre>
-
-<p>Not bad, but there is room for improvements using Functor. You can achieve more readable code
+</code></pre><p>Not bad, but there is room for improvements using Functor. You can achieve more readable code
 by composing <strong>Functors</strong>:</p>
-
 <pre><code>import cats.instances.list._
 import cats.instances.option._
 
 Functor[List].compose[Option].map(l)(_ * 2)
 // res2: List[Int] = List(Some(2), None, Some(4), Some(6))
-</code></pre>
-
-<h3 id="generic-programming">Generic Programming</h3>
-
+</code></pre><h3 id="generic-programming">Generic Programming</h3>
 <p>You know that many of the types in Scala have <em>map</em> method, so you decided
 to write a generic function, that accepts all types with <em>map</em> method, how do you
 write such function? The first attempt may be is using type constraint, but each type
 has its own definition of <em>map</em>. Here you can find the definition of map for List and Option:</p>
-
 <pre><code>// List's map
 // At least until Scala version 2.12 :)
 def map[B, That](f: A =&gt; B)(implicit bf: CanBuildFrom[List[A], B, That]): That
-</code></pre>
-
-<pre><code>// Option's map
+</code></pre><pre><code>// Option's map
 def map[B](f: A =&gt; B): Option[B]
-</code></pre>
-
-<p>Because method&rsquo;s parameter and return value type differs in each type, you can&rsquo;t
+</code></pre><p>Because method&rsquo;s parameter and return value type differs in each type, you can&rsquo;t
 use type constraints, but with the existence of <strong>Functor</strong> it is very easy:</p>
-
 <pre><code>def map[F[_],A,B](fa: F[A])(f: A =&gt; B)(implicit F: Functor[F]): F[B] = {
     F.map(fa)(f)
 }
-</code></pre>
-
-<p>Then as long as there exist an implicit Functor for your type in scope, your method is working as expected:</p>
-
+</code></pre><p>Then as long as there exist an implicit Functor for your type in scope, your method is working as expected:</p>
 <pre><code>map(Option(1))(_ * 2)
 // res3: Option[Int] = Some(2)
-</code></pre>
-
-<pre><code>map(List(1, 2, 3))(_ * 3)
+</code></pre><pre><code>map(List(1, 2, 3))(_ * 3)
 // res4: List[Int] = List(3, 6, 9)
-</code></pre>
-
-<pre><code>map(Future(4)(_ * 4)
+</code></pre><pre><code>map(Future(4)(_ * 4)
 // res5: Future[Int] = Future(16)
-</code></pre>
-
-<h2 id="lift-a-function-using-functor">Lift a function using Functor</h2>
-
+</code></pre><h2 id="lift-a-function-using-functor">Lift a function using Functor</h2>
 <p>Let&rsquo;s investigate totally different example which <strong>Functor</strong> might be useful.
 Imaging you have a simple function like:</p>
-
 <pre><code>def len(input: String): Int = input.length
-</code></pre>
-
-<p>and you have a value wrapped in an arbitrary context. Let&rsquo;s say Option:</p>
-
+</code></pre><p>and you have a value wrapped in an arbitrary context. Let&rsquo;s say Option:</p>
 <pre><code>val a = Some(&quot;Scala&quot;)
-</code></pre>
-
-<p>The question is <em>how do you call add method with such value?</em> The very naive solution might be:</p>
-
+</code></pre><p>The question is <em>how do you call add method with such value?</em> The very naive solution might be:</p>
 <pre><code>if (a.isDefined) {
     val result = len(a.get)
 }
-</code></pre>
-
-<p>Or better using for comprehensions:</p>
-
+</code></pre><p>Or better using for comprehensions:</p>
 <pre><code>val result = for {
     str &lt;- a
 } yield len(str)
-</code></pre>
-
-<p>Using Functor&rsquo;s <strong>lift</strong> method you can convert any <strong>A =&gt; B</strong> to <strong>F[A] =&gt; F[B]</strong>:</p>
-
+</code></pre><p>Using Functor&rsquo;s <strong>lift</strong> method you can convert any <strong>A =&gt; B</strong> to <strong>F[A] =&gt; F[B]</strong>:</p>
 <pre><code>val newFunc = Functor[Option].lift(len)
 // newFunc: Option[String] =&gt; Option[Int] = ...
-</code></pre>
-
-<p>now you can easily call your <em>new function</em> with your wrapped value:</p>
-
+</code></pre><p>now you can easily call your <em>new function</em> with your wrapped value:</p>
 <pre><code>newFunc(Some(&quot;Scala&quot;))
 // res3: Option[Int] = 5
-</code></pre>
-
-<p>But what about lifting a function that has more than one parameter? meet <strong>Applicative</strong>.</p>
-
+</code></pre><p>But what about lifting a function that has more than one parameter? meet <strong>Applicative</strong>.</p>
 <h2 id="applicative">Applicative</h2>
-
 <p><strong>Applicative</strong> extends <strong>Functor</strong> with an <strong>ap</strong> and <strong>pure</strong> method. The above
 sample using Applicative looks like this:</p>
-
 <pre><code>def len(input: String): Int = input.length
-</code></pre>
-
-<pre><code>val a = Some(&quot;Mostafa&quot;)
+</code></pre><pre><code>val a = Some(&quot;Mostafa&quot;)
 Applicative[Option].ap(Some(len))(a)
 // res4: Option[Int] = Some(7)
-</code></pre>
-
-<p>For functions more than one parameter, you can use <strong>ap2</strong>, <strong>ap3</strong>, &hellip;:</p>
-
+</code></pre><p>For functions more than one parameter, you can use <strong>ap2</strong>, <strong>ap3</strong>, &hellip;:</p>
 <pre><code>val add: (Int,Int) =&gt; Int = _ + _
-</code></pre>
-
-<pre><code>val a = Some(7)
+</code></pre><pre><code>val a = Some(7)
 val b = Some(9)
 Applicative[Option].ap2(Some(add))(a,b)
 // res5: Option[Int] = Some(16)
-</code></pre>
-
-<p>Notice that you should wrap your function in an appropriate context
+</code></pre><p>Notice that you should wrap your function in an appropriate context
 like <strong>Some(add)</strong> or <strong>Some(len)</strong>. Fortunately you can achieve
 the same goal without wrapping your function using equivalent
 methods <strong>map</strong>, <strong>map2</strong>, <strong>map3</strong>, &hellip;:</p>
-
 <pre><code>Applicative[Option].map2(a,b)(add)
 // res6: Option[Int] = Some(16)
-</code></pre>
-
-<p>Are you a lazy person? you don&rsquo;t want to count parameters yourself? then use extension method <strong>mapN</strong>:</p>
-
+</code></pre><p>Are you a lazy person? you don&rsquo;t want to count parameters yourself? then use extension method <strong>mapN</strong>:</p>
 <pre><code>(a,b).mapN(add)
 // res7: Option[Int] = Some(16)
-</code></pre>
-
-<p>Another reason that makes Applicative a real good candidate instead of
+</code></pre><p>Another reason that makes Applicative a real good candidate instead of
 using for-comprehensions is <strong>independent effects</strong>. Take a look at this code:</p>
-
 <pre><code>for {
   user &lt;- getUserFuture()
   data &lt;- getDataFuture()
 } yield Result(user, data)
-</code></pre>
-
-<p>As you can see <em>getDataFuture</em> is not depend on <em>getUserFuture</em>. We are not care
+</code></pre><p>As you can see <em>getDataFuture</em> is not depend on <em>getUserFuture</em>. We are not care
 about <strong>sequencing</strong> data flow, but <strong>Monads</strong> is all about sequence flow. Why would we
 need monadic flow, which forces us to view this code as a sequence of steps? I think the
 better approach is using Applicative:</p>
-
 <pre><code>Applicative[Future].map2(getUserFuture(),getDataFuture())(Result.apply)
-</code></pre>
-
-<p>For deeper understanding please read <strong>Krzysztof Ciesielski</strong>&rsquo;s
+</code></pre><p>For deeper understanding please read <strong>Krzysztof Ciesielski</strong>&lsquo;s
 great article <a href="https://softwaremill.com/applicative-functor/">The underrated applicative functor</a>.</p>
-
-<h3 id="swapping-context-easily-with-traverse-sequence">Swapping context easily with traverse/sequence</h3>
-
+<h3 id="swapping-context-easily-with-traversesequence">Swapping context easily with traverse/sequence</h3>
 <p>Imagine you have list of futures (List[Future[Int]), with the power of <strong>Applicative</strong> you can
 easily change this structure to Future[List[Int]]. Just call Cat&rsquo;s sequence extension method:</p>
-
 <pre><code>import cats.implicit._
 List(Future(1), Future(2), Future(3)).sequence
 // res6: Future[List[Int]] = ...
-</code></pre>
-
-<pre><code>List(Option(1), Option(2)).sequence
+</code></pre><pre><code>List(Option(1), Option(2)).sequence
 // res7: Option[List[Int]] = Some(List(1,2))
-</code></pre>
-
-<p>If one of the items is <em>None</em>, the whole result is <em>None</em> also:</p>
-
+</code></pre><p>If one of the items is <em>None</em>, the whole result is <em>None</em> also:</p>
 <pre><code>List(Option(1), None, Option(3)).sequence
 // res8: Option[List[Int]] = None
-</code></pre>
-
-<p><strong>traverse</strong> is very like <em>Future.traverse</em> with the difference that, not only works with Future,
+</code></pre><p><strong>traverse</strong> is very like <em>Future.traverse</em> with the difference that, not only works with Future,
 but can work with every types that have Applicative instance:</p>
-
 <pre><code>List(1,2,3).traverse(x =&gt; Option(x))
 // res9: Option[List[Int]] = Some(List(1,2,3))
 
 List(1,2,3).traverse(x =&gt; if (x == 2) None else Option(x))
 // res10: Option[List[Int]] = None
-</code></pre>
-
-<h2 id="conclusion">Conclusion</h2>
-
+</code></pre><h2 id="conclusion">Conclusion</h2>
 <p><a href="https://typelevel.org/cats/">Cats library</a> is awesome, and in my opinion
 every Scala project can benefit from this library. There are a lot of
 buzz words in functional programming paradigm, but thanks
 to the <a href="https://typelevel.org/cats/">Cats</a>, there are not scary any more :).</p>
+
+  
+  <h4><i class="fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpractical-scala-cats-applicative-functor%2f" target="_blank" title="Share on Facebook"><i class="fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpractical-scala-cats-applicative-functor%2f&via=HorribleGeek" target="_blank" title="Tweet"><i class="fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpractical-scala-cats-applicative-functor%2f" target="_blank" title="Share on Google+"><i class="fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpractical-scala-cats-applicative-functor%2f" target="_blank" title="Post to Tumblr"><i class="fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpractical-scala-cats-applicative-functor%2f" target="_blank" title="Pin it"><i class="fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fmostafa-asg.github.io%2fpost%2fpractical-scala-cats-applicative-functor%2f" target="_blank" title="Submit to Reddit"><i class="fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -502,18 +458,23 @@ to the <a href="https://typelevel.org/cats/">Cats</a>, there are not scary any m
 </div>
 </div>
 <script src="https://mostafa-asg.github.io/js/ui.js"></script>
+<script src="https://mostafa-asg.github.io/js/menus.js"></script>
 
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-116347416-1', 'auto');
-  ga('send', 'pageview');
-
+    ga('create', 'UA-116347416-1', 'auto');
+    ga('send', 'pageview');
+  }
 </script>
+
+
 
 
 

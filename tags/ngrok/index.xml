@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ngrok on Software Engineering Blog</title>
+    <title>ngrok on Software Engineering Blog</title>
     <link>https://mostafa-asg.github.io/tags/ngrok/</link>
-    <description>Recent content in Ngrok on Software Engineering Blog</description>
+    <description>Recent content in ngrok on Software Engineering Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 08 Apr 2018 23:47:27 +0430</lastBuildDate>

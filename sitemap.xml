@@ -1,6 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/post/</loc>
+    <lastmod>2020-03-21T21:07:31+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/</loc>
+    <lastmod>2020-03-21T21:07:31+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/post/the-dunning-kruger-effect-cognitive-bias-why-incompetent-people-think-they-are-competent/</loc>
+    <lastmod>2020-03-21T21:07:31+04:30</lastmod>
+  </url>
   
   <url>
     <loc>https://mostafa-asg.github.io/post/nginx-authentication-with-jwt/</loc>
@@ -13,8 +28,43 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/http-load-test/</loc>
+    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/k6/</loc>
+    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/k6-http-load-test/</loc>
     <lastmod>2019-01-24T10:41:16+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/performance/</loc>
+    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/</loc>
+    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/digest/</loc>
+    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/reactive-programming/</loc>
+    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/reactive-systems/</loc>
+    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
   </url>
   
   <url>
@@ -23,7 +73,32 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/applicative/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/cats/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/functional-programming/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/functor/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/practical-scala-cats-applicative-functor/</loc>
+    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/scala/</loc>
     <lastmod>2018-07-22T18:13:49+04:30</lastmod>
   </url>
   
@@ -33,13 +108,33 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/hackerrank/</loc>
+    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/slick/</loc>
+    <lastmod>2018-06-04T11:28:54+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/slick-actions-composition/</loc>
     <lastmod>2018-06-04T11:28:54+04:30</lastmod>
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/clean-code/</loc>
+    <lastmod>2018-05-23T16:33:30+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/more-readable-code-in-scala/</loc>
     <lastmod>2018-05-23T16:33:30+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/dsl/</loc>
+    <lastmod>2018-05-05T18:13:50+04:30</lastmod>
   </url>
   
   <url>
@@ -53,13 +148,43 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/ngrok/</loc>
+    <lastmod>2018-04-08T23:47:27+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/tools/</loc>
+    <lastmod>2018-04-08T23:47:27+04:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/customize-json-xml-spring-mvc-output/</loc>
+    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/rest/</loc>
+    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/spring-mvc/</loc>
     <lastmod>2018-04-01T22:34:30+04:30</lastmod>
   </url>
   
   <url>
     <loc>https://mostafa-asg.github.io/post/function-memorization-in-go/</loc>
     <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/go/</loc>
+    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/linux/</loc>
+    <lastmod>2018-03-19T13:41:44+03:30</lastmod>
   </url>
   
   <url>
@@ -73,8 +198,48 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/hadoop/</loc>
+    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/mapreduce/</loc>
+    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/kafka/</loc>
+    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/reactive-kafka-streams-sse-top5/</loc>
     <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/sse/</loc>
+    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/streams/</loc>
+    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/connect/</loc>
+    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/filebeat/</loc>
+    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/flume/</loc>
+    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
   </url>
   
   <url>
@@ -83,7 +248,22 @@
   </url>
   
   <url>
+    <loc>https://mostafa-asg.github.io/tags/docker/</loc>
+    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mostafa-asg.github.io/post/docker-swarm-golang-services-stack-deploy/</loc>
+    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/microservices/</loc>
+    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mostafa-asg.github.io/tags/swarm/</loc>
     <lastmod>2017-10-10T11:50:42+03:30</lastmod>
   </url>
   
@@ -93,218 +273,7 @@
   </url>
   
   <url>
-    <loc>https://mostafa-asg.github.io/tags/applicative/</loc>
-    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://mostafa-asg.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/cats/</loc>
-    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/clean-code/</loc>
-    <lastmod>2018-05-23T16:33:30+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/connect/</loc>
-    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/digest/</loc>
-    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/docker/</loc>
-    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/dsl/</loc>
-    <lastmod>2018-05-05T18:13:50+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/filebeat/</loc>
-    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/flume/</loc>
-    <lastmod>2017-11-29T20:32:03+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/functional-programming/</loc>
-    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/functor/</loc>
-    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/go/</loc>
-    <lastmod>2018-03-23T22:20:14+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/hackerrank/</loc>
-    <lastmod>2018-07-08T20:47:51+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/hadoop/</loc>
-    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/http-load-test/</loc>
-    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/k6/</loc>
-    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/kafka/</loc>
-    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/linux/</loc>
-    <lastmod>2018-03-19T13:41:44+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/mapreduce/</loc>
-    <lastmod>2018-02-06T07:15:50+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/microservices/</loc>
-    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/ngrok/</loc>
-    <lastmod>2018-04-08T23:47:27+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/performance/</loc>
-    <lastmod>2019-01-24T10:41:16+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/post/</loc>
-    <lastmod>2020-01-13T20:35:57+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/reactive-programming/</loc>
-    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/reactive-systems/</loc>
-    <lastmod>2018-08-07T15:34:56+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/rest/</loc>
-    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/scala/</loc>
-    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/slick/</loc>
-    <lastmod>2018-06-04T11:28:54+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/</loc>
-    <lastmod>2020-01-13T20:35:57+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/spring-mvc/</loc>
-    <lastmod>2018-04-01T22:34:30+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/sse/</loc>
-    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/streams/</loc>
-    <lastmod>2017-12-30T07:29:59+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/swarm/</loc>
-    <lastmod>2017-10-10T11:50:42+03:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/</loc>
-    <lastmod>2018-07-22T18:13:49+04:30</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mostafa-asg.github.io/tags/tools/</loc>
-    <lastmod>2018-04-08T23:47:27+04:30</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>
